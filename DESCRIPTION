@@ -1,0 +1,14 @@
+Type: Package
+Package: icecream
+Title: Never Use print() To Debug Again
+Version: 0.1.0.9000
+Authors@R: 
+    person(given = "Lewin",
+           family = "Appleton-Fox",
+           role = c("aut", "cre"),
+           email = "lewin.a.f@gmail.com")
+Description: Icecream makes print debugging a little sweeter.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
