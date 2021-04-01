@@ -5,11 +5,11 @@ test_that("`ic.enable()` and `ic.disable()` work", {
 
   expect_message(ic(1), regexp = "i ic| `1`: num 1")
 
-  ic.disable()
+  ic_disable()
 
   expect_message(ic(1), NA)
 
-  ic.enable()
+  ic_enable()
 
   expect_message(ic(1), regexp = "i ic| `1`: num 1")
 

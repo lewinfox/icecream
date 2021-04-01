@@ -14,14 +14,16 @@
 #'
 #' ic(f(-1))
 ic <- function(x) {
+  q <- rlang::enquo(x)
+  missing_input <- rlang::quo_is_missing(q)
   if (isFALSE(getOption("icecream.enabled"))) {
-    if (!missing(x)) {
-      return(substitute(x))
+    if (!missing_input) {
+      return(rlang::quo_get_expr(q))
     }
     return(invisible())
   }
   # If `x` is missing we want to print the filename, line number and parent function
-  if (missing(x)) {
+  if (missing_input) {
     # We want to find out where `ic()` was called from (file and line number) and print this info.
     # In the event that the function that called `ic()` was not defined in a file then we will
     # display the environment it lives in instead.
@@ -54,12 +56,13 @@ ic <- function(x) {
       ge <- utils::capture.output(environment(caller_ref))
       cli::cli_alert_info("{prefix} {ge}: {.fn {src_info$fn[[1L]]}}")
     } else {
-      cli::cli_alert_info("{prefix} {.path {src_info$file}}:{.val {src_info$line}} in {.fn {src_info$fn[[1L]]}}")
+      cli::cli_alert_info(
+        "{prefix} {.path {src_info$file}}:{.val {src_info$line}} in {.fn {src_info$fn[[1L]]}}"
+      )
     }
     return(invisible())
   }
   # Otherwise capture the expression, evaluate and print.
-  q <- rlang::enquo(x)
   ex <- deparse(rlang::quo_get_expr(q))
   res <- rlang::eval_tidy(q)
   prefix <- getOption("icecream.alert.prefix", "ic|")
