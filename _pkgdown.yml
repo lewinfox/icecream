@@ -1,0 +1,9 @@
+url: "https://www.lewinfox.github.io/icecream"
+reference:
+- title: "Using icecream"
+  desc: >
+    Icecream is a very simple package!
+- contents:
+  - ic
+  - ic_enable
+  - ic_disable
