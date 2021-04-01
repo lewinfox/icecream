@@ -77,9 +77,9 @@ ic <- function(x) {
 #' Enable or disable `ic()`
 #'
 #' These functions enable or disable the `ic()` function. While disabled `ic()` will do nothing
-#' except return its input. Expressions will not be evaluated.
+#' except evaluate and return its input.
 #'
-#' These are just convenience wrappers for `options(icecream.enabled = TRUE/FALSE)` used to aligh
+#' These are just convenience wrappers for `options(icecream.enabled = TRUE/FALSE)` used to align
 #' the API with the [Python version](https://github.com/gruns/icecream#miscellaneous).
 #'
 #' @name enable-disable

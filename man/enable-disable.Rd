@@ -12,10 +12,10 @@ ic_disable()
 }
 \description{
 These functions enable or disable the \code{ic()} function. While disabled \code{ic()} will do nothing
-except return its input. Expressions will not be evaluated.
+except evaluate and return its input.
 }
 \details{
-These are just convenience wrappers for \code{options(icecream.enabled = TRUE/FALSE)} used to aligh
+These are just convenience wrappers for \code{options(icecream.enabled = TRUE/FALSE)} used to align
 the API with the \href{https://github.com/gruns/icecream#miscellaneous}{Python version}.
 }
 \section{Functions}{
