@@ -18,7 +18,7 @@ ic <- function(x) {
   missing_input <- rlang::quo_is_missing(q)
   if (isFALSE(getOption("icecream.enabled"))) {
     if (!missing_input) {
-      return(rlang::quo_get_expr(q))
+      return(x)
     }
     return(invisible())
   }
