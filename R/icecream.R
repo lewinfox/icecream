@@ -33,7 +33,7 @@ ic <- function(x) {
     xi <- tb[[1]]
     srcref <- attr(xi, "srcref")
     if (is.null(srcref)) {
-      rlang::abort("Could not find source reference")
+      rlang::abort("Could not find source reference", "icecream-error")
     }
     srcfile <- attr(srcref, "srcfile")
     src_info <- list(
