@@ -48,7 +48,7 @@ ic <- function(x) {
       )
     }
     src_info$fn <- caller_fn
-    prefix <- getOption("icecream.alert.prefix", "ic|")
+    prefix <- getOption("icecream.prefix", "ic|")
     if (src_info$file == "") {
       # If the function is defined globally then it will not have a sourceref and we will print the
       # environment instead
@@ -65,7 +65,7 @@ ic <- function(x) {
   # Otherwise capture the expression, evaluate and print.
   ex <- deparse(rlang::quo_get_expr(q))
   res <- rlang::eval_tidy(q)
-  prefix <- getOption("icecream.alert.prefix", "ic|")
+  prefix <- getOption("icecream.prefix", "ic|")
   str_res <- trimws(utils::capture.output(utils::str(res))) # For nicer printing of complex objects
   if (length(str_res) > 1) {
     str_res <- str_res[[1L]]
