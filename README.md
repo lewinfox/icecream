@@ -90,7 +90,7 @@ orphan_func()
 ## Enable / disable
 
 The `ic_enable()` and `ic_disable()` functions enable or disable the
-`ic()` function. If disabled, `ic()` will return the reuslt of
+`ic()` function. If disabled, `ic()` will return the result of
 evaluating its input but will not print anything.
 
 ``` r
@@ -108,5 +108,5 @@ ic(mean(1:100))
 
 ## TODO:
 
-  - `ic.format()` and enable / disable (see
+  - Implement `ic.format()` (see
     [here](https://github.com/gruns/icecream#miscellaneous)).

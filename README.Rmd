@@ -110,4 +110,4 @@ ic(mean(1:100))
 
 ## TODO:
 
-* `ic.format()` and enable / disable (see [here](https://github.com/gruns/icecream#miscellaneous)).
+* Implement `ic.format()` (see [here](https://github.com/gruns/icecream#miscellaneous)).
