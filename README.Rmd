@@ -96,7 +96,7 @@ orphan_func()
 ## Enable / disable
 
 The `ic_enable()` and `ic_disable()` functions enable or disable the `ic()` function. If disabled,
-`ic()` will return the reuslt of evaluating its input but will not print anything.
+`ic()` will return the result of evaluating its input but will not print anything.
 
 ```{r}
 ic_enable()
