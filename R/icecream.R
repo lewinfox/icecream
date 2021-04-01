@@ -82,10 +82,10 @@ ic <- function(x) {
 #' These are just convenience wrappers for `options(icecream.enabled = TRUE/FALSE)` used to aligh
 #' the API with the [Python version](https://github.com/gruns/icecream#miscellaneous).
 #'
-#' @name ic_enable
+#' @name enable-disable
 NULL
 
-#' @describeIn ic.enable Enable `ic()`.
+#' @describeIn enable-disable Enable `ic()`.
 #' @export
 ic_enable <- function() {
   old_value <- getOption("icecream.enabled")
@@ -93,7 +93,7 @@ ic_enable <- function() {
   invisible(old_value)
 }
 
-#' @describeIn ic.enable Disable `ic()`.
+#' @describeIn enable-disable Disable `ic()`.
 #' @export
 ic_disable <- function() {
   old_value <- getOption("icecream.enabled")
