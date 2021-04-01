@@ -14,6 +14,12 @@
 #'
 #' ic(f(-1))
 ic <- function(x) {
+  if (isFALSE(getOption("icecream.enabled"))) {
+    if (!missing(x)) {
+      return(substitute(x))
+    }
+    return(invisible())
+  }
   # If `x` is missing we want to print the filename, line number and parent function
   if (missing(x)) {
     # We want to find out where `ic()` was called from (file and line number) and print this info.
@@ -45,10 +51,10 @@ ic <- function(x) {
       # If the function is defined globally then it will not have a sourceref and we will print the
       # environment instead
       caller_ref <- sys.function(-1)
-      ge <- capture.output(environment(caller_ref))
+      ge <- utils::capture.output(environment(caller_ref))
       cli::cli_alert_info("{prefix} {ge}: {.fn {src_info$fn[[1L]]}}")
     } else {
-      cli::cli_alert_info("{prefix} {.path {src_info$file}}:{.val {src_info$line}} in {.fn {src_info$fn}}")
+      cli::cli_alert_info("{prefix} {.path {src_info$file}}:{.val {src_info$line}} in {.fn {src_info$fn[[1L]]}}")
     }
     return(invisible())
   }
@@ -57,10 +63,37 @@ ic <- function(x) {
   ex <- deparse(rlang::quo_get_expr(q))
   res <- rlang::eval_tidy(q)
   prefix <- getOption("icecream.alert.prefix", "ic|")
-  str_res <- trimws(capture.output(str(res))) # For nicer printing of complex objects
+  str_res <- trimws(utils::capture.output(utils::str(res))) # For nicer printing of complex objects
   if (length(str_res) > 1) {
     str_res <- str_res[[1L]]
   }
   cli::cli_alert_info("{prefix} {.var {ex}}: {str_res}")
   res
+}
+
+#' Enable or disable `ic()`
+#'
+#' These functions enable or disable the `ic()` function. While disabled `ic()` will do nothing
+#' except return its input. Expressions will not be evaluated.
+#'
+#' These are just convenience wrappers for `options(icecream.enabled = TRUE/FALSE)` used to aligh
+#' the API with the [Python version](https://github.com/gruns/icecream#miscellaneous).
+#'
+#' @name ic_enable
+NULL
+
+#' @describeIn ic.enable Enable `ic()`.
+#' @export
+ic_enable <- function() {
+  old_value <- getOption("icecream.enabled")
+  options(icecream.enabled = TRUE)
+  invisible(old_value)
+}
+
+#' @describeIn ic.enable Disable `ic()`.
+#' @export
+ic_disable <- function() {
+  old_value <- getOption("icecream.enabled")
+  options(icecream.enabled = FALSE)
+  invisible(old_value)
 }

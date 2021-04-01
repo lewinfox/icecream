@@ -1,7 +1,7 @@
 .onLoad <- function(libname, pkgname) {
-  options(icecream.alert.prefix = "ic|")
+  options(icecream.enabled = TRUE, icecream.alert.prefix = "ic|")
 }
 
 .onUnload <- function(libpath) {
-  options(icecream.alert.prefix = NULL)
+  options(icecream.enabled = NULL, icecream.alert.prefix = NULL)
 }
