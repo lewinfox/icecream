@@ -46,7 +46,9 @@ ic <- function(x) {
   ic_print(ctx)
 
   # Return the result
-  ctx$value
+  if (!missing_input) {
+    return(ctx$value)
+  }
 }
 
 #' Enable or disable `ic()`
