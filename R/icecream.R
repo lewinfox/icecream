@@ -22,6 +22,7 @@ ic <- function(x) {
     }
     return(invisible())
   }
+  ctx <- ic_get_context()
   # If `x` is missing we want to print the filename, line number and parent function
   if (missing_input) {
     # We want to find out where `ic()` was called from (file and line number) and print this info.
