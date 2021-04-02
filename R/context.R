@@ -20,37 +20,36 @@ ic_get_context <- function() {
 
   # If we can't obtain source code info we still want to include that information in the returned
   # object so we will create some placeholder variables
-  source_file <- NULL
-  line <- NULL
-  filename <- NULL
+  ctx <- list(
+    filename = NULL,
+    line = NULL,
+    env = NULL,
+    called_from_fn = NULL
+  )
 
   # If there is no source_ref then we are almost certainly dealing with a function that was created
   # in the global environment.
   if (!is.null(source_ref)) {
     source_file <- attr(source_ref, "srcfile")
-    line <- source_ref[[1L]]
-    filename <- basename(source_file$filename)
-    if (filename == "") {
-      filename <- NULL
+    ctx$filename <- basename(source_file$filename)
+    ctx$line <- source_ref[[1L]]
+
+    if (ctx$filename == "") {
+      ctx$filename <- NULL
     }
   }
 
   # We also want to obtain details of the function that called `ic()`. Here we capture and deparse
   # the call to obtain the function name as a string.
   caller_fn <- try(sys.calls()[[sys.nframe() - 2]], silent = TRUE)
-  caller_fn_name <- if (inherits(caller_fn, "try-error")) NULL else deparse(caller_fn[[1L]])
+  ctx$called_from_fn <- if (inherits(caller_fn, "try-error")) NULL else deparse(caller_fn[[1L]])
 
   # Capture the calling function's environment, jumping two steps up the stack again to skip
   # `ic_get_context()` and `ic()`
   e <- environment(sys.function(-2))
-  env <- glue::glue("<env: {rlang::env_label(e)}>")
+  ctx$env <- glue::glue("<env: {rlang::env_label(e)}>")
 
-  list(
-    filename = filename,
-    line = line,
-    env = env,
-    called_from_fn = caller_fn_name
-  )
+  ctx
 }
 
 #' Print icecream messages
