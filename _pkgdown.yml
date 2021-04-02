@@ -2,7 +2,7 @@ url: "https://www.lewinfox.github.io/icecream"
 reference:
 - title: "Using icecream"
   desc: >
-    Icecream is a very simple package!
+    Icecream is a very simple package! The only function you really need to know about is `ic()`.
 - contents:
   - ic
   - ic_enable

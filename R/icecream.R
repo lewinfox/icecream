@@ -1,4 +1,7 @@
-#' Icecream: Never debug with `print()` again
+#' Icecream: Never use `print()` to debug again
+#'
+#' Icecream provides a more user-friendly print debugging experience. Use [ic()] wherever you would
+#' use `print()` and see the expression and its value easily.
 #'
 #' @section Options:
 #' The following options can be used to control behaviour:
@@ -18,4 +21,5 @@
 #'
 #' @docType package
 #' @name icecream
+#' @keywords internal
 NULL
