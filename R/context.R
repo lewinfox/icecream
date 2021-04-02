@@ -103,7 +103,7 @@ ic_print <- function(ctx) {
   # or not.
   if (!is.null(expression_string)) {
     if (getOption("icecream.include.context")) {
-      output <- glue::glue("in {context_string} | {expression_string}")
+      output <- glue::glue("{context_string} | {expression_string}")
     } else {
       output <- expression_string
     }
