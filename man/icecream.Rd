@@ -3,7 +3,11 @@
 \docType{package}
 \name{icecream}
 \alias{icecream}
-\title{Icecream: Never debug with \code{print()} again}
+\title{Icecream: Never use \code{print()} to debug again}
+\description{
+Icecream provides a more user-friendly print debugging experience. Use \code{\link[=ic]{ic()}} wherever you would
+use \code{print()} and see the expression and its value easily.
+}
 \section{Options}{
 
 The following options can be used to control behaviour:
@@ -23,3 +27,4 @@ project docs for details of what it will do.
 }
 }
 
+\keyword{internal}
