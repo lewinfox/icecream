@@ -98,22 +98,7 @@ called from.
 In this example we have a file `demo.R` that contains two functions. We've inserted `ic()` calls at
 strategic points so we can track what's being executed.
 
-``` r
-# demo.R
-f1 <- function(x) {
-  ic()
-  if (x > 0) {
-    f2()
-  }
-}
-
-f2 <- function() {
-  ic()
-}
-
-f3 <- function(x) {
-  ic(x)
-}
+```{r code=readLines(demo_file)}
 ```
 
 ``` r
