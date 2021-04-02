@@ -7,7 +7,9 @@
 
 <!-- badges: end -->
 
-Ported from [gruns/icecream](https://github.com/gruns/icecream).
+This is an R port of
+[gruns/icecream](https://github.com/gruns/icecream). All credit for the
+idea belongs to [Ansgar Grunseid](https://github.com/gruns).
 
 ## Installation
 
