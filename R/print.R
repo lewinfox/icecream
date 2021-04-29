@@ -3,45 +3,36 @@
 #' The printing logic depends on how the `ic()` function has been called and what user options are
 #' set.
 #'
-#' @param ctx A list containing all the information needed to produce the console message. See
-#'   [ic_get_context()] and [ic()] itself for details of how this is constructed and what's in it.
+#' @param loc String detailing function definition location, which may be a source ref (file, line
+#'   number and character index) or an environment.
+#' @param parent_ref The calling function.
+#' @param expression The deparsed expression (if present) on which `ic()` was called.
+#' @param value The result of evaluating `expression`.
 #'
-#' @return The function returns its final output string invisibly.
+#' @return The function is called for its side effect (printing to the console) but it also returns
+#'   its output string, invisibly.
 #'
 #' @keywords internal
-ic_print <- function(ctx) {
-  # This breaks down into two parts:
-  #
-  # 1. Formatting the context (source file, location, environment and calling function). Depending
-  #    where `ic()` was called from we may have nothing except an environment. We also need to take
-  #    into account the various options for printing.
-  # 2. Formatting the input and output. Again, we may not have any input or output depending on how
-  #    `ic()` is being used.
+ic_print <- function(loc, parent_ref, expression, value) {
 
-  context_string <- NULL
+  context_string <- loc
   expression_string <- NULL
 
-  # First, are we printing a file:line or environment?
-  if (is.null(ctx$filename)) {
-    context_string <- glue::glue("in {ctx$env}")
-  } else {
-    context_string <- glue::glue("at {{.path {ctx$file}}}:{{.val {ctx$line}}}")
-  }
-
   # Next, are we printing a calling function?
-  if (!is.null(ctx$called_from_fn)) {
-    context_string <- glue::glue("{{.fn {ctx$called_from_fn}}} {context_string}")
+  if (!is.null(parent_ref)) {
+    parent_ref <- deparse(parent_ref)
+    context_string <- glue::glue("{{.fn {parent_ref}}} in {context_string}")
   }
 
   # Formatting result
-  if (!is.null(ctx$expression) && !is.null(ctx$value)) {
+  if (!is.null(expression) && !is.null(value)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
     #
     # TODO: Taking the first line of output from `str()` is a quick way of getting this but it
     #       doesn't produce great output (try passing in a `lm()` object - ugly). It would be nice
     #       to fix this at some point.
-    str_res <- trimws(utils::capture.output(utils::str(ctx$value)))[[1L]]
-    expression_string <- glue::glue("{{.var {ctx$expression}}}: {str_res}")
+    str_res <- trimws(utils::capture.output(utils::str(value)))[[1L]]
+    expression_string <- glue::glue("{{.var {expression}}}: {str_res}")
   }
 
   # We need to check what options are set to decide what to print - whether to include the context

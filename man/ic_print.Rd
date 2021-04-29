@@ -4,14 +4,21 @@
 \alias{ic_print}
 \title{Print icecream messages}
 \usage{
-ic_print(ctx)
+ic_print(loc, parent_ref, expression, value)
 }
 \arguments{
-\item{ctx}{A list containing all the information needed to produce the console message. See
-\code{\link[=ic_get_context]{ic_get_context()}} and \code{\link[=ic]{ic()}} itself for details of how this is constructed and what's in it.}
+\item{loc}{String detailing function definition location, which may be a source ref (file, line
+number and character index) or an environment.}
+
+\item{parent_ref}{The calling function.}
+
+\item{expression}{The deparsed expression (if present) on which \code{ic()} was called.}
+
+\item{value}{The result of evaluating \code{expression}.}
 }
 \value{
-The function returns its final output string invisibly.
+The function is called for its side effect (printing to the console) but it also returns
+its output string, invisibly.
 }
 \description{
 The printing logic depends on how the \code{ic()} function has been called and what user options are

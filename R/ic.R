@@ -30,24 +30,38 @@ ic <- function(x) {
     return(invisible())
   }
 
-  # We need to extract the context of the call (which file and line was it called from, or which
-  # environment) in order to construct the message to print. See `ic_print()` for the formatting
-  # part.
-  ctx <- ic_get_context()
+  trace <- rlang::trace_back()
+  num_calls <- length(trace$calls)
+  parent_ref <-  if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
+  ref <- attr(trace$calls[[num_calls]], "srcref")
+  loc <- src_loc(ref)
+  if (nchar(loc) == 0) {
+    # Probs want to look at environments
+    caller_fn <- sys.function(-1)
+    if (is.null(caller_fn)) {
+      e <- sys.frame(-1)
+    } else {
+      e <- environment(caller_fn)
+    }
+    loc <- rlang::env_label(e)
+    loc <- glue::glue("<env: {loc}>")
+  }
 
   # If we have inputs then we will want the expression and value to be included in the context
   # object as well.
+  expression <- NULL
+  value <- NULL
   if (!missing_input) {
-    ctx$expression <- deparse(rlang::quo_get_expr(q))
-    ctx$value <- rlang::eval_tidy(q)
+    expression <- deparse(rlang::quo_get_expr(q))
+    value <- rlang::eval_tidy(q)
   }
 
   # Print the output!
-  ic_print(ctx)
+  ic_print(loc, parent_ref, expression, value)
 
   # Return the result
   if (!missing_input) {
-    return(ctx$value)
+    return(value)
   }
 }
 
