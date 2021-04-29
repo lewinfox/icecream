@@ -16,6 +16,12 @@
 ic_print <- function(loc, parent_ref, expression, value) {
 
   context_string <- loc
+
+  # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
+  #       probably a better way of handling this, but for now this will do.
+  if (nchar(context_string) == 0) {
+    context_string <- "<unknown>"
+  }
   expression_string <- NULL
 
   # Next, are we printing a calling function?
