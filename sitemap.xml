@@ -10,12 +10,12 @@
     <loc>https://www.lewinfox.github.io/icecream/reference/ic.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/ic_get_context.html</loc>
-  </url>
-  <url>
     <loc>https://www.lewinfox.github.io/icecream/reference/ic_print.html</loc>
   </url>
   <url>
     <loc>https://www.lewinfox.github.io/icecream/reference/icecream.html</loc>
+  </url>
+  <url>
+    <loc>https://www.lewinfox.github.io/icecream/reference/rlang-reexports.html</loc>
   </url>
 </urlset>

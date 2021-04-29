@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • icecream</title>
+<title>Functions re-exported from rlang — rlang-reexports • icecream</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Functions re-exported from rlang — rlang-reexports" />
+<meta property="og:description" content="These are used to extract and format source references. As they are not part of the public rlang
+API they are reimplemented here." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,48 +102,50 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Functions re-exported from rlang</h1>
+    
+    <div class="hidden name"><code>rlang-reexports.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>These are used to extract and format source references. As they are not part of the public rlang
+API they are reimplemented here.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>src_loc</span><span class='op'>(</span><span class='va'>srcref</span>, dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-using-icecream" class="hasAnchor"><a href="#section-using-icecream" class="anchor"></a>Using icecream</h2>
-          <p class="section-desc"><p>Icecream is a very simple package! The only function you really need to know about is <code><a href="../reference/ic.html">ic()</a></code>.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ic.html">ic()</a></code> </p>
-        </td>
-        <td><p>User-friendly debug statements</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="enable-disable.html">ic_enable()</a></code> <code><a href="enable-disable.html">ic_disable()</a></code> </p>
-        </td>
-        <td><p>Enable or disable <code>ic()</code></p></td>
-      </tr>
-    </tbody>
+<span class='fu'>relish</span><span class='op'>(</span><span class='va'>x</span>, dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/getwd.html'>getwd</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>srcref</th>
+      <td><p>A <code>srcref</code> object</p></td>
+    </tr>
+    <tr>
+      <th>dir</th>
+      <td><p>Directory path</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>File path</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>src_loc</code>: Return source location from a srcref. If no srcref is found, return
+<code>""</code>.</p></li>
+<li><p><code>relish</code>: Tidy file paths by removing instances of <code>dir</code> from <code>x</code>. Ensures that
+we get a relative path for <code>x</code>.</p></li>
+</ul>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
