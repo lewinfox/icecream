@@ -43,8 +43,10 @@ ic <- function(x) {
     } else {
       e <- environment(caller_fn)
     }
-    loc <- rlang::env_label(e)
-    loc <- glue::glue("<env: {loc}>")
+    if (is.environment(e)) {
+      loc <- rlang::env_label(e)
+      loc <- glue::glue("<env: {loc}>")
+    }
   }
 
   # If we have inputs then we will want the expression and value to be included in the context
