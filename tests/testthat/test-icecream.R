@@ -1,3 +1,6 @@
+# TODO: Testing things like correct environment detection are tricky because of the way testthat
+#       works. Need to add some more checks for correct identification of source file and env.
+
 test_that("`ic_enable()` and `ic_disable()` work", {
   old.opt <- getOption("icecream.enabled")
   options(icecream.enabled = TRUE)
