@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-04-29T01:53Z
+last_built: 2021-04-29T03:07Z
 urls:
   reference: https://www.lewinfox.github.io/icecream/reference
   article: https://www.lewinfox.github.io/icecream/articles
