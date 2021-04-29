@@ -97,12 +97,14 @@ f3 <- function(x) {
 ```
 
 ``` r
+source("demo.R")
+
 f1(-1)
-#> ℹ ic| `f1()` at demo.R:3
+#> ℹ ic| `global::f1()` in demo.R:3:2
 
 f1(1)
-#> ℹ ic| `f1()` at demo.R:3
-#> ℹ ic| `f2()` at demo.R:10
+#> ℹ ic| `global::f1()` in demo.R:3:2
+#> ℹ ic| `global::f2()` in demo.R:10:2
 ```
 
 In the case of functions that haven’t been `source()`d or loaded from a
@@ -116,7 +118,7 @@ orphan_func <- function() {
 }
 
 orphan_func()
-#> ℹ ic| `orphan_func()` in <env: global>
+#> ℹ ic| `global::orphan_func()` in <env: global>
 #> [1] TRUE
 
 e <- new.env()
@@ -177,10 +179,6 @@ ic(mean(1:5))
 #> [1] 3
 ```
 
-``` r
-options(icecream.prefix = old.prefix)
-```
-
 ### `icecream.include.context`
 
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will
@@ -197,7 +195,7 @@ f3(1)
 options(icecream.include.context = TRUE)
 
 f3(1)
-#> ℹ ic| `f3()` at demo.R:14 | `x`: num 1
+#> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
 #> [1] 1
 ```
 
@@ -212,5 +210,5 @@ of the original project docs for details of what they will do.
   - Implement `ic.format()` (see
     [here](https://github.com/gruns/icecream#miscellaneous)).
   - Implement `ic.output.function`. At the moment it uses
-    \`cli::cli\_alert\_info()’
+    `cli::cli_alert_info()`
   - Implement `ic.arg.to.string.function`
