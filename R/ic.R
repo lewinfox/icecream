@@ -12,7 +12,7 @@
 #'
 #' ic(f(-1))
 #'
-#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn expr_deparse eval_tidy fn_env env_label
+#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn expr_deparse eval_tidy fn_env env_label maybe_missing
 #' @importFrom glue glue
 #' @export
 ic <- function(x) {
@@ -41,19 +41,15 @@ ic <- function(x) {
       loc <- glue("<env: {loc}>")
     }
 
-    # If we have inputs then we will want the expression and value to be included in the context
+    # If we have inputs then we want the expression and value to be included in the context
     # object as well.
-    expression <- NULL
-    value <- NULL
     if (!missing_input) {
-      expression <- expr_deparse(quo_get_expr(q))
-      value <- eval_tidy(q)
+      deparsed_expression <- expr_deparse(quo_get_expr(q))
+      x <- eval_tidy(q)
+      ic_print(loc, parent_ref, deparsed_expression, x)
+    } else {
+      ic_print(loc, parent_ref)
     }
-
-    # Print the output!
-    ic_print(loc, parent_ref, expression, value)
-
-    x <- value
   }
   # Return the result
   if (missing_input) invisible() else invisible(x)
