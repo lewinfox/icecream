@@ -12,7 +12,7 @@
 #'
 #' ic(f(-1))
 #'
-#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn expr_deparse eval_tidy fn_env env_label maybe_missing
+#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn caller_env expr_deparse eval_tidy fn_env env_label maybe_missing
 #' @importFrom glue glue
 #' @export
 ic <- function(x) {
