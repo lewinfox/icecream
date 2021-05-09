@@ -3,10 +3,15 @@ Package: icecream
 Title: Never Use print() To Debug Again
 Version: 0.1.1
 Authors@R: 
-    person(given = "Lewin",
-           family = "Appleton-Fox",
-           role = c("aut", "cre"),
-           email = "lewin.a.f@gmail.com")
+    c(person(given = "Lewin",
+             family = "Appleton-Fox",
+             role = c("aut", "cre"),
+             email = "lewin.a.f@gmail.com"),
+      person(given = "Dominik",
+             family = "Rafacz",
+             role = "aut",
+             email = "dominikrafacz@gmail.com",
+             comment = c(ORCID = "0000-0003-0925-1909")))       
 Description: Icecream makes print debugging a little sweeter.
 License: MIT + file LICENSE
 Encoding: UTF-8
