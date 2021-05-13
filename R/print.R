@@ -53,7 +53,7 @@ ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value
   # expression is evaluated regardless of option value
   prefix <- getOption("icecream.prefix", "ic|")
   output <- if (!is.null(expression_string)) {
-    if (getOption("icecream.include.context")) {
+    if (getOption("icecream.always.include.context")) {
       glue("{context_string} | {expression_string}")
     } else expression_string
   } else context_string

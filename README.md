@@ -173,7 +173,7 @@ ic(mean(1:5))
 #> ℹ 🍦 `mean(1:5)`: num 3
 ```
 
-### `icecream.include.context`
+### `icecream.always.include.context`
 
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will
 be printed along with the expression and value. If no `srcref()` is
@@ -185,7 +185,7 @@ is disabled by default.
 f3(1)
 #> ℹ ic| `x`: num 1
 
-options(icecream.include.context = TRUE)
+options(icecream.always.include.context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
