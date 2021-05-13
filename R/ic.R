@@ -5,66 +5,54 @@
 #' @return If `x` is an expression, returns the result of evaluating `x`. If `x` is missing nothing
 #'   is returned.
 #'
-#' @export
-#'
 #' @examples
 #' f <- function(x) x < 0
 #'
 #' ic(f(1))
 #'
 #' ic(f(-1))
+#'
+#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn caller_env expr_deparse eval_tidy fn_env env_label maybe_missing
+#' @importFrom glue glue
+#' @export
 ic <- function(x) {
   # Capture the input to allow us to work with the expression and value separately
-  q <- rlang::enquo(x)
+  q <- enquo(x)
 
   # The behaviour of the function changes depending on whether input is provided or not.
-  missing_input <- rlang::quo_is_missing(q)
+  missing_input <- quo_is_missing(q)
 
   # In the event that icecream is totally disabled we will just return the input.
-  #
-  # TODO: This triggers evaluation of the input. Is this a problem?
-  if (isFALSE(getOption("icecream.enabled"))) {
+  if (getOption("icecream.enabled")) {
+    trace <- trace_back()
+    num_calls <- length(trace$calls)
+
+    parent_ref <-  if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
+    ref <- attr(trace$calls[[num_calls]], "srcref")
+    loc <- src_loc(ref)
+
+    # Case when location of file is unavailable
+    if (nchar(loc) == 0) {
+      # Probs want to look at environments
+      caller <- caller_fn()
+      caller_env <- if (is.null(caller)) caller_env() else fn_env(caller)
+
+      loc <- env_label(caller_env)
+      loc <- glue("<env: {loc}>")
+    }
+
+    # If we have inputs then we want the expression and value to be included in the context
+    # object as well.
     if (!missing_input) {
-      return(x)
-    }
-    return(invisible())
-  }
-
-  trace <- rlang::trace_back()
-  num_calls <- length(trace$calls)
-  parent_ref <-  if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
-  ref <- attr(trace$calls[[num_calls]], "srcref")
-  loc <- src_loc(ref)
-  if (nchar(loc) == 0) {
-    # Probs want to look at environments
-    caller_fn <- sys.function(-1)
-    if (is.null(caller_fn)) {
-      e <- sys.frame(-1)
+      deparsed_expression <- expr_deparse(quo_get_expr(q))
+      x <- eval_tidy(q)
+      ic_print(loc, parent_ref, deparsed_expression, x)
+      invisible(x)
     } else {
-      e <- environment(caller_fn)
+      ic_print(loc, parent_ref)
+      invisible()
     }
-    if (is.environment(e)) {
-      loc <- rlang::env_label(e)
-      loc <- glue::glue("<env: {loc}>")
-    }
-  }
-
-  # If we have inputs then we will want the expression and value to be included in the context
-  # object as well.
-  expression <- NULL
-  value <- NULL
-  if (!missing_input) {
-    expression <- deparse(rlang::quo_get_expr(q))
-    value <- rlang::eval_tidy(q)
-  }
-
-  # Print the output!
-  ic_print(loc, parent_ref, expression, value)
-
-  # Return the result
-  if (!missing_input) {
-    return(value)
-  }
+  } else if (!missing_input) x
 }
 
 #' Enable or disable `ic()`
