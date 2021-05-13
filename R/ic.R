@@ -47,12 +47,12 @@ ic <- function(x) {
       deparsed_expression <- expr_deparse(quo_get_expr(q))
       x <- eval_tidy(q)
       ic_print(loc, parent_ref, deparsed_expression, x)
+      invisible(x)
     } else {
       ic_print(loc, parent_ref)
+      invisible()
     }
-  }
-  # Return the result
-  if (missing_input) invisible() else invisible(x)
+  } else if (!missing_input) x
 }
 
 #' Enable or disable `ic()`
