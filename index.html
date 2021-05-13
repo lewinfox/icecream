@@ -90,11 +90,9 @@
 
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu">is_negative</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `is_negative(1)`: logi FALSE</span>
-<span class="co">#&gt; [1] FALSE</span>
 
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu">is_negative</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ℹ ic| `is_negative(-1)`: logi TRUE</span>
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<span class="co">#&gt; ℹ ic| `is_negative(-1)`: logi TRUE</span></code></pre></div>
 <p>You’re more likely to want to do this within a function:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">some_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
@@ -104,11 +102,11 @@
 <span class="op">}</span>
 
 <span class="fu">some_function</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; ℹ ic| `intermediate_value/2`: num 5</span>
+<span class="co">#&gt; ℹ ic| `intermediate_value / 2`: num 5</span>
 <span class="co">#&gt; [1] 5</span>
 
 <span class="fu">some_function</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; ℹ ic| `intermediate_value/2`: num 50</span>
+<span class="co">#&gt; ℹ ic| `intermediate_value / 2`: num 50</span>
 <span class="co">#&gt; [1] 50</span></code></pre></div>
 <p>More complex inputs like lists and data frames are summarised to avoid cluttering the terminal.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -176,7 +174,6 @@
 
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `mean(1:100)`: num 50.5</span>
-<span class="co">#&gt; [1] 50.5</span>
 
 <span class="fu"><a href="reference/enable-disable.html">ic_disable</a></span><span class="op">(</span><span class="op">)</span>
 
@@ -201,33 +198,28 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `mean(1:5)`: num 3</span>
-<span class="co">#&gt; [1] 3</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>icecream.prefix <span class="op">=</span> <span class="st">"DEBUG:"</span><span class="op">)</span>
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ DEBUG: `mean(1:5)`: num 3</span>
-<span class="co">#&gt; [1] 3</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>icecream.prefix <span class="op">=</span> <span class="st">"\U1F366"</span><span class="op">)</span>
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ℹ 🍦 `mean(1:5)`: num 3</span>
-<span class="co">#&gt; [1] 3</span></code></pre></div>
+<span class="co">#&gt; ℹ 🍦 `mean(1:5)`: num 3</span></code></pre></div>
 </div>
-<div id="icecreamincludecontext" class="section level3">
+<div id="icecreamalwaysincludecontext" class="section level3">
 <h3 class="hasAnchor">
-<a href="#icecreamincludecontext" class="anchor"></a><code>icecream.include.context</code>
+<a href="#icecreamalwaysincludecontext" class="anchor"></a><code>icecream.always.include.context</code>
 </h3>
 <p>Boolean. If <code>TRUE</code>, when calling <code><a href="reference/ic.html">ic(foo)</a></code> the source file and line will be printed along with the expression and value. If no <code><a href="https://rdrr.io/r/base/srcfile.html">srcref()</a></code> is available the function’s environment will be displayed instead. This can be useful for more complicated debugging but produces a lot of output so is disabled by default.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f3</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `x`: num 1</span>
-<span class="co">#&gt; [1] 1</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>icecream.include.context <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>icecream.always.include.context <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu">f3</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-<span class="co">#&gt; ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1</span>
-<span class="co">#&gt; [1] 1</span></code></pre></div>
+<span class="co">#&gt; ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1</span></code></pre></div>
 </div>
 <div id="icecreamoutputfunction-icecreamargtostringfunction" class="section level3">
 <h3 class="hasAnchor">
