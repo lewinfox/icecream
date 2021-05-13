@@ -11,18 +11,20 @@ Authors@R:
              family = "Rafacz",
              role = "aut",
              email = "dominikrafacz@gmail.com",
-             comment = c(ORCID = "0000-0003-0925-1909")))       
+             comment = c(ORCID = "0000-0003-0925-1909")))
 Description: Icecream makes print debugging a little sweeter.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+URL: https://lewinfox.github.io/icecream/
+BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
-    rlang,
     cli,
-    glue
+    glue,
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
