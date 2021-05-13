@@ -195,13 +195,11 @@ old.ctx <- getOption("icecream.include.context")
 ``` r
 f3(1)
 #> ℹ ic| `x`: num 1
-#> [1] 1
 
 options(icecream.include.context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
-#> [1] 1
 ```
 
 ```{r, include=FALSE}
