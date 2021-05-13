@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard/badge.svg)](https://github.com/lewinfox/icecream/actions)
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
 
 icecream is designed to make print debugging easier. It allows you to
