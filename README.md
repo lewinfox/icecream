@@ -1,11 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# icecream
+# icecream <img src="man/figures/logo.svg" align="right" width="120" />
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
+
+icecream is designed to make print debugging easier. It allows you to
+print out an expression, its value and (optionally) which function and
+file the call originated in.
 
 This is an R port of
 [gruns/icecream](https://github.com/gruns/icecream). All credit for the
