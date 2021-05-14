@@ -36,10 +36,14 @@ cat(demo_fns, file = demo_file)
 source(demo_file)
 ```
 
-# icecream
+# icecream <img src="man/figures/logo.svg" align="right" width="120" />
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
+
+icecream is designed to make print debugging easier. It allows you to print out an expression, its
+value and (optionally) which function and file the call originated in.
 
 This is an R port of [gruns/icecream](https://github.com/gruns/icecream). All credit for the idea
 belongs to [Ansgar Grunseid](https://github.com/gruns).
@@ -182,30 +186,28 @@ ic(mean(1:5))
 options(icecream.prefix = old.prefix)
 ```
 
-### `icecream.include.context`
+### `icecream.always.include.context`
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will be printed along with the
 expression and value. If no `srcref()` is available the function's environment will be displayed
 instead. This can be useful for more complicated debugging but produces a lot of output so is 
 disabled by default.
 
 ```{r, include=FALSE}
-old.ctx <- getOption("icecream.include.context")
+old.ctx <- getOption("icecream.always.include.context")
 ```
 
 ``` r
 f3(1)
 #> ℹ ic| `x`: num 1
-#> [1] 1
 
-options(icecream.include.context = TRUE)
+options(icecream.always.include.context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
-#> [1] 1
 ```
 
 ```{r, include=FALSE}
-options(icecream.include.context = old.ctx)
+options(icecream.always.include.context = old.ctx)
 ```
 
 ### `icecream.output.function`, `icecream.arg.to.string.function`

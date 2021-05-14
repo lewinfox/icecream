@@ -4,7 +4,7 @@
     icecream.prefix = "ic|",
     icecream.output.function = NULL,
     icecream.arg.to.string.function = NULL,
-    icecream.include.context = FALSE
+    icecream.always.include.context = FALSE
   )
 }
 
@@ -14,6 +14,6 @@
     icecream.prefix = NULL,
     icecream.output.function = NULL,
     icecream.arg.to.string.function = NULL,
-    icecream.include.context = NULL
+    icecream.always.include.context = NULL
   )
 }

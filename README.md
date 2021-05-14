@@ -1,11 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# icecream
+# icecream <img src="man/figures/logo.svg" align="right" width="120" />
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
+
+icecream is designed to make print debugging easier. It allows you to
+print out an expression, its value and (optionally) which function and
+file the call originated in.
 
 This is an R port of
 [gruns/icecream](https://github.com/gruns/icecream). All credit for the
@@ -33,11 +38,9 @@ is_negative <- function(x) x < 0
 
 ic(is_negative(1))
 #> ℹ ic| `is_negative(1)`: logi FALSE
-#> [1] FALSE
 
 ic(is_negative(-1))
 #> ℹ ic| `is_negative(-1)`: logi TRUE
-#> [1] TRUE
 ```
 
 You’re more likely to want to do this within a function:
@@ -50,11 +53,11 @@ some_function <- function(x) {
 }
 
 some_function(1)
-#> ℹ ic| `intermediate_value/2`: num 5
+#> ℹ ic| `intermediate_value / 2`: num 5
 #> [1] 5
 
 some_function(10)
-#> ℹ ic| `intermediate_value/2`: num 50
+#> ℹ ic| `intermediate_value / 2`: num 50
 #> [1] 50
 ```
 
@@ -141,7 +144,6 @@ ic_enable() # This is TRUE by default
 
 ic(mean(1:100))
 #> ℹ ic| `mean(1:100)`: num 50.5
-#> [1] 50.5
 
 ic_disable()
 
@@ -166,20 +168,17 @@ This is printed at the beginning of every line. Defaults to `"ic|"`.
 ``` r
 ic(mean(1:5))
 #> ℹ ic| `mean(1:5)`: num 3
-#> [1] 3
 
 options(icecream.prefix = "DEBUG:")
 ic(mean(1:5))
 #> ℹ DEBUG: `mean(1:5)`: num 3
-#> [1] 3
 
 options(icecream.prefix = "\U1F366")
 ic(mean(1:5))
 #> ℹ 🍦 `mean(1:5)`: num 3
-#> [1] 3
 ```
 
-### `icecream.include.context`
+### `icecream.always.include.context`
 
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will
 be printed along with the expression and value. If no `srcref()` is
@@ -190,13 +189,11 @@ is disabled by default.
 ``` r
 f3(1)
 #> ℹ ic| `x`: num 1
-#> [1] 1
 
-options(icecream.include.context = TRUE)
+options(icecream.always.include.context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
-#> [1] 1
 ```
 
 ### `icecream.output.function`, `icecream.arg.to.string.function`

@@ -1,4 +1,9 @@
 url: "https://www.lewinfox.github.io/icecream"
+authors:
+  Lewin Appleton-Fox:
+    href: "https://www.github.com/lewinfox"
+  Dominik Rafacz:
+    href: "https://github.com/DominikRafacz"
 reference:
 - title: "Using icecream"
   desc: >
