@@ -196,6 +196,10 @@ f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
 ```
 
+When `ic()` is called with no arguments, the context is always printed
+because showing the location of the call is the only reason to call
+`ic()` on its own.
+
 ### `icecream.output.function`, `icecream.arg.to.string.function`
 
 Not implemented yet. See the

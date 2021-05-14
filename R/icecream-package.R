@@ -11,7 +11,9 @@
 #' * `icecream.prefix`: This is printed at the beginning of every line. Defaults to `"ic|"`.
 #' * `icecream.include.context`: Boolean. If `TRUE`, when calling `ic(foo)` the source file:line
 #'   or environment will be printed along with the expression and value. This can be useful for more
-#'   complicated debugging but produces a lot of output so is disabled by default.
+#'   complicated debugging but produces a lot of output so is disabled by default. When `ic()` is
+#'   called with no arguments, the context is always printed because showing the location of the
+#'   call is the only reason to call `ic()` on its own.
 #' * `icecream.output.function`: Not implemented yet. See the
 #'   [configuration](https://github.com/gruns/icecream#configuration) section of the original
 #'   project docs for details of what it will do.

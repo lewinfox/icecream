@@ -17,7 +17,9 @@ No output is printed.
 \item \code{icecream.prefix}: This is printed at the beginning of every line. Defaults to \code{"ic|"}.
 \item \code{icecream.include.context}: Boolean. If \code{TRUE}, when calling \code{ic(foo)} the source file:line
 or environment will be printed along with the expression and value. This can be useful for more
-complicated debugging but produces a lot of output so is disabled by default.
+complicated debugging but produces a lot of output so is disabled by default. When \code{ic()} is
+called with no arguments, the context is always printed because showing the location of the
+call is the only reason to call \code{ic()} on its own.
 \item \code{icecream.output.function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
