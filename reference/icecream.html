@@ -139,7 +139,9 @@ No output is printed.</p></li>
 <li><p><code>icecream.prefix</code>: This is printed at the beginning of every line. Defaults to <code>"ic|"</code>.</p></li>
 <li><p><code>icecream.include.context</code>: Boolean. If <code>TRUE</code>, when calling <code><a href='ic.html'>ic(foo)</a></code> the source file:line
 or environment will be printed along with the expression and value. This can be useful for more
-complicated debugging but produces a lot of output so is disabled by default.</p></li>
+complicated debugging but produces a lot of output so is disabled by default. When <code><a href='ic.html'>ic()</a></code> is
+called with no arguments, the context is always printed because showing the location of the
+call is the only reason to call <code><a href='ic.html'>ic()</a></code> on its own.</p></li>
 <li><p><code>icecream.output.function</code>: Not implemented yet. See the
 <a href='https://github.com/gruns/icecream#configuration'>configuration</a> section of the original
 project docs for details of what it will do.</p></li>
