@@ -1,4 +1,5 @@
 .onLoad <- function(libname, pkgname) {
+  # Set package-specific options
   options(
     icecream.enabled = TRUE,
     icecream.prefix = "ic|",
@@ -9,6 +10,7 @@
 }
 
 .onUnload <- function(libpath) {
+  # Unset package-specific options
   options(
     icecream.enabled = NULL,
     icecream.prefix = NULL,

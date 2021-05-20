@@ -49,3 +49,29 @@ test_that("setting prefixes works", {
     expect_message(ic(1), regexp = "HELLO")
   })
 })
+
+
+test_that("function environment is correctly identified", {
+  f <- function() {ic(); 1}
+
+  # Remove the srcref to ensure we fall back on the environment
+  f <- utils::removeSource(f)
+
+  # Make sure the env name shows up in the output
+  environment(f) <- .GlobalEnv
+  expect_message(f(), regexp = "env: global")
+
+  e <- new.env()
+  attr(e, "name") <- "icecream_van"
+  environment(f) <- e
+  expect_message(f(), regexp = "env: icecream_van")
+})
+
+
+test_that("source file is correctly identified", {
+  temp <- tempfile(pattern = "my_name_is_inigo_montoya", fileext = ".R")
+  cat("f <- function() {ic(); 1}", file = temp)
+  on.exit(unlink(temp))
+  source(temp, keep.source = TRUE)
+  expect_message(f(), regexp = "my_name_is_inigo_montoya")
+})
