@@ -20,8 +20,6 @@
 #' @importFrom glue glue
 #' @importFrom cli cli_alert_info
 ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value = missing_arg()) {
-  # TODO: both loc and deparsed_expression (if present, ofc) are
-
   # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
   #       probably a better way of handling this, but for now this will do.
   context_string <- if (nchar(loc) == 0) "<unknown>" else loc
