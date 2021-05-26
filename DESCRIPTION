@@ -1,6 +1,6 @@
 Type: Package
 Package: icecream
-Title: Sweeter Print Debugging
+Title: Print Debugging Made Sweeter
 Version: 0.1.1
 Authors@R: 
     c(person(given = "Lewin",
@@ -12,11 +12,13 @@ Authors@R:
              role = "aut",
              email = "dominikrafacz@gmail.com",
              comment = c(ORCID = "0000-0003-0925-1909")))
-Description: Provides user-friendly and configurable print debugging.
-    Displays expressions, values, and source locations. Debugging code is
-    transparent and can be globally enabled / disabled.
+Description: Provides user-friendly and configurable print debugging via a
+    single function, 'ic()'. Wrap an expression in 'ic()' to print the
+    expression, its value and (where available) its source location.
+    Debugging output can be toggled globally without modifying code.
 License: MIT + file LICENSE
-URL: https://lewinfox.github.io/icecream/
+URL: https://lewinfox.github.io/icecream/,
+    https://github.com/lewinfox/icecream
 BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
     cli,
