@@ -64,6 +64,8 @@ ic <- function(x) {
 #' the API with the [Python version](https://github.com/gruns/icecream#miscellaneous).
 #'
 #' @name enable-disable
+#'
+#' @return Returns the old value of the option, invisibly.
 NULL
 
 #' @describeIn enable-disable Enable `ic()`.

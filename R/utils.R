@@ -9,6 +9,9 @@
 #'
 #' @name rlang-reexports
 #' @keywords internal
+#'
+#' @return Character vector containing either a source location (for `src_loc()`) or a path (for
+#'   `relish()`).
 NULL
 
 #' @describeIn rlang-reexports Return source location from a srcref. If no srcref is found, return

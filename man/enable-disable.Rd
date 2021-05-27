@@ -10,6 +10,9 @@ ic_enable()
 
 ic_disable()
 }
+\value{
+Returns the old value of the option, invisibly.
+}
 \description{
 These functions enable or disable the \code{ic()} function. While disabled \code{ic()} will do nothing
 except evaluate and return its input.

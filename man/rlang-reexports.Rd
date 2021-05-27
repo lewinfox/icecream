@@ -17,6 +17,10 @@ relish(x, dir = getwd())
 
 \item{x}{File path}
 }
+\value{
+Character vector containing either a source location (for \code{src_loc()}) or a path (for
+\code{relish()}).
+}
 \description{
 These are used to extract and format source references. As they are not part of the public rlang
 API they are reimplemented here.
