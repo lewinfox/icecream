@@ -41,8 +41,8 @@ ic <- function(x) {
       loc <- glue("<env: {loc}>")
     }
 
-    # If we have inputs then we want the expression and value to be included in the context
-    # object as well.
+    # If we have inputs then we want the expression and value to be included in the context object
+    # as well.
     if (!missing_input) {
       deparsed_expression <- expr_deparse(quo_get_expr(q))
       x <- eval_tidy(q)
