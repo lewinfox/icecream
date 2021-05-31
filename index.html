@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">icecream</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
       </span>
     </div>
 
@@ -90,15 +90,18 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install from GitHub with:</p>
+<p>Install from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"icecream"</span><span class="op">)</span></code></pre></div>
+<p>Or you can install the development version from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"lewinfox/icecream"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="inspect-variables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#inspect-variables" class="anchor"></a>Inspect variables</h2>
 <p>The <code><a href="reference/ic.html">ic()</a></code> function prints its argument and its value. It also returns the value of the evaluated argument, meaning that it is effectively transparent in code - just wrap an expression in <code><a href="reference/ic.html">ic()</a></code> to get debugging output.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lewinfox.github.io/icecream/">icecream</a></span><span class="op">)</span>
 
 <span class="va">is_negative</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">0</span>
@@ -109,7 +112,7 @@
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu">is_negative</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `is_negative(-1)`: logi TRUE</span></code></pre></div>
 <p>You’re more likely to want to do this within a function:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">some_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">intermediate_value</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">10</span>
   <span class="va">answer</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="va">intermediate_value</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span>
@@ -124,7 +127,7 @@
 <span class="co">#&gt; ℹ ic| `intermediate_value / 2`: num 50</span>
 <span class="co">#&gt; [1] 50</span></code></pre></div>
 <p>More complex inputs like lists and data frames are summarised to avoid cluttering the terminal.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `iris`: 'data.frame':  150 obs. of  5 variables:</span>
 
@@ -136,7 +139,7 @@
 <a href="#inspect-execution" class="anchor"></a>Inspect execution</h2>
 <p>Calling <code><a href="reference/ic.html">ic()</a></code> with no arguments causes it to print out the file, line and parent function it was called from.</p>
 <p>In this example we have a file <code>demo.R</code> that contains two functions. We’ve inserted <code><a href="reference/ic.html">ic()</a></code> calls at strategic points so we can track what’s being executed.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># demo.R</span>
 <span class="va">f1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="op">)</span>
@@ -152,7 +155,7 @@
 <span class="va">f3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"demo.R"</span><span class="op">)</span>
 
 <span class="fu">f1</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>
@@ -162,7 +165,7 @@
 <span class="co">#&gt; ℹ ic| `global::f1()` in demo.R:3:2</span>
 <span class="co">#&gt; ℹ ic| `global::f2()` in demo.R:10:2</span></code></pre></div>
 <p>In the case of functions that haven’t been <code><a href="https://rdrr.io/r/base/source.html">source()</a></code>d or loaded from a package there is no source code to refer to. In these cases the function’s environment will be displayed.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">orphan_func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="op">)</span>
   <span class="cn">TRUE</span>
@@ -184,7 +187,7 @@
 <h2 class="hasAnchor">
 <a href="#enable--disable" class="anchor"></a>Enable / disable</h2>
 <p>The <code><a href="reference/enable-disable.html">ic_enable()</a></code> and <code><a href="reference/enable-disable.html">ic_disable()</a></code> functions enable or disable the <code><a href="reference/ic.html">ic()</a></code> function. If disabled, <code><a href="reference/ic.html">ic()</a></code> will return the result of evaluating its input but will not print anything.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/enable-disable.html">ic_enable</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># This is TRUE by default</span>
 
 <span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span>
@@ -210,7 +213,7 @@
 <a href="#icecreamprefix" class="anchor"></a><code>icecream.prefix</code>
 </h3>
 <p>This is printed at the beginning of every line. Defaults to <code>"ic|"</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `mean(1:5)`: num 3</span>
 
@@ -227,7 +230,7 @@
 <a href="#icecreamalwaysincludecontext" class="anchor"></a><code>icecream.always.include.context</code>
 </h3>
 <p>Boolean. If <code>TRUE</code>, when calling <code><a href="reference/ic.html">ic(foo)</a></code> the source file and line will be printed along with the expression and value. If no <code><a href="https://rdrr.io/r/base/srcfile.html">srcref()</a></code> is available the function’s environment will be displayed instead. This can be useful for more complicated debugging but produces a lot of output so is disabled by default.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">f3</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; ℹ ic| `x`: num 1</span>
 
