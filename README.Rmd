@@ -51,7 +51,13 @@ belongs to [Ansgar Grunseid](https://github.com/gruns).
 
 ## Installation
 
-You can install from GitHub with:
+Install from CRAN with:
+
+``` r
+install.packages("icecream")
+```
+
+Or you can install the development version from GitHub with:
 
 ``` r
 devtools::install_github("lewinfox/icecream")
