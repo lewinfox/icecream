@@ -7,7 +7,7 @@
 ic_peek(
   value,
   peeking_function = getOption("icecream.peeking.function"),
-  max_lines = 1
+  max_lines = getOption("icecream.max.lines")
 )
 }
 \arguments{
