@@ -45,10 +45,6 @@ ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value
 
   # We need to check what options are set to decide what to print - whether to include the context
   # or not.
-  #
-  # TODO: Shall icecream.include.context be reanamed to something like
-  # icecream.always.include.context? This may be misleading as context is printed when no
-  # expression is evaluated regardless of option value
   prefix <- getOption("icecream.prefix", "ic|")
   output <- if (!is.null(expression_string)) {
     if (getOption("icecream.always.include.context")) {
