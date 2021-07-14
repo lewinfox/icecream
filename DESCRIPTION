@@ -1,7 +1,7 @@
 Type: Package
 Package: icecream
-Title: Never Use print() To Debug Again
-Version: 0.1.1
+Title: Print Debugging Made Sweeter
+Version: 0.1.1.9000
 Authors@R: 
     c(person(given = "Lewin",
              family = "Appleton-Fox",
@@ -12,9 +12,13 @@ Authors@R:
              role = "aut",
              email = "dominikrafacz@gmail.com",
              comment = c(ORCID = "0000-0003-0925-1909")))
-Description: Icecream makes print debugging a little sweeter.
+Description: Provides user-friendly and configurable print debugging via a
+    single function, ic(). Wrap an expression in ic() to print the
+    expression, its value and (where available) its source location.
+    Debugging output can be toggled globally without modifying code.
 License: MIT + file LICENSE
-URL: https://lewinfox.github.io/icecream/
+URL: https://lewinfox.github.io/icecream/,
+    https://github.com/lewinfox/icecream
 BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
     cli,
@@ -25,6 +29,7 @@ Suggests:
     withr
 Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

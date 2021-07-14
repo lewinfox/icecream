@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
 [![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
 
@@ -18,7 +19,13 @@ idea belongs to [Ansgar Grunseid](https://github.com/gruns).
 
 ## Installation
 
-You can install from GitHub with:
+Install from CRAN with:
+
+``` r
+install.packages("icecream")
+```
+
+Or you can install the development version from GitHub with:
 
 ``` r
 devtools::install_github("lewinfox/icecream")
@@ -195,6 +202,10 @@ options(icecream.always.include.context = TRUE)
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
 ```
+
+When `ic()` is called with no arguments, the context is always printed
+because showing the location of the call is the only reason to call
+`ic()` on its own.
 
 ### `icecream.output.function`, `icecream.arg.to.string.function`
 
