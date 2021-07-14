@@ -207,6 +207,39 @@ When `ic()` is called with no arguments, the context is always printed
 because showing the location of the call is the only reason to call
 `ic()` on its own.
 
+### `icecream.peeking.function` and `icecream.max.lines`
+
+These two options control how the result of evaluation of an expression
+is printed. `icecream.peeking.function` indicates the function that
+summarizes the object. Default value is `str`. `icecream.max.lines`
+determines maximum number of lines that the peek of an obejct occupies;
+defaults to 1.
+
+For more complex data you may want to use e.g. `head` function and 5
+lines.
+
+``` r
+data(iris)
+
+ic(iris) # not too informative
+#> ℹ ic| `iris`: 'data.frame':  150 obs. of  5 variables:
+
+options(icecream.peeking.function = head,
+        icecream.max.lines = 5)
+
+ic(iris)
+#> ℹ ic| `iris`: 
+#> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#> 1          5.1         3.5          1.4         0.2  setosa
+#> 2          4.9         3.0          1.4         0.2  setosa
+#> 3          4.7         3.2          1.3         0.2  setosa
+#> 4          4.6         3.1          1.5         0.2  setosa
+```
+
+Note that if `icecream.max.lines` is greater than 1 and summary of an
+object is longer than 1, the alert occupies one line more due to the
+header.
+
 ### `icecream.output.function`, `icecream.arg.to.string.function`
 
 Not implemented yet. See the
@@ -215,8 +248,8 @@ of the original project docs for details of what they will do.
 
 ## TODO:
 
-  - Implement `ic.format()` (see
+-   Implement `ic.format()` (see
     [here](https://github.com/gruns/icecream#miscellaneous)).
-  - Implement `ic.output.function`. At the moment it uses
+-   Implement `ic.output.function`. At the moment it uses
     `cli::cli_alert_info()`
-  - Implement `ic.arg.to.string.function`
+-   Implement `ic.arg.to.string.function`
