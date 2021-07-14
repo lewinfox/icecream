@@ -1,0 +1,33 @@
+#' Peek at value of expression
+#'
+#' This function is a proxy for calling peeking function.
+#'
+#' @param value The result of evaluating an expression inside the `ic()` function.
+#' @param peeking_function The function used to peek at the value. Default value is set by the
+#' "icecream.peeking.function" option.
+#' @param max_lines Maximum number of lines printed. Default value is set by the
+#' "icecream.max.lines" option.
+#'
+#' @details Default value of `icecream.peeking.function` is `str`. Suggested possible alternatives
+#' are:
+#'
+#' * `print`
+#' * `head`
+#' * `summary`
+#' * `tibble::glimpse`
+#'
+#' @return A string to be printed.
+#'
+#' @seealso [utils::str()] [base::print()] [utils::head()] [base::summary()] [tibble::glimpse()]
+#' @keywords internal
+#' @importFrom utils capture.output
+ic_peek <- function(value,
+                    peeking_function = getOption("icecream.peeking.function"),
+                    max_lines = getOption("icecream.max.lines")) {
+  output <- capture.output(peeking_function(value))
+  if (max_lines == 1) trimws(output)
+  else {
+    output <- trimws(output[1:min(length(output), max_lines - 1)])
+    paste0(c("", output), collapse = "\n")
+  }
+}

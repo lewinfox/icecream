@@ -35,11 +35,7 @@ ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value
   # Formatting result
   if (!is_missing(deparsed_expression)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
-    #
-    # TODO: Taking the first line of output from `str()` is a quick way of getting this but it
-    #       doesn't produce great output (try passing in a `lm()` object - ugly). It would be nice
-    #       to fix this at some point.
-    str_res <- trimws(capture.output(str(value)))[[1]]
+    str_res <- ic_peek(value)
     expression_string <- glue("{{.var {deparsed_expression}}}: {str_res}")
   }
 
