@@ -25,9 +25,10 @@ ic_peek <- function(value,
                     peeking_function = getOption("icecream.peeking.function"),
                     max_lines = getOption("icecream.max.lines")) {
   output <- capture.output(peeking_function(value))
-  if (max_lines == 1) trimws(output)
+  real_lines <- min(length(output), max_lines)
+  if (real_lines == 1) trimws(output[[1]])
   else {
-    output <- trimws(output[1:min(length(output), max_lines - 1)])
+    output <- trimws(output[1:real_lines])
     paste0(c("", output), collapse = "\n")
   }
 }
