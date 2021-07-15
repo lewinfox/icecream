@@ -6,14 +6,14 @@
 \alias{ic_autopeek.data.frame}
 \title{Get descriptive one-line summary of an object}
 \usage{
-ic_autopeek(x, ...)
+ic_autopeek(object, ...)
 
-\method{ic_autopeek}{list}(x, max_summary_length = 70, ...)
+\method{ic_autopeek}{list}(object, max_summary_length = 70, ...)
 
-\method{ic_autopeek}{data.frame}(x, max_summary_length = 70, ...)
+\method{ic_autopeek}{data.frame}(object, max_summary_length = 70, ...)
 }
 \arguments{
-\item{x}{The object to be summarized.}
+\item{object}{The object to be summarized.}
 
 \item{...}{Other algorithms passed to methods.}
 

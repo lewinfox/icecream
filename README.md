@@ -73,10 +73,10 @@ cluttering the terminal.
 
 ``` r
 df <- ic(iris)
-#> ℹ ic| `iris`: 'data.frame':  150 obs. of  5 variables:
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 my_list <- ic(list(a = 1, b = 3, c = 1:100))
-#> ℹ ic| `list(a = 1, b = 3, c = 1:100)`: List of 3
+#> ℹ ic| `list(a = 1, b = 3, c = 1:100)`: list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]
 ```
 
 ## Inspect execution
@@ -211,9 +211,11 @@ because showing the location of the call is the only reason to call
 
 These two options control how the result of evaluation of an expression
 is printed. `icecream.peeking.function` indicates the function that
-summarizes the object. Default value is `str`. `icecream.max.lines`
-determines maximum number of lines that the peek of an obejct occupies;
-defaults to 1.
+summarizes the object. Default value is `ic_autopeek`, which works like
+`utils::str` for most of the time, but gives more informative output for
+`lists`, `data.frames` and their subclasses in a more compact way.
+`icecream.max.lines` determines maximum number of lines that the peek of
+an object occupies; defaults to 1.
 
 For more complex data you may want to use e.g. `head` function and 5
 lines.
@@ -221,8 +223,8 @@ lines.
 ``` r
 data(iris)
 
-ic(iris) # not too informative
-#> ℹ ic| `iris`: 'data.frame':  150 obs. of  5 variables:
+ic(iris) # we would like to see header of the data
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 options(icecream.peeking.function = head,
         icecream.max.lines = 5)
