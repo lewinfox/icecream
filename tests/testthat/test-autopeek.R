@@ -3,10 +3,11 @@ library(glue)
 
 test_that("`ic_autopeek()` has specific format for lists", {
   purrr::walk(
-    all_lists,
+    list(unnamed_list, partially_named_list, named_list, long_list,
+         long_list_2),
     ~ expect_string(
       ic_autopeek(.x),
-      pattern = "^list \\[\\d+\\]: (?:\\$[^:]+: \\S+ \\[\\d+\\](?:, )?)+(?:\\.{3})?$"
+      pattern = "^list \\[\\d+\\]: (?:\\$[^:]+: .+ \\[\\d+\\](?:, )?)+(?:\\.{3})?$"
     )
   )
 })
@@ -50,7 +51,7 @@ test_that("`ic_autopeek()` mixes names and indices for partially named lists", {
 # element description tests ----
 test_that("`ic_autopeek()` contains vector abbreviations", {
   purrr::walk(
-    all_lists,
+    list(unnamed_list, partially_named_list, named_list),
     ~ expect_string(
       ic_autopeek(.x),
       pattern = glue_collapse(glue("{purrr::map_chr(.x, vctrs::vec_ptype_abbr)}.*"))
@@ -60,10 +61,35 @@ test_that("`ic_autopeek()` contains vector abbreviations", {
 
 test_that("`ic_autopeek()` displays element lengths", {
   purrr::walk(
-    all_lists,
+    list(unnamed_list, partially_named_list, named_list),
     ~ expect_string(
       ic_autopeek(.x),
-      pattern = glue_collapse(glue("\\S+ \\[{lengths(.x)}\\].*"))
+      pattern = glue_collapse(glue("\\[{lengths(.x)}\\].*"))
+    )
+  )
+})
+
+# max length tests ----
+test_that("`ic_autopeek()` truncates description with three dots", {
+  purrr::walk(
+    list(long_list, long_list_2),
+    ~ {
+      trunc_summary <- ic_autopeek(.x, max_summary_length = 70)
+      expect_string(
+        trunc_summary,
+        pattern = "\\.{3}$",
+      )
+      expect_lte(nchar(trunc_summary), 70)
+    }
+  )
+})
+
+test_that("`ic_autopeek()` doesn't truncate in the middle of a summary", {
+  purrr::walk(
+    list(long_list, long_list_2),
+    ~ expect_string(
+      ic_autopeek(.x, max_summary_length = 70),
+      pattern = "(?:\\$[^:]+: .+ \\[\\d+\\], )+\\.{3}$"
     )
   )
 })
