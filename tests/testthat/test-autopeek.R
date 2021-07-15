@@ -48,12 +48,22 @@ test_that("`ic_autopeek()` mixes names and indices for partially named lists", {
 })
 
 # element description tests ----
+test_that("`ic_autopeek()` contains vector abbreviations", {
+  purrr::walk(
+    all_lists,
+    ~ expect_string(
+      ic_autopeek(.x),
+      pattern = glue_collapse(glue("{purrr::map_chr(.x, vctrs::vec_ptype_abbr)}.*"))
+    )
+  )
+})
+
 test_that("`ic_autopeek()` displays element lengths", {
   purrr::walk(
     all_lists,
     ~ expect_string(
-        ic_autopeek(.x),
-        pattern = glue_collapse(glue("\\S+ \\[{lengths(.x)}\\].*"))
-      )
+      ic_autopeek(.x),
+      pattern = glue_collapse(glue("\\S+ \\[{lengths(.x)}\\].*"))
+    )
   )
 })
