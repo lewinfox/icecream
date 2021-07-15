@@ -49,13 +49,11 @@ ic_autopeek_list_or_data.frame <- function(object,
   glue("{header}{summary}")
 }
 
-#' @param max_summary_length Integer. Maximum length of string summarizing the
+#' @param max_summary_length Integer. Maximum length of string summarizing the object.
 #'
 #' @describeIn ic_autopeek Method for list
 ic_autopeek.list <- ic_autopeek_list_or_data.frame
 
-#' @param max_summary_length Integer. Maximum length of string summarizing the
-#'
 #' @describeIn ic_autopeek Method for data.frame
 ic_autopeek.data.frame <- ic_autopeek_list_or_data.frame
 
