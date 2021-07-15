@@ -21,6 +21,7 @@ URL: https://lewinfox.github.io/icecream/,
     https://github.com/lewinfox/icecream
 BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
+    checkmate (>= 2.0.0),
     cli,
     glue,
     rlang
@@ -33,3 +34,5 @@ Language: en-GB
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Remotes:  
+    mllg/checkmate
