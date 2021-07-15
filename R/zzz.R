@@ -4,7 +4,7 @@
     icecream.enabled = TRUE,
     icecream.prefix = "ic|",
     icecream.output.function = NULL,
-    icecream.peeking.function = str,
+    icecream.peeking.function = ic_autopeek,
     icecream.max.lines = 1,
     icecream.arg.to.string.function = NULL,
     icecream.always.include.context = FALSE

@@ -8,9 +8,10 @@
 #' @param max_lines Maximum number of lines printed. Default value is set by the
 #' "icecream.max.lines" option.
 #'
-#' @details Default value of `icecream.peeking.function` is `str`. Suggested possible alternatives
-#' are:
+#' @details Default value of `icecream.peeking.function` is `ic_autopeek`. Suggested possible
+#' alternatives are:
 #'
+#' * `utils::str`
 #' * `print`
 #' * `head`
 #' * `summary`
@@ -18,7 +19,8 @@
 #'
 #' @return A string to be printed.
 #'
-#' @seealso [utils::str()] [base::print()] [utils::head()] [base::summary()] [tibble::glimpse()]
+#' @seealso [ic_autopeek()] [utils::str()] [base::print()] [utils::head()] [base::summary()]
+#' [tibble::glimpse()]
 #' @keywords internal
 #' @importFrom utils capture.output
 ic_peek <- function(value,

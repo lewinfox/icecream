@@ -26,9 +26,10 @@ A string to be printed.
 This function is a proxy for calling peeking function.
 }
 \details{
-Default value of \code{icecream.peeking.function} is \code{str}. Suggested possible alternatives
-are:
+Default value of \code{icecream.peeking.function} is \code{ic_autopeek}. Suggested possible
+alternatives are:
 \itemize{
+\item \code{utils::str}
 \item \code{print}
 \item \code{head}
 \item \code{summary}
@@ -36,6 +37,7 @@ are:
 }
 }
 \seealso{
-\code{\link[utils:str]{utils::str()}} \code{\link[base:print]{base::print()}} \code{\link[utils:head]{utils::head()}} \code{\link[base:summary]{base::summary()}} \code{\link[tibble:reexports]{tibble::glimpse()}}
+\code{\link[=ic_autopeek]{ic_autopeek()}} \code{\link[utils:str]{utils::str()}} \code{\link[base:print]{base::print()}} \code{\link[utils:head]{utils::head()}} \code{\link[base:summary]{base::summary()}}
+\code{\link[tibble:reexports]{tibble::glimpse()}}
 }
 \keyword{internal}
