@@ -39,9 +39,11 @@ test_that("`ic_autopeek()` prints names for named lists", {
 
 test_that("`ic_autopeek()` mixes names and indices for partially named lists", {
   #> list [3]: $'first': int [8], $2: chr [4], $'last': lgl [0]
-  list_names <- names(partially_named_list)
-  list_names[!is.na(list_names)] <- glue("'{list_names[!is.na(list_names)]}'")
-  list_names[is.na(list_names)] <- which(is.na(list_names))
+  list_names <- ifelse(
+    is.na(names(partially_named_list)),
+    seq_along(partially_named_list),
+    glue("'{names(partially_named_list)}'")
+  )
   expect_string(
     ic_autopeek(partially_named_list),
     pattern = glue_collapse(glue("\\${list_names}:.*"))
