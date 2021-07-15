@@ -2,7 +2,6 @@
 
 export(ic)
 export(ic_autopeek)
-export(ic_autopeek.default)
 export(ic_disable)
 export(ic_enable)
 importFrom(cli,cli_alert_info)
