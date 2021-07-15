@@ -221,7 +221,7 @@ options(icecream.always.include.context = old.ctx)
 ```
 
 ### `icecream.peeking.function` and `icecream.max.lines`
-These two options control how the result of evaluation of an expression is printed. `icecream.peeking.function` indicates the function that summarizes the object. Default value is `str`. `icecream.max.lines` determines maximum number of lines that the peek of an obejct occupies; defaults to 1. 
+These two options control how the result of evaluation of an expression is printed. `icecream.peeking.function` indicates the function that summarizes the object. Default value is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more informative output for `lists`, `data.frames` and their subclasses in a more compact way. `icecream.max.lines` determines maximum number of lines that the peek of an object occupies; defaults to 1. 
 
 For more complex data you may want to use e.g. `head` function and 5 lines.
 
@@ -233,7 +233,7 @@ old.lines <- getOption("icecream.max.lines")
 ```{r, include=TRUE}
 data(iris)
 
-ic(iris) # not too informative
+ic(iris) # we would like to see header of the data
 
 options(icecream.peeking.function = head,
         icecream.max.lines = 5)
