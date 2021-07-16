@@ -17,7 +17,7 @@ ic_autopeek <- function(object, ...) UseMethod("ic_autopeek")
 
 ic_autopeek.default <- str
 
-#' @importFrom glue glue
+#' @importFrom glue glue glue_collapse
 #' @importFrom purrr map2_chr map_chr map_int detect_index
 #' @importFrom pillar obj_sum
 ic_autopeek_list_or_data.frame <- function(object,
@@ -40,11 +40,13 @@ ic_autopeek_list_or_data.frame <- function(object,
 
   # calculate how many columns summaries can fit into the console
   index <- detect_index(cumsum(map_int(col_summary, nchar) + 2),
-                        ~ . > max_summary_length - nchar(header))
+                        ~ . > max_summary_length - nchar(header) - 3)
 
   # paste summary of all columns
-  summary <- paste0(if (index == 0) col_summary else c(col_summary[1:(index - 1)], "..."),
-                    collapse = ", ")
+  summary <- glue_collapse(
+    if (index == 0) col_summary else c(col_summary[seq_len(index - 1)], "..."),
+    sep = ", "
+  )
 
   glue("{header}{summary}")
 }
