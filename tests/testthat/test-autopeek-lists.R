@@ -95,3 +95,13 @@ test_that("`ic_autopeek()` doesn't truncate in the middle of a summary", {
     )
   )
 })
+
+test_that("`ic_autopeek()` prints only header and '...' when the first element has too wide description already", {
+  purrr::walk(
+    list(long_list, long_list_2),
+    ~ expect_string(
+      ic_autopeek(.x, max_summary_length = 10),
+      fixed = glue("list [{length(.x)}]: ...")
+    )
+  )
+})
