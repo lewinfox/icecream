@@ -17,7 +17,7 @@ ic_autopeek <- function(object, ...) UseMethod("ic_autopeek")
 
 ic_autopeek.default <- str
 
-#' @importFrom glue glue glue_collapse
+#' @importFrom glue glue glue_collapse single_quote
 #' @importFrom purrr map2_chr map_chr map_int detect_index
 #' @importFrom pillar obj_sum
 ic_autopeek_list_or_data.frame <- function(object,
@@ -27,13 +27,13 @@ ic_autopeek_list_or_data.frame <- function(object,
   col_name <- if (is.null(names(object))) seq_along(object) else ifelse(
                                                               is.na(names(object)),
                                                               seq_along(object),
-                                                              glue("'{names(object)}'"))
+                                                              single_quote(names(object)))
 
   # short type summary as in pillar package
   type_summary <- map_chr(object, obj_sum)
 
   # combine name of column and type summary
-  col_summary <- map2_chr(col_name, type_summary, function(name, sum) glue("${name}: {sum}"))
+  col_summary <- glue("${col_name}: {type_summary}")
 
   # get header of the summary
   header <- ic_autopeek_header(object)
