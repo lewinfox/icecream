@@ -48,7 +48,7 @@ ic_autopeek_list_or_data.frame <- function(object,
     sep = ", "
   )
 
-  glue("{header}{summary}")
+  paste0(header, summary)
 }
 
 #' @param max_summary_length Integer. Maximum length of string summarizing the object.
