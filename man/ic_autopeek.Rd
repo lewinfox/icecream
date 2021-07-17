@@ -17,7 +17,7 @@ ic_autopeek(object, ...)
 
 \item{...}{Other algorithms passed to methods.}
 
-\item{max_summary_length}{Integer. Maximum length of string summarizing the}
+\item{max_summary_length}{Integer. Maximum length of string summarizing the object.}
 }
 \value{
 A string to be printed.
