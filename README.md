@@ -73,10 +73,10 @@ cluttering the terminal.
 
 ``` r
 df <- ic(iris)
-#> i ic| `iris`: [1] "data.frame [150 x 5]: $'Sepal.Length': dbl [150], ..."
+#> i ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 my_list <- ic(list(a = 1, b = 3, c = 1:100))
-#> i ic| `list(a = 1, b = 3, c = 1:100)`: [1] "list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]"
+#> i ic| `list(a = 1, b = 3, c = 1:100)`: list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]
 ```
 
 ## Inspect execution
@@ -224,7 +224,7 @@ lines.
 data(iris)
 
 ic(iris) # we would like to see header of the data
-#> i ic| `iris`: [1] "data.frame [150 x 5]: $'Sepal.Length': dbl [150], ..."
+#> i ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 options(icecream.peeking.function = head,
         icecream.max.lines = 5)
