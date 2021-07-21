@@ -3,8 +3,10 @@ library(glue)
 
 test_that("`ic_autopeek()` has specific format for lists", {
   purrr::walk(
-    list(unnamed_list, partially_named_list, named_list, long_list,
-         long_list_2),
+    list(
+      unnamed_list, partially_named_list, named_list, long_list,
+      long_list_2
+    ),
     ~ expect_string(
       ic_autopeek(.x),
       pattern = "^list \\[\\d+\\]: (?:\\$[^:]+: .+ \\[\\d+\\](?:, )?)+(?:\\.{3})?$"

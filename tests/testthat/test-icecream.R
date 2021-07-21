@@ -52,7 +52,10 @@ test_that("setting prefixes works", {
 
 
 test_that("function environment is correctly identified", {
-  f <- function() {ic(); 1}
+  f <- function() {
+    ic()
+    1
+  }
 
   # Remove the srcref to ensure we fall back on the environment
   f <- utils::removeSource(f)

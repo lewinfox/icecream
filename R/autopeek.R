@@ -29,10 +29,15 @@ ic_autopeek.list <- function(object,
                              max_summary_length = 70,
                              ...) {
   # names of columns or their index if it does not exist
-  col_name <- if (is.null(names(object))) seq_along(object) else ifelse(
-                                                              is.na(names(object)),
-                                                              seq_along(object),
-                                                              single_quote(names(object)))
+  col_name <- if (is.null(names(object))) {
+    seq_along(object)
+  } else {
+    ifelse(
+      is.na(names(object)),
+      seq_along(object),
+      single_quote(names(object))
+    )
+  }
 
   # short type summary as in pillar package
   type_summary <- map_chr(object, obj_sum)
@@ -44,8 +49,10 @@ ic_autopeek.list <- function(object,
   header <- ic_autopeek_header(object)
 
   # calculate how many columns summaries can fit into the console
-  index <- detect_index(cumsum(map_int(col_summary, nchar) + 2),
-                        ~ . > max_summary_length - nchar(header) - 3)
+  index <- detect_index(
+    cumsum(map_int(col_summary, nchar) + 2),
+    ~ . > max_summary_length - nchar(header) - 3
+  )
 
   # paste summary of all columns
   summary <- glue_collapse(

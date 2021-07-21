@@ -45,8 +45,12 @@ ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value
   output <- if (!is.null(expression_string)) {
     if (getOption("icecream.always.include.context")) {
       glue("{context_string} | {expression_string}")
-    } else expression_string
-  } else context_string
+    } else {
+      expression_string
+    }
+  } else {
+    context_string
+  }
   output <- paste(prefix, output)
 
   cli_alert_info(output)
