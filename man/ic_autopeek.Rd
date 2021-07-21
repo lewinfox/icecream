@@ -15,7 +15,7 @@ ic_autopeek(object, ...)
 \arguments{
 \item{object}{The object to be summarized.}
 
-\item{...}{Other algorithms passed to methods.}
+\item{...}{Other arguments passed to methods.}
 
 \item{max_summary_length}{Integer. Maximum length of string summarizing the object.}
 }

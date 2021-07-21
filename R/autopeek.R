@@ -56,7 +56,7 @@ ic_autopeek.list <- function(object,
   paste0(header, summary)
 }
 
-#' @describeIn ic_autopeek Method for list
+#' @describeIn ic_autopeek Method for data.frame
 #' @export
 ic_autopeek.data.frame <- ic_autopeek.list
 
