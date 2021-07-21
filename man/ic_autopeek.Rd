@@ -20,7 +20,8 @@ ic_autopeek(object, ...)
 \item{max_summary_length}{Integer. Maximum length of string summarizing the object.}
 }
 \value{
-A string to be printed.
+The function is mainly used for its side effects -- outputting to the terminal.
+However, it also returns an invisible string of the printed summary.
 }
 \description{
 This function is created as a modification of \code{\link[utils:str]{utils::str()}} function. It is supposed to

@@ -9,7 +9,8 @@
 #'
 #' @details This is a generic function. Default method simply calls `utils::str` function.
 #'
-#' @return A string to be printed.
+#' @return The function is mainly used for its side effects -- outputting to the terminal.
+#' However, it also returns an invisible string of the printed summary.
 #'
 #' @seealso [utils::str()] [ic_peek()]
 ic_autopeek <- function(object, ...) UseMethod("ic_autopeek")
@@ -60,7 +61,9 @@ ic_autopeek.list <- function(object,
     sep = ", "
   )
 
-  paste0(header, summary)
+  ret <- paste0(header, summary)
+  cat(ret)
+  invisible(ret)
 }
 
 #' @describeIn ic_autopeek Method for data.frame
