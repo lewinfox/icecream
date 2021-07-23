@@ -16,7 +16,9 @@
 ic_autopeek <- function(object, ...) UseMethod("ic_autopeek")
 
 #' @export
-ic_autopeek.default <- str
+ic_autopeek.default <- function(object, ...) {
+  str(object, ...)
+}
 
 #' @param max_summary_length Integer. Maximum length of string summarizing the object.
 #'
