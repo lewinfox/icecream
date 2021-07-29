@@ -23,8 +23,11 @@ BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
     cli,
     glue,
+    pillar (>= 1.6.1),
+    purrr (>= 0.3.4),
     rlang
 Suggests: 
+    checkmate (>= 2.0.0),
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3

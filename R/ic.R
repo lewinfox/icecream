@@ -11,7 +11,6 @@
 #' ic(f(1))
 #'
 #' ic(f(-1))
-#'
 #' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn caller_env expr_deparse eval_tidy fn_env env_label maybe_missing
 #' @importFrom glue glue
 #' @export
@@ -27,7 +26,7 @@ ic <- function(x) {
     trace <- trace_back()
     num_calls <- length(trace$calls)
 
-    parent_ref <-  if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
+    parent_ref <- if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
     ref <- attr(trace$calls[[num_calls]], "srcref")
     loc <- src_loc(ref)
 

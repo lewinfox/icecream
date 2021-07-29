@@ -20,6 +20,11 @@ or environment will be printed along with the expression and value. This can be 
 complicated debugging but produces a lot of output so is disabled by default. When \code{ic()} is
 called with no arguments, the context is always printed because showing the location of the
 call is the only reason to call \code{ic()} on its own.
+\item \code{icecream.peeking.function}: indicates the function that summarizes the object. Default value
+is \code{ic_autopeek}, which works like \code{utils::str} for most of the time, but gives more
+informative output for \code{lists}, \code{data.frames} and their subclasses in a more compact way.
+\item \code{icecream.max.lines} Integer. Determines maximum number of lines that the peek of an object
+occupies; defaults to 1.
 \item \code{icecream.output.function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
