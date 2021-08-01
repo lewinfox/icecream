@@ -35,26 +35,22 @@ ic_print <- function(loc, parent_ref, deparsed_expression = missing_arg(), value
   # Formatting result
   if (!is_missing(deparsed_expression)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
-    #
-    # TODO: Taking the first line of output from `str()` is a quick way of getting this but it
-    #       doesn't produce great output (try passing in a `lm()` object - ugly). It would be nice
-    #       to fix this at some point.
-    str_res <- trimws(capture.output(str(value)))[[1]]
+    str_res <- ic_peek(value)
     expression_string <- glue("{{.var {deparsed_expression}}}: {str_res}")
   }
 
   # We need to check what options are set to decide what to print - whether to include the context
   # or not.
-  #
-  # TODO: Shall icecream.include.context be reanamed to something like
-  # icecream.always.include.context? This may be misleading as context is printed when no
-  # expression is evaluated regardless of option value
   prefix <- getOption("icecream.prefix", "ic|")
   output <- if (!is.null(expression_string)) {
     if (getOption("icecream.always.include.context")) {
       glue("{context_string} | {expression_string}")
-    } else expression_string
-  } else context_string
+    } else {
+      expression_string
+    }
+  } else {
+    context_string
+  }
   output <- paste(prefix, output)
 
   cli_alert_info(output)
