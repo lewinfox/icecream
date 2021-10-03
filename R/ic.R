@@ -83,44 +83,38 @@ ic_disable <- function() {
   invisible(old_value)
 }
 
-#' `with_ic_enable()` and `with_ic_disable()`
+#' Temporarily enable or disable `ic()`
 #'
-#' These functions let you evaluate an expression with either `ic()` enabled or
-#' disabled without afftecting if `ic()` is enabled globally.
+#' These functions let you evaluate an expression with either `ic()` enabled or disabled without
+#' affecting if `ic()` is enabled globally.
 #'
 #' @name ic-single-use
 #'
-#' @param expr an  expression containing the `ic()`` function.
+#' @param expr An expression containing the `ic()` function.
 #'
-#' @return the result of evaluating the expression with the `ic()` function
-#'   enabled (for `with_ic_enable()`) or disabled (for `with_ic_disable()`).
-#'   After returning this result the `ic()` function will remain what it was
-#'   before this function ran.
+#' @return Returns the result of evaluating the expression.
 #'
 #' @examples
 #' ic_enable()
+#'
 #' fun <- function(x) {
-#'   ic(x*100)
+#'   ic(x * 100)
 #' }
 #'
-#' fun(2)                          #returns i ic| `x * 100`: num 200
-#' with_ic_disable(fun(2))         #returns [1] 200
-#' fun(4)                          #returns i ic| `x * 100`: num 400
+#' fun(2)
+#'
+#' with_ic_disable(fun(2))
+#'
+#' fun(4)
 #'
 #' ic_disable()
-#' fun2 <- function(x) {
-#'   x/100
-#' }
 #'
-#' fun2(300)                       #returns [1] 3
-#' ic(fun2(300))                   #returns [1] 3
-#' with_ic_enable(fun2(300))       #returns [1] 3
-#' with_ic_enable(ic(fun2(300)))   #returns i ic| `fun2(300)`: num 3
-#' fun2(500)                       #returns [1] 5
+#' fun(1)
 #'
+#' with_ic_enable(fun(1))
 NULL
 
-#' @describeIn  ic-single-use evaluates the expression with `ic()` enabled.
+#' @describeIn ic-single-use evaluates the expression with `ic()` enabled.
 #' @export
 with_ic_enable <- function(expr) {
   withr::with_options(list(icecream.enabled = TRUE), expr)

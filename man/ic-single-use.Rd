@@ -4,24 +4,21 @@
 \alias{ic-single-use}
 \alias{with_ic_enable}
 \alias{with_ic_disable}
-\title{\code{with_ic_enable()} and \code{with_ic_disable()}}
+\title{Temporarily enable or disable \code{ic()}}
 \usage{
 with_ic_enable(expr)
 
 with_ic_disable(expr)
 }
 \arguments{
-\item{expr}{an  expression containing the `ic()`` function.}
+\item{expr}{An expression containing the \code{ic()} function.}
 }
 \value{
-the result of evaluating the expression with the \code{ic()} function
-enabled (for \code{with_ic_enable()}) or disabled (for \code{with_ic_disable()}).
-After returning this result the \code{ic()} function will remain what it was
-before this function ran.
+Returns the result of evaluating the expression.
 }
 \description{
-These functions let you evaluate an expression with either \code{ic()} enabled or
-disabled without afftecting if \code{ic()} is enabled globally.
+These functions let you evaluate an expression with either \code{ic()} enabled or disabled without
+affecting if \code{ic()} is enabled globally.
 }
 \section{Functions}{
 \itemize{
@@ -32,23 +29,20 @@ disabled without afftecting if \code{ic()} is enabled globally.
 
 \examples{
 ic_enable()
+
 fun <- function(x) {
-  ic(x*100)
+  ic(x * 100)
 }
 
-fun(2)                          #returns i ic| `x * 100`: num 200
-with_ic_disable(fun(2))         #returns [1] 200
-fun(4)                          #returns i ic| `x * 100`: num 400
+fun(2)
+
+with_ic_disable(fun(2))
+
+fun(4)
 
 ic_disable()
-fun2 <- function(x) {
-  x/100
-}
 
-fun2(300)                       #returns [1] 3
-ic(fun2(300))                   #returns [1] 3
-with_ic_enable(fun2(300))       #returns [1] 3
-with_ic_enable(ic(fun2(300)))   #returns i ic| `fun2(300)`: num 3
-fun2(500)                       #returns [1] 5
+fun(1)
 
+with_ic_enable(fun(1))
 }
