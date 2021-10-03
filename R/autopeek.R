@@ -22,14 +22,13 @@ ic_autopeek.default <- function(object, ...) {
   utils::str(object, ...)
 }
 
-#' @param max_summary_length Integer. Maximum length of string summarizing the object.
+#' @param max_summary_length Integer. Maximum length of string summarizing the object. By default
+#'   this is set to the current terminal width.
 #'
 #' @describeIn ic_autopeek Method for list
 #'
 #' @export
-ic_autopeek.list <- function(object,
-                             max_summary_length = 70,
-                             ...) {
+ic_autopeek.list <- function(object, max_summary_length = cli::console_width(), ...) {
   # names of columns or their index if it does not exist
   col_name <- if (is.null(names(object))) {
     seq_along(object)
@@ -52,8 +51,8 @@ ic_autopeek.list <- function(object,
 
   # calculate how many columns summaries can fit into the console
   index <- purrr::detect_index(
-    cumsum(purrr::map_int(col_summary, nchar) + 2),
-    ~ . > max_summary_length - nchar(header) - 3
+    cumsum(nchar(col_summary) + 2 + nchar(header)),
+    ~ . > max_summary_length
   )
 
   # paste summary of all columns

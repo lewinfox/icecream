@@ -8,16 +8,17 @@
 \usage{
 ic_autopeek(object, ...)
 
-\method{ic_autopeek}{list}(object, max_summary_length = 70, ...)
+\method{ic_autopeek}{list}(object, max_summary_length = cli::console_width(), ...)
 
-\method{ic_autopeek}{data.frame}(object, max_summary_length = 70, ...)
+\method{ic_autopeek}{data.frame}(object, max_summary_length = cli::console_width(), ...)
 }
 \arguments{
 \item{object}{The object to be summarized.}
 
 \item{...}{Other arguments passed to methods.}
 
-\item{max_summary_length}{Integer. Maximum length of string summarizing the object.}
+\item{max_summary_length}{Integer. Maximum length of string summarizing the object. By default
+this is set to the current terminal width.}
 }
 \value{
 The function is mainly used for its side effects -- outputting to the terminal.
