@@ -44,10 +44,10 @@ library(icecream)
 is_negative <- function(x) x < 0
 
 ic(is_negative(1))
-#> i ic| `is_negative(1)`: logi FALSE
+#> ℹ ic| `is_negative(1)`: logi FALSE
 
 ic(is_negative(-1))
-#> i ic| `is_negative(-1)`: logi TRUE
+#> ℹ ic| `is_negative(-1)`: logi TRUE
 ```
 
 You’re more likely to want to do this within a function:
@@ -60,11 +60,11 @@ some_function <- function(x) {
 }
 
 some_function(1)
-#> i ic| `intermediate_value / 2`: num 5
+#> ℹ ic| `intermediate_value / 2`: num 5
 #> [1] 5
 
 some_function(10)
-#> i ic| `intermediate_value / 2`: num 50
+#> ℹ ic| `intermediate_value / 2`: num 50
 #> [1] 50
 ```
 
@@ -73,10 +73,10 @@ cluttering the terminal.
 
 ``` r
 df <- ic(iris)
-#> i ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 my_list <- ic(list(a = 1, b = 3, c = 1:100))
-#> i ic| `list(a = 1, b = 3, c = 1:100)`: list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]
+#> ℹ ic| `list(a = 1, b = 3, c = 1:100)`: list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]
 ```
 
 ## Inspect execution
@@ -150,12 +150,27 @@ evaluating its input but will not print anything.
 ic_enable() # This is TRUE by default
 
 ic(mean(1:100))
-#> i ic| `mean(1:100)`: num 50.5
+#> ℹ ic| `mean(1:100)`: num 50.5
 
 ic_disable()
 
 ic(mean(1:100))
 #> [1] 50.5
+```
+
+Convenience functions `with_ic_enable()` and `with_ic_disable()` are
+also provided.
+
+``` r
+ic_enable()
+
+with_ic_disable(ic(mean(1:100)))
+#> [1] 50.5
+
+ic_disable()
+
+with_ic_enable(ic(mean(1:100)))
+#> ℹ ic| `mean(1:100)`: num 50.5
 ```
 
 ## Options
@@ -174,15 +189,15 @@ This is printed at the beginning of every line. Defaults to `"ic|"`.
 
 ``` r
 ic(mean(1:5))
-#> i ic| `mean(1:5)`: num 3
+#> ℹ ic| `mean(1:5)`: num 3
 
 options(icecream.prefix = "DEBUG:")
 ic(mean(1:5))
-#> i DEBUG: `mean(1:5)`: num 3
+#> ℹ DEBUG: `mean(1:5)`: num 3
 
 options(icecream.prefix = "\U1F366")
 ic(mean(1:5))
-#> i 🍦 `mean(1:5)`: num 3
+#> ℹ 🍦 `mean(1:5)`: num 3
 ```
 
 ### `icecream.always.include.context`
@@ -224,13 +239,13 @@ lines.
 data(iris)
 
 ic(iris) # we would like to see header of the data
-#> i ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 options(icecream.peeking.function = head,
         icecream.max.lines = 5)
 
 ic(iris)
-#> i ic| `iris`: 
+#> ℹ ic| `iris`: 
 #> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa

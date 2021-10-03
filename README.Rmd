@@ -164,6 +164,23 @@ ic(mean(1:100))
 ic_enable()
 ```
 
+Convenience functions `with_ic_enable()` and `with_ic_disable()` are also provided.
+
+```{r}
+ic_enable()
+
+with_ic_disable(ic(mean(1:100)))
+
+ic_disable()
+
+with_ic_enable(ic(mean(1:100)))
+```
+
+```{r, include=FALSE}
+ic_enable()
+```
+
+
 ## Options
 
 The following options can be used to control behaviour:
