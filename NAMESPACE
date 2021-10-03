@@ -3,6 +3,8 @@
 export(ic)
 export(ic_disable)
 export(ic_enable)
+export(with_ic_disable)
+export(with_ic_enable)
 importFrom(cli,cli_alert_info)
 importFrom(glue,glue)
 importFrom(rlang,caller_env)
