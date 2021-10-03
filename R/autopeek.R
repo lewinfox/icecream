@@ -82,19 +82,16 @@ ic_autopeek_header <- function(object, ...) {
   UseMethod("ic_autopeek_header")
 }
 
-#' @importFrom glue glue
 #' @export
 ic_autopeek_header.default <- function(object, ...) {
   glue::glue("{class(object)[[1]]}: ")
 }
 
-#' @importFrom glue glue
 #' @export
 ic_autopeek_header.list <- function(object, ...) {
   glue::glue("{class(object)[[1]]} [{length(object)}]: ")
 }
 
-#' @importFrom glue glue
 #' @export
 ic_autopeek_header.data.frame <- function(object, ...) {
   glue::glue("{class(object)[[1]]} [{nrow(object)} x {ncol(object)}]: ")
