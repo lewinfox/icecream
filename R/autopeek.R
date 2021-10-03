@@ -13,20 +13,19 @@
 #' However, it also returns an invisible string of the printed summary.
 #'
 #' @seealso [utils::str()] [ic_peek()]
-ic_autopeek <- function(object, ...) UseMethod("ic_autopeek")
+ic_autopeek <- function(object, ...) {
+  UseMethod("ic_autopeek")
+}
 
 #' @export
 ic_autopeek.default <- function(object, ...) {
-  str(object, ...)
+  utils::str(object, ...)
 }
 
 #' @param max_summary_length Integer. Maximum length of string summarizing the object.
 #'
 #' @describeIn ic_autopeek Method for list
 #'
-#' @importFrom glue glue glue_collapse single_quote
-#' @importFrom purrr map2_chr map_chr map_int detect_index
-#' @importFrom pillar obj_sum
 #' @export
 ic_autopeek.list <- function(object,
                              max_summary_length = 70,
@@ -38,27 +37,27 @@ ic_autopeek.list <- function(object,
     ifelse(
       is.na(names(object)),
       seq_along(object),
-      single_quote(names(object))
+      glue::single_quote(names(object))
     )
   }
 
   # short type summary as in pillar package
-  type_summary <- map_chr(object, obj_sum)
+  type_summary <- purrr::map_chr(object, pillar::obj_sum)
 
   # combine name of column and type summary
-  col_summary <- glue("${col_name}: {type_summary}")
+  col_summary <- glue::glue("${col_name}: {type_summary}")
 
   # get header of the summary
   header <- ic_autopeek_header(object)
 
   # calculate how many columns summaries can fit into the console
-  index <- detect_index(
-    cumsum(map_int(col_summary, nchar) + 2),
+  index <- purrr::detect_index(
+    cumsum(purrr::map_int(col_summary, nchar) + 2),
     ~ . > max_summary_length - nchar(header) - 3
   )
 
   # paste summary of all columns
-  summary <- glue_collapse(
+  summary <- glue::glue_collapse(
     if (index == 0) col_summary else c(col_summary[seq_len(index - 1)], "..."),
     sep = ", "
   )
@@ -80,16 +79,24 @@ ic_autopeek.data.frame <- ic_autopeek.list
 #' @details This function is used by `ic_autopeek` to get a header of the summary of a object.
 #' It should return object's top-level class name and its dimension.
 #'
-ic_autopeek_header <- function(object, ...) UseMethod("ic_autopeek_header")
+ic_autopeek_header <- function(object, ...) {
+  UseMethod("ic_autopeek_header")
+}
 
 #' @importFrom glue glue
 #' @export
-ic_autopeek_header.default <- function(object, ...) glue("{class(object)[[1]]}: ")
+ic_autopeek_header.default <- function(object, ...) {
+  glue::glue("{class(object)[[1]]}: ")
+}
 
 #' @importFrom glue glue
 #' @export
-ic_autopeek_header.list <- function(object, ...) glue("{class(object)[[1]]} [{length(object)}]: ")
+ic_autopeek_header.list <- function(object, ...) {
+  glue::glue("{class(object)[[1]]} [{length(object)}]: ")
+}
 
 #' @importFrom glue glue
 #' @export
-ic_autopeek_header.data.frame <- function(object, ...) glue("{class(object)[[1]]} [{nrow(object)} x {ncol(object)}]: ")
+ic_autopeek_header.data.frame <- function(object, ...) {
+  glue::glue("{class(object)[[1]]} [{nrow(object)} x {ncol(object)}]: ")
+}

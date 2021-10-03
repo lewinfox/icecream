@@ -22,4 +22,5 @@ f <- function(x) x < 0
 ic(f(1))
 
 ic(f(-1))
+
 }

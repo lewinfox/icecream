@@ -11,19 +11,18 @@
 #' ic(f(1))
 #'
 #' ic(f(-1))
-#' @importFrom rlang enquo quo_is_missing trace_back quo_get_expr caller_fn caller_env expr_deparse eval_tidy fn_env env_label maybe_missing
-#' @importFrom glue glue
+#'
 #' @export
 ic <- function(x) {
   # Capture the input to allow us to work with the expression and value separately
-  q <- enquo(x)
+  q <- rlang::enquo(x)
 
   # The behaviour of the function changes depending on whether input is provided or not.
-  missing_input <- quo_is_missing(q)
+  missing_input <- rlang::quo_is_missing(q)
 
   # In the event that icecream is totally disabled we will just return the input.
   if (getOption("icecream.enabled")) {
-    trace <- trace_back()
+    trace <- rlang::trace_back()
     num_calls <- length(trace$calls)
 
     parent_ref <- if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
@@ -33,18 +32,18 @@ ic <- function(x) {
     # Case when location of file is unavailable
     if (nchar(loc) == 0) {
       # Probs want to look at environments
-      caller <- caller_fn()
-      caller_env <- if (is.null(caller)) caller_env() else fn_env(caller)
+      caller <- rlang::caller_fn()
+      caller_env <- if (is.null(caller)) rlang::caller_env() else rlang::fn_env(caller)
 
-      loc <- env_label(caller_env)
-      loc <- glue("<env: {loc}>")
+      loc <- rlang::env_label(caller_env)
+      loc <- glue::glue("<env: {loc}>")
     }
 
     # If we have inputs then we want the expression and value to be included in the context object
     # as well.
     if (!missing_input) {
-      deparsed_expression <- expr_deparse(quo_get_expr(q))
-      x <- eval_tidy(q)
+      deparsed_expression <- rlang::expr_deparse(rlang::quo_get_expr(q))
+      x <- rlang::eval_tidy(q)
       ic_print(loc, parent_ref, deparsed_expression, x)
       invisible(x)
     } else {

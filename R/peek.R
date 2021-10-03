@@ -21,12 +21,12 @@
 #'
 #' @seealso [ic_autopeek()] [utils::str()] [base::print()] [utils::head()] [base::summary()]
 #' [tibble::glimpse()]
+#'
 #' @keywords internal
-#' @importFrom utils capture.output
 ic_peek <- function(value,
                     peeking_function = getOption("icecream.peeking.function"),
                     max_lines = getOption("icecream.max.lines")) {
-  output <- capture.output(peeking_function(value))
+  output <- utils::capture.output(peeking_function(value))
   real_lines <- min(length(output), max_lines)
   if (real_lines == 1) {
     trimws(output[[1]])
