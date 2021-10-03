@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
-[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
+[![R-CMD-check](https://github.com/lewinfox/icecream/workflows/R-CMD-check/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
 
 icecream is designed to make print debugging easier. It allows you to
@@ -73,10 +73,10 @@ cluttering the terminal.
 
 ``` r
 df <- ic(iris)
-#> ℹ ic| `iris`: 'data.frame':  150 obs. of  5 variables:
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
 my_list <- ic(list(a = 1, b = 3, c = 1:100))
-#> ℹ ic| `list(a = 1, b = 3, c = 1:100)`: List of 3
+#> ℹ ic| `list(a = 1, b = 3, c = 1:100)`: list [3]: $'a': dbl [1], $'b': dbl [1], $'c': int [100]
 ```
 
 ## Inspect execution
@@ -158,6 +158,21 @@ ic(mean(1:100))
 #> [1] 50.5
 ```
 
+Convenience functions `with_ic_enable()` and `with_ic_disable()` are
+also provided.
+
+``` r
+ic_enable()
+
+with_ic_disable(ic(mean(1:100)))
+#> [1] 50.5
+
+ic_disable()
+
+with_ic_enable(ic(mean(1:100)))
+#> ℹ ic| `mean(1:100)`: num 50.5
+```
+
 ## Options
 
 The following options can be used to control behaviour:
@@ -207,6 +222,41 @@ When `ic()` is called with no arguments, the context is always printed
 because showing the location of the call is the only reason to call
 `ic()` on its own.
 
+### `icecream.peeking.function` and `icecream.max.lines`
+
+These two options control how the result of evaluation of an expression
+is printed. `icecream.peeking.function` indicates the function that
+summarizes the object. Default value is `ic_autopeek`, which works like
+`utils::str` for most of the time, but gives more informative output for
+`lists`, `data.frames` and their subclasses in a more compact way.
+`icecream.max.lines` determines maximum number of lines that the peek of
+an object occupies; defaults to 1.
+
+For more complex data you may want to use e.g. `head` function and 5
+lines.
+
+``` r
+data(iris)
+
+ic(iris) # we would like to see header of the data
+#> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
+
+options(icecream.peeking.function = head,
+        icecream.max.lines = 5)
+
+ic(iris)
+#> ℹ ic| `iris`: 
+#> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#> 1          5.1         3.5          1.4         0.2  setosa
+#> 2          4.9         3.0          1.4         0.2  setosa
+#> 3          4.7         3.2          1.3         0.2  setosa
+#> 4          4.6         3.1          1.5         0.2  setosa
+```
+
+Note that if `icecream.max.lines` is greater than 1 and summary of an
+object is longer than 1, the alert occupies one line more due to the
+header.
+
 ### `icecream.output.function`, `icecream.arg.to.string.function`
 
 Not implemented yet. See the
@@ -215,8 +265,8 @@ of the original project docs for details of what they will do.
 
 ## TODO:
 
-  - Implement `ic.format()` (see
+-   Implement `ic.format()` (see
     [here](https://github.com/gruns/icecream#miscellaneous)).
-  - Implement `ic.output.function`. At the moment it uses
+-   Implement `ic.output.function`. At the moment it uses
     `cli::cli_alert_info()`
-  - Implement `ic.arg.to.string.function`
+-   Implement `ic.arg.to.string.function`

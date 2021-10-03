@@ -13,6 +13,15 @@ test_that("`ic_enable()` and `ic_disable()` work", {
   })
 })
 
+test_that("`with_ic_enable()` and `with_ic_disable()` work", {
+  with_options(list(icecream.enabled = TRUE), {
+    expect_message(ic(1))
+    expect_message(with_ic_disable(ic(1)), NA)
+    ic_disable()
+    expect_message(with_ic_enable(ic(1)))
+  })
+})
+
 test_that("`ic()` prints summaries for complex objects", {
   expect_message(ic(iris), regexp = "data\\.frame")
   expect_message(ic(complex(100)), regexp = "cplx \\[1:100\\] 0\\+0i 0\\+0i 0\\+0i")
@@ -52,7 +61,10 @@ test_that("setting prefixes works", {
 
 
 test_that("function environment is correctly identified", {
-  f <- function() {ic(); 1}
+  f <- function() {
+    ic()
+    1
+  }
 
   # Remove the srcref to ensure we fall back on the environment
   f <- utils::removeSource(f)

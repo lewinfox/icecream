@@ -4,6 +4,8 @@ authors:
     href: "https://www.github.com/lewinfox"
   Dominik Rafacz:
     href: "https://github.com/DominikRafacz"
+  Ben Stiles
+    href: "https://github.com/Ben-Stiles"
 reference:
 - title: "Using icecream"
   desc: >
@@ -12,3 +14,5 @@ reference:
   - ic
   - ic_enable
   - ic_disable
+  - with_ic_enable
+  - with_ic_disable

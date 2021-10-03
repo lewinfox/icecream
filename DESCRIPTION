@@ -1,7 +1,7 @@
 Type: Package
 Package: icecream
 Title: Print Debugging Made Sweeter
-Version: 0.1.1.9000
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Lewin",
              family = "Appleton-Fox",
@@ -11,7 +11,10 @@ Authors@R:
              family = "Rafacz",
              role = "aut",
              email = "dominikrafacz@gmail.com",
-             comment = c(ORCID = "0000-0003-0925-1909")))
+             comment = c(ORCID = "0000-0003-0925-1909")),
+      person(given = "Ben",
+             family = "Stiles",
+             role = "ctb"))
 Description: Provides user-friendly and configurable print debugging via a
     single function, ic(). Wrap an expression in ic() to print the
     expression, its value and (where available) its source location.
@@ -23,8 +26,11 @@ BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
     cli,
     glue,
+    pillar (>= 1.6.1),
+    purrr (>= 0.3.4),
     rlang
 Suggests: 
+    checkmate (>= 2.0.0),
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
