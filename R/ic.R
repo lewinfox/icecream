@@ -11,7 +11,6 @@
 #' ic(f(1))
 #'
 #' ic(f(-1))
-#'
 #' @export
 ic <- function(x) {
   # Capture the input to allow us to work with the expression and value separately
@@ -134,4 +133,3 @@ with_ic_enable <- function(expr) {
 with_ic_disable <- function(expr) {
   withr::with_options(list(icecream.enabled = FALSE), expr)
 }
-
