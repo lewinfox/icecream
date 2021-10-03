@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • icecream</title>
+<title>Peek at value of expression — ic_peek • icecream</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Peek at value of expression — ic_peek" />
+<meta property="og:description" content="This function is a proxy for calling peeking function." />
 <meta property="og:image" content="https://www.lewinfox.com/icecream/logo.svg" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,54 +117,62 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Peek at value of expression</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lewinfox/icecream/blob/master/R/peek.R'><code>R/peek.R</code></a></small>
+    <div class="hidden name"><code>ic_peek.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This function is a proxy for calling peeking function.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>ic_peek</span><span class='op'>(</span>
+  <span class='va'>value</span>,
+  peeking_function <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"icecream.peeking.function"</span><span class='op'>)</span>,
+  max_lines <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"icecream.max.lines"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-using-icecream" class="hasAnchor"><a href="#section-using-icecream" class="anchor"></a>Using icecream</h2>
-          <p class="section-desc"><p>Icecream is a very simple package! The only function you really need to know about is <code><a href="../reference/ic.html">ic()</a></code>.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ic.html">ic()</a></code> </p>
-        </td>
-        <td><p>User-friendly debug statements</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="enable-disable.html">ic_enable()</a></code> <code><a href="enable-disable.html">ic_disable()</a></code> </p>
-        </td>
-        <td><p>Enable or disable <code>ic()</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ic-single-use.html">with_ic_enable()</a></code> <code><a href="ic-single-use.html">with_ic_disable()</a></code> </p>
-        </td>
-        <td><p>Temporarily enable or disable <code>ic()</code></p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>value</th>
+      <td><p>The result of evaluating an expression inside the <code><a href='ic.html'>ic()</a></code> function.</p></td>
+    </tr>
+    <tr>
+      <th>peeking_function</th>
+      <td><p>The function used to peek at the value. Default value is set by the
+"icecream.peeking.function" option.</p></td>
+    </tr>
+    <tr>
+      <th>max_lines</th>
+      <td><p>Maximum number of lines printed. Default value is set by the
+"icecream.max.lines" option.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A string to be printed.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Default value of <code>icecream.peeking.function</code> is <code>ic_autopeek</code>. Suggested possible
+alternatives are:</p><ul>
+<li><p><code><a href='https://rdrr.io/r/utils/str.html'>utils::str</a></code></p></li>
+<li><p><code>print</code></p></li>
+<li><p><code>head</code></p></li>
+<li><p><code>summary</code></p></li>
+<li><p><code><a href='https://pillar.r-lib.org/reference/glimpse.html'>tibble::glimpse</a></code></p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='ic_autopeek.html'>ic_autopeek()</a></code> <code><a href='https://rdrr.io/r/utils/str.html'>utils::str()</a></code> <code><a href='https://rdrr.io/r/base/print.html'>base::print()</a></code> <code><a href='https://rdrr.io/r/utils/head.html'>utils::head()</a></code> <code><a href='https://rdrr.io/r/base/summary.html'>base::summary()</a></code>
+<code><a href='https://pillar.r-lib.org/reference/glimpse.html'>tibble::glimpse()</a></code></p></div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

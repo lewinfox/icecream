@@ -49,7 +49,7 @@
 <meta property="og:title" content="Icecream: Never use print() to debug again — icecream" />
 <meta property="og:description" content="Icecream provides a more user-friendly print debugging experience. Use ic() wherever you would
 use print() and see the expression and its value easily." />
-<meta property="og:image" content="https://www.lewinfox.github.io/icecream/logo.svg" />
+<meta property="og:image" content="https://www.lewinfox.com/icecream/logo.svg" />
 
 
 
@@ -81,7 +81,7 @@ use print() and see the expression and its value easily." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">icecream</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -145,6 +145,11 @@ or environment will be printed along with the expression and value. This can be 
 complicated debugging but produces a lot of output so is disabled by default. When <code><a href='ic.html'>ic()</a></code> is
 called with no arguments, the context is always printed because showing the location of the
 call is the only reason to call <code><a href='ic.html'>ic()</a></code> on its own.</p></li>
+<li><p><code>icecream.peeking.function</code>: indicates the function that summarizes the object. Default value
+is <code>ic_autopeek</code>, which works like <code><a href='https://rdrr.io/r/utils/str.html'>utils::str</a></code> for most of the time, but gives more
+informative output for <code>lists</code>, <code>data.frames</code> and their subclasses in a more compact way.</p></li>
+<li><p><code>icecream.max.lines</code> Integer. Determines maximum number of lines that the peek of an object
+occupies; defaults to 1.</p></li>
 <li><p><code>icecream.output.function</code>: Not implemented yet. See the
 <a href='https://github.com/gruns/icecream#configuration'>configuration</a> section of the original
 project docs for details of what it will do.</p></li>

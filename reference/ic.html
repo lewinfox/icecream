@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="User-friendly debug statements — ic" />
 <meta property="og:description" content="User-friendly debug statements" />
-<meta property="og:image" content="https://www.lewinfox.github.io/icecream/logo.svg" />
+<meta property="og:image" content="https://www.lewinfox.com/icecream/logo.svg" />
 
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">icecream</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -148,10 +148,9 @@ is returned.</p>
     <pre class="examples"><div class='input'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>&lt;</span> <span class='fl'>0</span>
 
 <span class='fu'>ic</span><span class='op'>(</span><span class='fu'>f</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> ic| <span style='color: #262626; background-color: #DADADA;'>`f(1)`</span>: logi FALSE</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='fu'>ic</span><span class='op'>(</span><span class='fu'>f</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> ic| <span style='color: #262626; background-color: #DADADA;'>`f(-1)`</span>: logi TRUE</span></div><div class='input'>
-</div></pre>
+</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

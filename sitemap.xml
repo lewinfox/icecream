@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/index.html</loc>
+    <loc>https://www.lewinfox.com/icecream//index.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/enable-disable.html</loc>
+    <loc>https://www.lewinfox.com/icecream//reference/enable-disable.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/ic.html</loc>
+    <loc>https://www.lewinfox.com/icecream//reference/ic-single-use.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/ic_print.html</loc>
+    <loc>https://www.lewinfox.com/icecream//reference/ic.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/icecream.html</loc>
+    <loc>https://www.lewinfox.com/icecream//reference/ic_autopeek.html</loc>
   </url>
   <url>
-    <loc>https://www.lewinfox.github.io/icecream/reference/rlang-reexports.html</loc>
+    <loc>https://www.lewinfox.com/icecream//reference/ic_autopeek_header.html</loc>
+  </url>
+  <url>
+    <loc>https://www.lewinfox.com/icecream//reference/ic_peek.html</loc>
+  </url>
+  <url>
+    <loc>https://www.lewinfox.com/icecream//reference/ic_print.html</loc>
+  </url>
+  <url>
+    <loc>https://www.lewinfox.com/icecream//reference/icecream.html</loc>
+  </url>
+  <url>
+    <loc>https://www.lewinfox.com/icecream//reference/rlang-reexports.html</loc>
   </url>
 </urlset>

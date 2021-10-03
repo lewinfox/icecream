@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • icecream</title>
+<title>Temporarily enable or disable ic() — ic-single-use • icecream</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Temporarily enable or disable ic() — ic-single-use" />
+<meta property="og:description" content="These functions let you evaluate an expression with either ic() enabled or disabled without
+affecting if ic() is enabled globally." />
 <meta property="og:image" content="https://www.lewinfox.com/icecream/logo.svg" />
 
 
@@ -66,7 +68,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,54 +118,62 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Temporarily enable or disable <code>ic()</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/lewinfox/icecream/blob/master/R/ic.R'><code>R/ic.R</code></a></small>
+    <div class="hidden name"><code>ic-single-use.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>These functions let you evaluate an expression with either <code><a href='ic.html'>ic()</a></code> enabled or disabled without
+affecting if <code><a href='ic.html'>ic()</a></code> is enabled globally.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>with_ic_enable</span><span class='op'>(</span><span class='va'>expr</span><span class='op'>)</span>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-using-icecream" class="hasAnchor"><a href="#section-using-icecream" class="anchor"></a>Using icecream</h2>
-          <p class="section-desc"><p>Icecream is a very simple package! The only function you really need to know about is <code><a href="../reference/ic.html">ic()</a></code>.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ic.html">ic()</a></code> </p>
-        </td>
-        <td><p>User-friendly debug statements</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="enable-disable.html">ic_enable()</a></code> <code><a href="enable-disable.html">ic_disable()</a></code> </p>
-        </td>
-        <td><p>Enable or disable <code>ic()</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ic-single-use.html">with_ic_enable()</a></code> <code><a href="ic-single-use.html">with_ic_disable()</a></code> </p>
-        </td>
-        <td><p>Temporarily enable or disable <code>ic()</code></p></td>
-      </tr>
-    </tbody>
+<span class='fu'>with_ic_disable</span><span class='op'>(</span><span class='va'>expr</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>expr</th>
+      <td><p>An expression containing the <code><a href='ic.html'>ic()</a></code> function.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Returns the result of evaluating the expression.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>with_ic_enable</code>: evaluates the expression with <code><a href='ic.html'>ic()</a></code> enabled.</p></li>
+<li><p><code>with_ic_disable</code>: evaluates the expression with <code><a href='ic.html'>ic()</a></code> disabled.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='enable-disable.html'>ic_enable</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='va'>fun</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='ic.html'>ic</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='fu'>fun</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> ic| <span style='color: #262626; background-color: #DADADA;'>`x * 100`</span>: num 200</span></div><div class='input'>
+<span class='fu'>with_ic_disable</span><span class='op'>(</span><span class='fu'>fun</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 200</div><div class='input'>
+<span class='fu'>fun</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> ic| <span style='color: #262626; background-color: #DADADA;'>`x * 100`</span>: num 400</span></div><div class='input'>
+<span class='fu'><a href='enable-disable.html'>ic_disable</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>fun</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 100</div><div class='input'>
+<span class='fu'>with_ic_enable</span><span class='op'>(</span><span class='fu'>fun</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>ℹ</span> ic| <span style='color: #262626; background-color: #DADADA;'>`x * 100`</span>: num 100</span></div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

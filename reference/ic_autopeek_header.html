@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • icecream</title>
+<title>Get a header of the object peeked at — ic_autopeek_header • icecream</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Get a header of the object peeked at — ic_autopeek_header" />
+<meta property="og:description" content="Get a header of the object peeked at" />
 <meta property="og:image" content="https://www.lewinfox.com/icecream/logo.svg" />
 
 
@@ -66,7 +67,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -116,54 +117,38 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Get a header of the object peeked at</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lewinfox/icecream/blob/master/R/autopeek.R'><code>R/autopeek.R</code></a></small>
+    <div class="hidden name"><code>ic_autopeek_header.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Get a header of the object peeked at</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>ic_autopeek_header</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-using-icecream" class="hasAnchor"><a href="#section-using-icecream" class="anchor"></a>Using icecream</h2>
-          <p class="section-desc"><p>Icecream is a very simple package! The only function you really need to know about is <code><a href="../reference/ic.html">ic()</a></code>.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="ic.html">ic()</a></code> </p>
-        </td>
-        <td><p>User-friendly debug statements</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="enable-disable.html">ic_enable()</a></code> <code><a href="enable-disable.html">ic_disable()</a></code> </p>
-        </td>
-        <td><p>Enable or disable <code>ic()</code></p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="ic-single-use.html">with_ic_enable()</a></code> <code><a href="ic-single-use.html">with_ic_disable()</a></code> </p>
-        </td>
-        <td><p>Temporarily enable or disable <code>ic()</code></p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>object</th>
+      <td><p>The object peeked at.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Other arguments passed to methods.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function is used by <code>ic_autopeek</code> to get a header of the summary of a object.
+It should return object's top-level class name and its dimension.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
