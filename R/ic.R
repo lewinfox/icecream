@@ -23,10 +23,20 @@ ic <- function(x) {
   # In the event that icecream is totally disabled we will just return the input.
   if (getOption("icecream.enabled")) {
     trace <- rlang::trace_back()
-    num_calls <- length(trace$calls)
 
-    parent_ref <- if (num_calls > 1) trace$calls[[num_calls - 1]][[1]] else NULL
-    ref <- attr(trace$calls[[num_calls]], "srcref")
+    # In rlang 1.0.0 `calls` became `call`. See https://github.com/lewinfox/icecream/issues/8
+    #
+    # TODO: Deprecate at some point?
+    if (utils::packageVersion("rlang") < "1.0.0") {
+      call_stack <- trace$calls
+    } else {
+      call_stack <- trace$call
+    }
+
+    num_calls <- length(call_stack)
+
+    parent_ref <- if (num_calls > 1) call_stack[[num_calls - 1]][[1]] else NULL
+    ref <- attr(call_stack[[num_calls]], "srcref")
     loc <- src_loc(ref)
 
     # Case when location of file is unavailable
