@@ -62,6 +62,10 @@ ic <- function(...) {
     if (!missing_input) {
       deparsed_exprs <- purrr::map(quosures, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
       expr_vals <- purrr::map(quosures, rlang::eval_tidy)
+
+      # We are removing the names of expression (which are empty strings unless provided with a name)
+      # TODO: discuss what to do if an expression is named
+      names(expr_vals) <- NULL
       ic_print(loc, parent_ref, deparsed_exprs, expr_vals)
       invisible(simplify_single(expr_vals))
     } else {
