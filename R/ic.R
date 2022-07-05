@@ -1,16 +1,25 @@
 #' User-friendly debug statements
 #'
-#' @param x An expression, or nothing
+#' @param ... Any number of expressions, possibly also 0 expressions.
 #'
-#' @return If `x` is an expression, returns the result of evaluating `x`. If `x` is missing nothing
-#'   is returned.
+#' @details Function is primarily called for its side effects. It does not change the value of expression
+#' (or expressions) passed to it, but it prints them with their values to the screen.
+#'
+#' @return If `...` is missing, nothing is returned. If `...` is a single expression, returns the result
+#'     of evaluating it. If `...` contains multiple expressions, it returns list with their values in an
+#'     according order.
 #'
 #' @examples
+#' ic()
+#'
 #' f <- function(x) x < 0
 #'
 #' ic(f(1))
 #'
 #' ic(f(-1))
+#'
+#' ic(f(12), sum(1:5), 5)
+#'
 #' @export
 ic <- function(...) {
   # Capture the input to allow us to work with the expression and value separately
