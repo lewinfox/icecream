@@ -15,7 +15,7 @@
 #'   its output string, invisibly.
 #'
 #' @keywords internal
-ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg(), value = rlang::missing_arg()) {
+ic_print <- function(loc, parent_ref, deparsed_expressions = rlang::missing_arg(), expression_values = rlang::missing_arg()) {
   # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
   #       probably a better way of handling this, but for now this will do.
   context_string <- if (nchar(loc) == 0) "<unknown>" else loc
@@ -26,23 +26,25 @@ ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg()
     context_string <- glue::glue("{{.fn {parent_ref}}} in {context_string}")
   }
 
-  expression_string <- NULL
+  expression_strings <- NULL
 
   # Formatting result
-  if (!rlang::is_missing(deparsed_expression)) {
+  if (!rlang::is_missing(deparsed_expressions)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
-    str_res <- ic_peek(value)
-    expression_string <- glue::glue("{{.var {deparsed_expression}}}: {str_res}")
+    value_strings <- purrr::map_chr(expression_values, ic_peek)
+    expression_strings <- glue::glue_collapse(
+      glue::glue("{{.var {deparsed_expressions}}}: {value_strings}"), sep = ", "
+    )
   }
 
   # We need to check what options are set to decide what to print - whether to include the context
   # or not.
   prefix <- getOption("icecream.prefix", "ic|")
-  output <- if (!is.null(expression_string)) {
+  output <- if (!is.null(expression_strings)) {
     if (getOption("icecream.always.include.context")) {
-      glue::glue("{context_string} | {expression_string}")
+      glue::glue("{context_string} | {expression_strings}")
     } else {
-      expression_string
+      expression_strings
     }
   } else {
     context_string

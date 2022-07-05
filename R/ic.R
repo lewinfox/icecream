@@ -12,12 +12,12 @@
 #'
 #' ic(f(-1))
 #' @export
-ic <- function(x) {
+ic <- function(...) {
   # Capture the input to allow us to work with the expression and value separately
-  q <- rlang::enquo(x)
+  quosures <- rlang::enquos(...)
 
   # The behaviour of the function changes depending on whether input is provided or not.
-  missing_input <- rlang::quo_is_missing(q)
+  missing_input <- (length(quosures) == 0)
 
   # In the event that icecream is totally disabled we will just return the input.
   if (getOption("icecream.enabled")) {
@@ -51,15 +51,15 @@ ic <- function(x) {
     # If we have inputs then we want the expression and value to be included in the context object
     # as well.
     if (!missing_input) {
-      deparsed_expression <- rlang::expr_deparse(rlang::quo_get_expr(q))
-      x <- rlang::eval_tidy(q)
-      ic_print(loc, parent_ref, deparsed_expression, x)
-      invisible(x)
+      deparsed_exprs <- purrr::map(quosures, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
+      expr_vals <- purrr::map(quosures, rlang::eval_tidy)
+      ic_print(loc, parent_ref, deparsed_exprs, expr_vals)
+      invisible(simplify_single(expr_vals))
     } else {
       ic_print(loc, parent_ref)
       invisible()
     }
-  } else if (!missing_input) x
+  } else if (!missing_input) simplify_single(list(...))
 }
 
 #' Enable or disable `ic()`

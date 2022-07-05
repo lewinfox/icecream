@@ -7,8 +7,8 @@
 ic_print(
   loc,
   parent_ref,
-  deparsed_expression = rlang::missing_arg(),
-  value = rlang::missing_arg()
+  deparsed_expressions = rlang::missing_arg(),
+  expression_values = rlang::missing_arg()
 )
 }
 \arguments{

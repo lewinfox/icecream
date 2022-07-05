@@ -4,7 +4,7 @@
 \alias{ic}
 \title{User-friendly debug statements}
 \usage{
-ic(x)
+ic(...)
 }
 \arguments{
 \item{x}{An expression, or nothing}
