@@ -14,6 +14,11 @@
 #'   complicated debugging but produces a lot of output so is disabled by default. When `ic()` is
 #'   called with no arguments, the context is always printed because showing the location of the
 #'   call is the only reason to call `ic()` on its own.
+#' * `icecream.peeking.function`: indicates the function that summarizes the object. Default value
+#'   is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more
+#'   informative output for `lists`, `data.frames` and their subclasses in a more compact way.
+#' * `icecream.max.lines` Integer. Determines maximum number of lines that the peek of an object
+#'   occupies; defaults to 1.
 #' * `icecream.output.function`: Not implemented yet. See the
 #'   [configuration](https://github.com/gruns/icecream#configuration) section of the original
 #'   project docs for details of what it will do.

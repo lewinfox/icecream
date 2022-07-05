@@ -44,3 +44,17 @@ relish <- function(x, dir = getwd()) {
   }
   gsub(dir, "", x, fixed = TRUE)
 }
+
+#' Utility function for simplifying single-element lists
+#'
+#' @param x A list of length at least one.
+#'
+#' @return If x has length greater than one, it is returned unchanged. If the length is equal to
+#'     one, the first element is returned.
+simplify_single <- function(x) {
+  if (length(x) == 1) {
+    x[[1]]
+  } else {
+    x
+  }
+}

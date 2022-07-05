@@ -4,23 +4,32 @@
 \alias{ic}
 \title{User-friendly debug statements}
 \usage{
-ic(x)
+ic(...)
 }
 \arguments{
-\item{x}{An expression, or nothing}
+\item{...}{Any number of expressions, possibly also 0 expressions.}
 }
 \value{
-If \code{x} is an expression, returns the result of evaluating \code{x}. If \code{x} is missing nothing
-is returned.
+If \code{...} is missing, nothing is returned. If \code{...} is a single expression, returns the result
+of evaluating it. If \code{...} contains multiple expressions, it returns list with their values in an
+according order.
 }
 \description{
 User-friendly debug statements
 }
+\details{
+Function is primarily called for its side effects. It does not change the value of expression
+(or expressions) passed to it, but it prints them with their values to the screen.
+}
 \examples{
+ic()
+
 f <- function(x) x < 0
 
 ic(f(1))
 
 ic(f(-1))
+
+ic(f(12), sum(1:5), 5)
 
 }

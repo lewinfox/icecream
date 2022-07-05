@@ -13,6 +13,15 @@ test_that("`ic_enable()` and `ic_disable()` work", {
   })
 })
 
+test_that("`with_ic_enable()` and `with_ic_disable()` work", {
+  with_options(list(icecream.enabled = TRUE), {
+    expect_message(ic(1))
+    expect_message(with_ic_disable(ic(1)), NA)
+    ic_disable()
+    expect_message(with_ic_enable(ic(1)))
+  })
+})
+
 test_that("`ic()` prints summaries for complex objects", {
   expect_message(ic(iris), regexp = "data\\.frame")
   expect_message(ic(complex(100)), regexp = "cplx \\[1:100\\] 0\\+0i 0\\+0i 0\\+0i")
@@ -28,12 +37,20 @@ test_that("`ic()` returns inputs unchanged", {
   })
 })
 
+test_that("`ic()` with multiple expressions returns a list of their values", {
+  suppressMessages({
+    expect_equal(ic(2 + 3, sum(1:5)), list(2 + 3, sum(1:5)))
+    expect_equal(ic(letters, exp(12), c(4, 5)), list(letters, exp(12), c(4, 5)))
+  })
+})
+
 test_that("`ic()` returns input invisibly", {
   suppressMessages({
     expect_invisible(ic(mean(1:100)))
     expect_invisible(ic(iris), iris)
     expect_invisible(ic(TRUE), TRUE)
     expect_invisible(ic(list(a = 1, b = 2)))
+    expect_invisible(ic(1, 2))
   })
 })
 
@@ -52,7 +69,10 @@ test_that("setting prefixes works", {
 
 
 test_that("function environment is correctly identified", {
-  f <- function() {ic(); 1}
+  f <- function() {
+    ic()
+    1
+  }
 
   # Remove the srcref to ensure we fall back on the environment
   f <- utils::removeSource(f)
