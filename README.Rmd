@@ -93,6 +93,12 @@ some_function(1)
 some_function(10)
 ```
 
+You can also provide multiple expressions to `ic()`:
+
+```{r}
+ic(sum(1:5), exp(-3))
+```
+
 More complex inputs like lists and data frames are summarised to avoid cluttering the terminal.
 
 ```{r}

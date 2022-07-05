@@ -68,6 +68,13 @@ some_function(10)
 #> [1] 50
 ```
 
+You can also provide multiple expressions to `ic()`:
+
+``` r
+ic(sum(1:5), exp(-3))
+#> ℹ ic| `sum(1:5)`: int 15, `exp(-3)`: num 0.0498
+```
+
 More complex inputs like lists and data frames are summarised to avoid
 cluttering the terminal.
 
