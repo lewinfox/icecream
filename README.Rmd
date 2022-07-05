@@ -40,7 +40,7 @@ source(demo_file)
 
 <!-- badges: start -->
 [![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
-[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions)
+[![R-CMD-check](https://github.com/lewinfox/icecream/workflows/R-CMD-check/badge.svg)](https://github.com/lewinfox/icecream/actions)
 <!-- badges: end -->
 
 icecream is designed to make print debugging easier. It allows you to print out an expression, its
@@ -164,6 +164,23 @@ ic(mean(1:100))
 ic_enable()
 ```
 
+Convenience functions `with_ic_enable()` and `with_ic_disable()` are also provided.
+
+```{r}
+ic_enable()
+
+with_ic_disable(ic(mean(1:100)))
+
+ic_disable()
+
+with_ic_enable(ic(mean(1:100)))
+```
+
+```{r, include=FALSE}
+ic_enable()
+```
+
+
 ## Options
 
 The following options can be used to control behaviour:
@@ -219,6 +236,37 @@ of the call is the only reason to call `ic()` on its own.
 ```{r, include=FALSE}
 options(icecream.always.include.context = old.ctx)
 ```
+
+### `icecream.peeking.function` and `icecream.max.lines`
+These two options control how the result of evaluation of an expression is printed. `icecream.peeking.function` indicates the function that summarizes the object. Default value is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more informative output
+for `lists`, `data.frames` and their subclasses in a more compact way. `icecream.max.lines` 
+determines maximum number of lines that the peek of an object occupies; defaults to 1. 
+
+For more complex data you may want to use e.g. `head` function and 5 lines.
+
+```{r, include=FALSE}
+old.fun <- getOption("icecream.peeking.function")
+old.lines <- getOption("icecream.max.lines")
+```
+
+```{r, include=TRUE}
+data(iris)
+
+ic(iris) # we would like to see header of the data
+
+options(icecream.peeking.function = head,
+        icecream.max.lines = 5)
+
+ic(iris)
+```
+
+```{r, include=FALSE}
+options(icecream.peeking.function = old.fun,
+        icecream.max.lines = old.lines)
+```
+
+Note that if `icecream.max.lines` is greater than 1 and summary of an object is longer than 1, the 
+alert occupies one line more due to the header.
 
 ### `icecream.output.function`, `icecream.arg.to.string.function`
 Not implemented yet. See the [configuration](https://github.com/gruns/icecream#configuration)
