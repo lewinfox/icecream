@@ -37,12 +37,20 @@ test_that("`ic()` returns inputs unchanged", {
   })
 })
 
+test_that("`ic()` with multiple expressions returns a list of their values", {
+  suppressMessages({
+    expect_equal(ic(2 + 3, sum(1:5)), list(2 + 3, sum(1:5)))
+    expect_equal(ic(letters, exp(12), c(4, 5)), list(letters, exp(12), c(4, 5)))
+  })
+})
+
 test_that("`ic()` returns input invisibly", {
   suppressMessages({
     expect_invisible(ic(mean(1:100)))
     expect_invisible(ic(iris), iris)
     expect_invisible(ic(TRUE), TRUE)
     expect_invisible(ic(list(a = 1, b = 2)))
+    expect_invisible(ic(1, 2))
   })
 })
 
