@@ -88,6 +88,16 @@ test_that("changing printing function works", {
   })
 })
 
+test_that("always including context works", {
+  with_options(list(icecream.always.include.context = TRUE), {
+    expect_message(ic(42), regexp = "<.*> \\| `42`: num 42")
+  })
+
+  suppressMessages({
+    expect_message(ic(42, always.include.context = TRUE), regexp = "<.*> \\| `42`: num 42")
+  })
+})
+
 
 test_that("function environment is correctly identified", {
   f <- function() {
