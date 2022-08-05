@@ -65,6 +65,27 @@ test_that("setting prefixes works", {
   with_options(list(icecream.prefix = "HELLO"), {
     expect_message(ic(1), regexp = "HELLO")
   })
+
+  suppressMessages({
+    expect_message(ic(1, prefix = "IT'S ME"), regexp = "IT'S ME")
+  })
+})
+
+test_that("changing printing function works", {
+  foo <- function(x) cat(min(x), "-", max(x))
+
+  with_options(list(icecream.peeking.function = print), {
+    expect_message(ic(1:5), regexp = "\\[1\\] 1 2 3 4 5")
+  })
+
+  with_options(list(icecream.peeking.function = foo), {
+    expect_message(ic(0:100), regexp = "0 - 100")
+  })
+
+  suppressMessages({
+    expect_message(ic(1:5, peeking.function = print), regexp = "\\[1\\] 1 2 3 4 5")
+    expect_message(ic(0:100, peeking.function = foo), regexp = "0 - 100")
+  })
 })
 
 
