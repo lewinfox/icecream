@@ -33,7 +33,8 @@ ic_print <- function(loc, parent_ref, deparsed_expressions = rlang::missing_arg(
     # We want to print a one-line summary for complex objects like lists and data frames.
     value_strings <- purrr::map_chr(expression_values, ic_peek)
     expression_strings <- glue::glue_collapse(
-      glue::glue("{{.var {deparsed_expressions}}}: {value_strings}"), sep = ", "
+      glue::glue("{{.var {deparsed_expressions}}}: {value_strings}"),
+      sep = ", "
     )
   }
 
