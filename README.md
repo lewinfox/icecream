@@ -162,7 +162,6 @@ ic(mean(1:100))
 ic_disable()
 
 ic(mean(1:100))
-#> [1] 50.5
 ```
 
 Convenience functions `with_ic_enable()` and `with_ic_disable()` are
@@ -172,7 +171,6 @@ also provided.
 ic_enable()
 
 with_ic_disable(ic(mean(1:100)))
-#> [1] 50.5
 
 ic_disable()
 
@@ -207,6 +205,14 @@ ic(mean(1:5))
 #> ℹ 🍦 `mean(1:5)`: num 3
 ```
 
+This option can be used inline in a single `ic()` call as a function
+parameter.
+
+``` r
+ic(mean(1:5), prefix = "VERY IMPORTANT PREFIX:")
+#> ℹ VERY IMPORTANT PREFIX: `mean(1:5)`: num 3
+```
+
 ### `icecream.always.include.context`
 
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will
@@ -228,6 +234,14 @@ f3(1)
 When `ic()` is called with no arguments, the context is always printed
 because showing the location of the call is the only reason to call
 `ic()` on its own.
+
+If you want to enforce context printing for a single `ic()` call, you
+can do this using named parameter to `ic()` function.
+
+``` r
+ic(123, always.include.context = TRUE)
+#> ℹ ic| <env: global> | `123`: num 123
+```
 
 ### `icecream.peeking.function` and `icecream.max.lines`
 
@@ -258,6 +272,13 @@ ic(iris)
 #> 2          4.9         3.0          1.4         0.2  setosa
 #> 3          4.7         3.2          1.3         0.2  setosa
 #> 4          4.6         3.1          1.5         0.2  setosa
+```
+
+Those options can be used in a call inline.
+
+``` r
+ic(1:5, peeking.function = function(x) cat(min(x), "-", max(x)))
+#> ℹ ic| `1:5`: 1 - 5
 ```
 
 Note that if `icecream.max.lines` is greater than 1 and summary of an
