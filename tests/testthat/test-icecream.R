@@ -22,6 +22,13 @@ test_that("`with_ic_enable()` and `with_ic_disable()` work", {
   })
 })
 
+test_that("disabled `ic()` returns correct values", {
+  with_ic_disable({
+    expect_equal(ic(42), 42)
+    expect_equal(ic(23, 45), list(23, 45))
+  })
+})
+
 test_that("`ic()` prints summaries for complex objects", {
   expect_message(ic(iris), regexp = "data\\.frame")
   expect_message(ic(complex(100)), regexp = "cplx \\[1:100\\] 0\\+0i 0\\+0i 0\\+0i")
