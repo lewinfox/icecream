@@ -32,17 +32,15 @@ ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rl
 }
 
 ic_construct_context_str <- function(context) {
-  # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
-  #       probably a better way of handling this, but for now this will do.
-  context_string <- if (nchar(context[["loc"]]) == 0) "<unknown>" else context[["loc"]]
+  context_str <- context[["loc"]]
 
   # Next, are we printing a calling function?
   if (!is.null(context[["parent_ref"]])) {
     parent_ref <- rlang::expr_deparse(context[["parent_ref"]])
-    context_string <- glue::glue("{{.fn {context[['parent_ref']]}}} in {context_string}")
+    context_str <- glue::glue("{{.fn {context[['parent_ref']]}}} in {context_str}")
   }
 
-  return(context_string)
+  return(context_str)
 }
 
 ic_construct_expression_str <- function(deparsed_exprs, expr_vals, peeking.function, max.lines) {
