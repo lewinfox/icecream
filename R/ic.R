@@ -1,9 +1,14 @@
 #' User-friendly debug statements
 #'
 #' @param ... Any number of expressions, possibly also 0 expressions.
+#' @param prefix A prefix to use at the start of the icecream message.
+#' @param peeking.function A function to use to transform `x` to string.
+#' @param max.lines A number of lines that the output will be truncated to.
+#' @param always.include.context A logical value. Whether or not to include context when no `x` is provided.
 #'
 #' @details Function is primarily called for its side effects. It does not change the value of expression
-#' (or expressions) passed to it, but it prints them with their values to the screen.
+#' (or expressions) passed to it, but it prints them with their values to the screen. All named parameters 
+#' have corresponding options which are their default values. For details, see [`icecream`].
 #'
 #' @return If `...` is missing, nothing is returned. If `...` is a single expression, returns the result
 #'     of evaluating it. If `...` contains multiple expressions, it returns list with their values in an
@@ -50,11 +55,26 @@ ic <- function(...,
   }
 }
 
+#' Print only context when no value is provided
+#'
+#' @inheritParams ic
+#'
+#' @return The same as [`ic_print`]
+#'
+#' @keywords internal
 ic_print_only_context <- function(prefix) {
   context <- ic_get_context()
   ic_print(prefix = prefix, context = context)
 }
 
+#' Evaluate expressions and print them with value
+#'
+#' @param q A quosure, contains expression to be evaluated.
+#' @inheritParams ic
+#'
+#' @return Evaluated value of expression `q`.
+#'
+#' @keywords internal
 ic_evaluate_and_print <- function(q, prefix, peeking.function, max.lines, always.include.context) {
   deparsed_exprs <- purrr::map(q, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
   expr_vals <- purrr::map(q, rlang::eval_tidy)
@@ -74,6 +94,16 @@ ic_evaluate_and_print <- function(q, prefix, peeking.function, max.lines, always
   return(simplify_single(expr_vals))
 }
 
+#' Extract call stack from the trace
+#'
+#' This operation is extracted as a separate function because it contains checking for
+#' rlang function due to compatibility issue.
+#'
+#' @param trace A stack trace resulting from calling [rlang::trace_back()].
+#'
+#' @return A call stack, list of function calls.
+#'
+#' @keywords internal
 ic_extract_call_stack <- function(trace) {
   # In rlang 1.0.0 `calls` became `call`. See https://github.com/lewinfox/icecream/issues/8
   #
@@ -85,6 +115,19 @@ ic_extract_call_stack <- function(trace) {
   }
 }
 
+#' Get context of evaluation of `ic()` call
+#'
+#' @param nest_level An integer. Number of calls to skip in call stack. Calls need to be skipped
+#' because `ic()` and other internal functions add calls to the stack, which are not of our
+#' interest. Default value of 3 corresponds to three skips:
+#' `ic()` > `ic_evaluate_and_print()`/`ic_print_only_context()` > `ic_get_context()`
+#'
+#' @return A list of two objects: `loc` containing name of the file where `ic()` is called
+#' with line and row number if available, or environment of where the calling function definition
+#' is if not available; `parent_ref` containing function in which the `ic()` is called if available,
+#' `NULL` otherwise.
+#'
+#' @keywords internal
 ic_get_context <- function(nest_level = 3) {
   trace <- rlang::trace_back()
   call_stack <- ic_extract_call_stack(trace)

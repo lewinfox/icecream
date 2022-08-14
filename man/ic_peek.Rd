@@ -4,11 +4,7 @@
 \alias{ic_peek}
 \title{Peek at value of expression}
 \usage{
-ic_peek(
-  value,
-  peeking_function = getOption("icecream.peeking.function"),
-  max_lines = getOption("icecream.max.lines")
-)
+ic_peek(value, peeking_function, max_lines)
 }
 \arguments{
 \item{value}{The result of evaluating an expression inside the \code{ic()} function.}

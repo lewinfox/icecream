@@ -3,13 +3,13 @@
 #' The printing logic depends on how the `ic()` function has been called and what user options are
 #' set.
 #'
-#' @param loc String detailing function definition location, which may be a source ref (file, line
-#'   number and character index) or an environment.
-#' @param parent_ref The calling function.
-#' @param deparsed_expression The deparsed expression (if present) on which `ic()` was called. If
+#' @param context An object returned by `ic_get_context()`. A context in which `ic()` was called. If
+#' missing (default value), no context is included in the ic message.
+#' @param deparsed_exprs A list of deparsed expressions (if present) on which `ic()` was called. If
 #'   missing (default value), only evaluation context is printed.
-#' @param value The result of evaluating `deparsed_expression`. If expression is missing (default
-#' value), this argument should also be missing.
+#' @param expr_vals A list with the result of evaluating `deparsed_exprs`. If the argument is missing
+#' (default value), this argument should also be missing.
+#' @inheritParams ic
 #'
 #' @return The function is called for its side effect (printing to the console) but it also returns
 #'   its output string, invisibly.
@@ -31,18 +31,38 @@ ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rl
   invisible(output)
 }
 
+#' Construct part of printed string
+#'
+#' Helper functions when constructing final string for output of `ic()`.
+#'
+#' @return A part of final string value.
+#'
+#' @name construct-str
+#'
+#' @keywords internal
+NULL
+
+#' @describeIn construct-str Construct context string.
+#'
+#' @param context An object returned by `ic_get_context()`.
 ic_construct_context_str <- function(context) {
   context_str <- context[["loc"]]
 
   # Next, are we printing a calling function?
   if (!is.null(context[["parent_ref"]])) {
     parent_ref <- rlang::expr_deparse(context[["parent_ref"]])
+
+    # {{.fn {}}} is additional formatting info for cli
     context_str <- glue::glue("{{.fn {context[['parent_ref']]}}} in {context_str}")
   }
 
   return(context_str)
 }
 
+
+#' @describeIn construct-str Construct expression string.
+#'
+#' @inheritParams ic_print
 ic_construct_expression_str <- function(deparsed_exprs, expr_vals, peeking.function, max.lines) {
   # We want to print a one-line summary for complex objects like lists and data frames.
   value_str <- purrr::map_chr(expr_vals, ic_peek, peeking.function = peeking.function, max.lines = max.lines)

@@ -12,16 +12,22 @@ ic_print(
 )
 }
 \arguments{
-\item{loc}{String detailing function definition location, which may be a source ref (file, line
-number and character index) or an environment.}
-
-\item{parent_ref}{The calling function.}
+\item{prefix}{A prefix to use at the start of the icecream message.}
 
 \item{deparsed_expression}{The deparsed expression (if present) on which \code{ic()} was called. If
 missing (default value), only evaluation context is printed.}
 
 \item{value}{The result of evaluating \code{deparsed_expression}. If expression is missing (default
 value), this argument should also be missing.}
+
+\item{peeking.function}{A function to use to transform \code{x} to string.}
+
+\item{max.lines}{A number of lines that the output will be truncated to.}
+
+\item{loc}{String detailing function definition location, which may be a source ref (file, line
+number and character index) or an environment.}
+
+\item{parent_ref}{The calling function.}
 }
 \value{
 The function is called for its side effect (printing to the console) but it also returns
