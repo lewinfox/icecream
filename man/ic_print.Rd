@@ -5,29 +5,29 @@
 \title{Print icecream messages}
 \usage{
 ic_print(
-  loc,
-  parent_ref,
-  deparsed_expressions = rlang::missing_arg(),
-  expression_values = rlang::missing_arg()
+  prefix,
+  context = rlang::missing_arg(),
+  deparsed_exprs = rlang::missing_arg(),
+  expr_vals = rlang::missing_arg(),
+  peeking.function,
+  max.lines
 )
 }
 \arguments{
 \item{prefix}{A prefix to use at the start of the icecream message.}
 
-\item{deparsed_expression}{The deparsed expression (if present) on which \code{ic()} was called. If
+\item{context}{An object returned by \code{ic_get_context()}. A context in which \code{ic()} was called. If
+missing (default value), no context is included in the ic message.}
+
+\item{deparsed_exprs}{A list of deparsed expressions (if present) on which \code{ic()} was called. If
 missing (default value), only evaluation context is printed.}
 
-\item{value}{The result of evaluating \code{deparsed_expression}. If expression is missing (default
-value), this argument should also be missing.}
+\item{expr_vals}{A list with the result of evaluating \code{deparsed_exprs}. If the argument is missing
+(default value), this argument should also be missing.}
 
 \item{peeking.function}{A function to use to transform \code{x} to string.}
 
 \item{max.lines}{A number of lines that the output will be truncated to.}
-
-\item{loc}{String detailing function definition location, which may be a source ref (file, line
-number and character index) or an environment.}
-
-\item{parent_ref}{The calling function.}
 }
 \value{
 The function is called for its side effect (printing to the console) but it also returns

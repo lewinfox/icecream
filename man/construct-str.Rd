@@ -9,8 +9,8 @@
 ic_construct_context_str(context)
 
 ic_construct_expression_str(
-  deparsed_expression,
-  value,
+  deparsed_exprs,
+  expr_vals,
   peeking.function,
   max.lines
 )
@@ -18,11 +18,11 @@ ic_construct_expression_str(
 \arguments{
 \item{context}{An object returned by \code{ic_get_context()}.}
 
-\item{deparsed_expression}{The deparsed expression (if present) on which \code{ic()} was called. If
+\item{deparsed_exprs}{A list of deparsed expressions (if present) on which \code{ic()} was called. If
 missing (default value), only evaluation context is printed.}
 
-\item{value}{The result of evaluating \code{deparsed_expression}. If expression is missing (default
-value), this argument should also be missing.}
+\item{expr_vals}{A list with the result of evaluating \code{deparsed_exprs}. If the argument is missing
+(default value), this argument should also be missing.}
 
 \item{peeking.function}{A function to use to transform \code{x} to string.}
 
