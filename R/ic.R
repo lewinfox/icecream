@@ -7,7 +7,7 @@
 #' @param always.include.context A logical value. Whether or not to include context when no `x` is provided.
 #'
 #' @details Function is primarily called for its side effects. It does not change the value of expression
-#' (or expressions) passed to it, but it prints them with their values to the screen. All named parameters 
+#' (or expressions) passed to it, but it prints them with their values to the screen. All named parameters
 #' have corresponding options which are their default values. For details, see [`icecream`].
 #'
 #' @return If `...` is missing, nothing is returned. If `...` is a single expression, returns the result
@@ -47,8 +47,11 @@ ic <- function(...,
     return(invisible())
   } else {
     # If icecream is enabled, we need to evaluate quosure and print the value
-    if (getOption("icecream.enabled"))
-      x <- ic_evaluate_and_print(q, prefix, peeking.function, max.lines, always.include.context)
+    if (getOption("icecream.enabled")) {
+      x <- ic_evaluate_and_print(quosures, prefix, peeking.function, max.lines, always.include.context)
+    } else {
+      x <- simplify_single(list(...))
+    }
 
     # We return the value invisibly, evaluating it if needed
     return(invisible(x))
@@ -69,15 +72,15 @@ ic_print_only_context <- function(prefix) {
 
 #' Evaluate expressions and print them with value
 #'
-#' @param q A quosure, contains expression to be evaluated.
+#' @param quosures A vector of quosures, contains expressions to be evaluated.
 #' @inheritParams ic
 #'
-#' @return Evaluated value of expression `q`.
+#' @return Evaluated value of expression `quosures`.
 #'
 #' @keywords internal
-ic_evaluate_and_print <- function(q, prefix, peeking.function, max.lines, always.include.context) {
-  deparsed_exprs <- purrr::map(q, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
-  expr_vals <- purrr::map(q, rlang::eval_tidy)
+ic_evaluate_and_print <- function(quosures, prefix, peeking.function, max.lines, always.include.context) {
+  deparsed_exprs <- purrr::map(quosures, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
+  expr_vals <- purrr::map(quosures, rlang::eval_tidy)
 
   # We are removing the names of expression (which are empty strings unless provided with a name)
   # TODO: discuss what to do if an expression is named

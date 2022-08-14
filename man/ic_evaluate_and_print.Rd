@@ -5,7 +5,7 @@
 \title{Evaluate expressions and print them with value}
 \usage{
 ic_evaluate_and_print(
-  q,
+  quosures,
   prefix,
   peeking.function,
   max.lines,
@@ -13,7 +13,7 @@ ic_evaluate_and_print(
 )
 }
 \arguments{
-\item{q}{A quosure, contains expression to be evaluated.}
+\item{quosures}{A vector of quosures, contains expressions to be evaluated.}
 
 \item{prefix}{A prefix to use at the start of the icecream message.}
 
@@ -24,7 +24,7 @@ ic_evaluate_and_print(
 \item{always.include.context}{A logical value. Whether or not to include context when no \code{x} is provided.}
 }
 \value{
-Evaluated value of expression \code{q}.
+Evaluated value of expression \code{quosures}.
 }
 \description{
 Evaluate expressions and print them with value
