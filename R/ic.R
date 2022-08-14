@@ -65,9 +65,9 @@ ic_evaluate_and_print <- function(q, prefix, peeking.function, max.lines, always
 
   if (always.include.context) {
     context <- ic_get_context()
-    ic_print(prefix, context, deparsed_exprs, expr_vals)
+    ic_print(prefix, context, deparsed_exprs, expr_vals, peeking.function, max.lines)
   } else {
-    ic_print(prefix, deparsed_exprs = deparsed_exprs, expr_vals = expr_vals)
+    ic_print(prefix, deparsed_exprs = deparsed_exprs, expr_vals = expr_vals, peeking.function = peeking.function, max.lines = max.lines)
   }
 
   # If there was only one expression, unlist it

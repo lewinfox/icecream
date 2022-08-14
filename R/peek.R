@@ -24,8 +24,8 @@
 #'
 #' @keywords internal
 ic_peek <- function(value,
-                    peeking_function = getOption("icecream.peeking.function"),
-                    max_lines = getOption("icecream.max.lines")) {
+                    peeking_function,
+                    max_lines) {
   output <- utils::capture.output(peeking_function(value))
   real_lines <- min(length(output), max_lines)
   if (real_lines == 1) {

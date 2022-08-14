@@ -15,12 +15,12 @@
 #'   its output string, invisibly.
 #'
 #' @keywords internal
-ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rlang::missing_arg(), expr_vals = rlang::missing_arg()) {
+ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rlang::missing_arg(), expr_vals = rlang::missing_arg(), peeking.function, max.lines) {
   # If context should be included, the argument is non-missing
   context_str <- if (!rlang::is_missing(context)) ic_construct_context_str(context) else ""
 
   # If expression should be included, deparsed expression and value are non-missing
-  expression_str <- if (!rlang::is_missing(value)) ic_construct_expression_str(deparsed_exprs, expr_vals) else ""
+  expression_str <- if (!rlang::is_missing(value)) ic_construct_expression_str(deparsed_exprs, expr_vals, peeking.function, max.lines) else ""
 
   # If both are non-empty strings, we need to add a separator
   sep_str <- if (nchar(context_str) > 0 & nchar(expression_str) > 0) " | " else ""
@@ -45,9 +45,9 @@ ic_construct_context_str <- function(context) {
   return(context_string)
 }
 
-ic_construct_expression_str <- function(deparsed_exprs, expr_vals) {
+ic_construct_expression_str <- function(deparsed_exprs, expr_vals, peeking.function, max.lines) {
   # We want to print a one-line summary for complex objects like lists and data frames.
-  value_str <- purrr::map_chr(expr_vals, ic_peek)
+  value_str <- purrr::map_chr(expr_vals, ic_peek, peeking.function = peeking.function, max.lines = max.lines)
   expression_str <- glue::glue_collapse(
     glue::glue("{{.var {deparsed_exprs}}}: {value_str}"),
     sep = ", "
