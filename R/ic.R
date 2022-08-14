@@ -21,58 +21,95 @@
 #' ic(f(12), sum(1:5), 5)
 #'
 #' @export
-ic <- function(...) {
+ic <- function(...,
+               prefix = getOption("icecream.prefix"),
+               peeking.function = getOption("icecream.peeking.function"),
+               max.lines = getOption("icecream.max.lines"),
+               always.include.context = getOption("icecream.always.include.context")
+               ) {
   # Capture the input to allow us to work with the expression and value separately
   quosures <- rlang::enquos(...)
 
   # The behaviour of the function changes depending on whether input is provided or not.
   missing_input <- (length(quosures) == 0)
 
-  # In the event that icecream is totally disabled we will just return the input.
-  if (getOption("icecream.enabled")) {
-    trace <- rlang::trace_back()
+  if (missing_input) {
+    # If icecream is enabled, for missing input we will print the context
+    if (getOption("icecream.enabled"))
+      ic_print_only_context(prefix)
 
-    # In rlang 1.0.0 `calls` became `call`. See https://github.com/lewinfox/icecream/issues/8
-    #
-    # TODO: Deprecate at some point?
-    if (utils::packageVersion("rlang") < "1.0.0") {
-      call_stack <- trace$calls
-    } else {
-      call_stack <- trace$call
-    }
+    # In the event that icecream is totally disabled we will just return invisibly.
+    return(invisible())
+  } else {
+    # If icecream is enabled, we need to evaluate quosure and print the value
+    if (getOption("icecream.enabled"))
+      x <- ic_evaluate_and_print(q, prefix, peeking.function, max.lines, always.include.context)
 
-    num_calls <- length(call_stack)
+    # We return the value invisibly, evaluating it if needed
+    return(invisible(x))
+  }
+}
 
-    parent_ref <- if (num_calls > 1) call_stack[[num_calls - 1]][[1]] else NULL
-    ref <- attr(call_stack[[num_calls]], "srcref")
-    loc <- src_loc(ref)
+ic_print_only_context <- function(prefix) {
+  context <- ic_get_context()
+  ic_print(prefix = prefix, context = context)
+}
 
-    # Case when location of file is unavailable
-    if (nchar(loc) == 0) {
-      # Probs want to look at environments
-      caller <- rlang::caller_fn()
-      caller_env <- if (is.null(caller)) rlang::caller_env() else rlang::fn_env(caller)
+ic_evaluate_and_print <- function(q, prefix, peeking.function, max.lines, always.include.context) {
+  deparsed_exprs <- purrr::map(q, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
+  expr_vals <- purrr::map(q, rlang::eval_tidy)
 
-      loc <- rlang::env_label(caller_env)
-      loc <- glue::glue("<env: {loc}>")
-    }
+  # We are removing the names of expression (which are empty strings unless provided with a name)
+  # TODO: discuss what to do if an expression is named
+  names(expr_vals) <- NULL
 
-    # If we have inputs then we want the expression and value to be included in the context object
-    # as well.
-    if (!missing_input) {
-      deparsed_exprs <- purrr::map(quosures, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
-      expr_vals <- purrr::map(quosures, rlang::eval_tidy)
+  if (always.include.context) {
+    context <- ic_get_context()
+    ic_print(prefix, context, deparsed_exprs, expr_vals)
+  } else {
+    ic_print(prefix, deparsed_exprs = deparsed_exprs, expr_vals = expr_vals)
+  }
 
-      # We are removing the names of expression (which are empty strings unless provided with a name)
-      # TODO: discuss what to do if an expression is named
-      names(expr_vals) <- NULL
-      ic_print(loc, parent_ref, deparsed_exprs, expr_vals)
-      invisible(simplify_single(expr_vals))
-    } else {
-      ic_print(loc, parent_ref)
-      invisible()
-    }
-  } else if (!missing_input) simplify_single(list(...))
+  # If there was only one expression, unlist it
+  return(simplify_single(expr_vals))
+}
+
+ic_extract_call_stack <- function(trace) {
+  # In rlang 1.0.0 `calls` became `call`. See https://github.com/lewinfox/icecream/issues/8
+  #
+  # TODO: Deprecate at some point?
+  if (utils::packageVersion("rlang") < "1.0.0") {
+    call_stack <- trace$calls
+  } else {
+    call_stack <- trace$call
+  }
+}
+
+ic_get_context <- function(nest_level = 3) {
+  trace <- rlang::trace_back()
+  call_stack <- ic_extract_call_stack(trace)
+  num_calls <- length(call_stack)
+
+  # If num_calls is higher than nest_level, then the function that we are interested in (ic)
+  # was called from env directly
+  parent_ref <- if (num_calls > nest_level) call_stack[[num_calls - nest_level]][[1]] else NULL
+
+  # We want to look at where the function of interest (ic) was called, so we need to get
+  # srcref of call at the last call minus (nest_level - 1) levels
+  ref <- attr(call_stack[[num_calls - nest_level + 1]], "srcref")
+  loc <- src_loc(ref)
+
+  # Case when location of file is unavailable
+  if (nchar(loc) == 0) {
+    # Probs want to look at environments
+    caller <- rlang::caller_fn(nest_level)
+    caller_env <- if (is.null(caller)) rlang::caller_env(nest_level) else rlang::fn_env(caller)
+
+    loc <- rlang::env_label(caller_env)
+    loc <- glue::glue("<env: {loc}>")
+  }
+
+  return(list(loc = loc, parent_ref = parent_ref))
 }
 
 #' Enable or disable `ic()`

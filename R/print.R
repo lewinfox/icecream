@@ -15,43 +15,44 @@
 #'   its output string, invisibly.
 #'
 #' @keywords internal
-ic_print <- function(loc, parent_ref, deparsed_expressions = rlang::missing_arg(), expression_values = rlang::missing_arg()) {
-  # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
-  #       probably a better way of handling this, but for now this will do.
-  context_string <- if (nchar(loc) == 0) "<unknown>" else loc
+ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rlang::missing_arg(), expr_vals = rlang::missing_arg()) {
+  # If context should be included, the argument is non-missing
+  context_str <- if (!rlang::is_missing(context)) ic_construct_context_str(context) else ""
 
-  # Next, are we printing a calling function?
-  if (!is.null(parent_ref)) {
-    parent_ref <- rlang::expr_deparse(parent_ref)
-    context_string <- glue::glue("{{.fn {parent_ref}}} in {context_string}")
-  }
+  # If expression should be included, deparsed expression and value are non-missing
+  expression_str <- if (!rlang::is_missing(value)) ic_construct_expression_str(deparsed_exprs, expr_vals) else ""
 
-  expression_strings <- NULL
+  # If both are non-empty strings, we need to add a separator
+  sep_str <- if (nchar(context_str) > 0 & nchar(expression_str) > 0) " | " else ""
 
-  # Formatting result
-  if (!rlang::is_missing(deparsed_expressions)) {
-    # We want to print a one-line summary for complex objects like lists and data frames.
-    value_strings <- purrr::map_chr(expression_values, ic_peek)
-    expression_strings <- glue::glue_collapse(
-      glue::glue("{{.var {deparsed_expressions}}}: {value_strings}"),
-      sep = ", "
-    )
-  }
-
-  # We need to check what options are set to decide what to print - whether to include the context
-  # or not.
-  prefix <- getOption("icecream.prefix", "ic|")
-  output <- if (!is.null(expression_strings)) {
-    if (getOption("icecream.always.include.context")) {
-      glue::glue("{context_string} | {expression_strings}")
-    } else {
-      expression_strings
-    }
-  } else {
-    context_string
-  }
-  output <- paste(prefix, output)
+  output <- glue::glue("{prefix} {context_str}{sep_str}{expression_str}")
 
   cli::cli_alert_info(output) # TODO: This is where a custom print/display function would be used
   invisible(output)
+}
+
+ic_construct_context_str <- function(context) {
+  # TODO: I'm not certain at this stage that we will never get a zero-char `loc` passed in. There is
+  #       probably a better way of handling this, but for now this will do.
+  context_string <- if (nchar(context[["loc"]]) == 0) "<unknown>" else context[["loc"]]
+
+  # Next, are we printing a calling function?
+  if (!is.null(context[["parent_ref"]])) {
+    parent_ref <- rlang::expr_deparse(context[["parent_ref"]])
+    context_string <- glue::glue("{{.fn {context[['parent_ref']]}}} in {context_string}")
+  }
+
+  return(context_string)
+}
+
+ic_construct_expression_str <- function(deparsed_exprs, expr_vals) {
+  # We want to print a one-line summary for complex objects like lists and data frames.
+  value_str <- purrr::map_chr(expr_vals, ic_peek)
+  expression_str <- glue::glue_collapse(
+    glue::glue("{{.var {deparsed_exprs}}}: {value_str}"),
+    sep = ", "
+  )
+
+  # {{.var {}}} is additional formatting info for cli
+  return(glue::glue("{{.var {expression_str}}}: {str_res}"))
 }
