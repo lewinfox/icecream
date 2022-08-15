@@ -26,6 +26,11 @@
 ic_peek <- function(value,
                     peeking_function,
                     max_lines) {
+  # If max_lines in non-NA then it was provided explicitly and this setting overrides the defaults
+  # Otherwise, we need to find the proper value of max_lines basing on peeking_function
+  if (is.na(max_lines)) max_lines <- ic_get_default_max_lines(peeking_function)
+
+  # We don't want to output it directly to terminal, as it still needs to get trimmed
   output <- utils::capture.output(peeking_function(value))
   real_lines <- min(length(output), max_lines)
   if (real_lines == 1) {
@@ -33,5 +38,44 @@ ic_peek <- function(value,
   } else {
     output <- trimws(output[1:real_lines])
     paste0(c("", output), collapse = "\n")
+  }
+}
+
+predefined_peeking_functions <- list(
+  "ic_autopeek" = ic_autopeek,
+  "print" = base::print,
+  "str" = utils::str,
+  "head" = utils::head,
+  "summary" = base::summary,
+  "glimpse" = pillar::glimpse
+)
+
+predefined_max_lines <- c(
+  "ic_autopeek" = 1,
+  "print" = 3,
+  "str" = 3,
+  "head" = 5,
+  "summary" = 5,
+  "glimpse" = 5
+)
+
+ic_get_default_max_lines <- function(peeking_function) {
+  # Checking if provided peeking function is within list of suggested peekers
+  match <- purrr::map_lgl(predefined_peeking_functions, ~ identical(.x, peeking_function))
+
+  # If a match is found, take the corresponding value
+  if (any(match)) {
+    return(predefined_max_lines[match])
+  } else {
+    # Checking for explicitly provided formal default in the custom peeking function
+    formals <- rlang::fn_fmls(peeking_function)
+    arg <- names(formals) == "max_lines"
+
+    if (any(match)) {
+      return(formals[[arg]])
+    } else {
+      # If not found, fallback to 1
+      return(1)
+    }
   }
 }
