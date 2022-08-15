@@ -95,6 +95,22 @@ test_that("changing printing function works", {
   })
 })
 
+expect_max_lines <- function(expr, max_lines) {
+  msgs <- capture_messages(expr)
+  num_lines <- stringi::stri_count_fixed(msgs, "\n")
+  expect(num_lines <= max_lines, failure_message = "Number of lines printed is higher than expected!")
+}
+
+test_that("changing max lines works", {
+  expect_max_lines(ic(iris), 1)
+  expect_max_lines(ic(iris, peeking.function = print), 4)
+  expect_max_lines(ic(iris, peeking.function = head), 6)
+  expect_max_lines(ic(iris, peeking.function = print, max.lines = 10), 11)
+  with_options(list(icecream.peeking.function = print, icecream.max.lines = 10), {
+    expect_max_lines(ic(iris), 11)
+  })
+})
+
 test_that("always including context works", {
   with_options(list(icecream.always.include.context = TRUE), {
     expect_message(ic(42), regexp = "<.*> \\| `42`: num 42")
