@@ -41,8 +41,16 @@ ic_peek <- function(value,
   }
 }
 
+#' List of predefined peeking functions
 #'
-predefined_peeking_functions <- list(
+#' Peeking functions handled by default by the `ic_peek()`
+#'
+#' @format A named list of 6 elements. Elements are functions that take arbitrary R object as
+#' an input and print to the console or return string as an output. Names of the elements
+#' are names of the function without the package name.
+#'
+#' @keywords internal
+ic_predefined_peeking_functions <- list(
   "ic_autopeek" = ic_autopeek,
   "print" = base::print,
   "str" = utils::str,
@@ -51,7 +59,15 @@ predefined_peeking_functions <- list(
   "glimpse" = pillar::glimpse
 )
 
-predefined_max_lines <- c(
+#' Values of max_lines for predefined peeking functions
+#'
+#' Default max_lines values for peeking functions handled by default by the `ic_peek()`
+#'
+#' @format A named numeric vector of 6 elements. Elements are the max_line values for
+#' predefined peeking functions. Names correspond to names of [ic_predefined_peeking_functions]
+#'
+#' @keywords internal
+ic_predefined_max_lines <- c(
   "ic_autopeek" = 1,
   "print" = 3,
   "str" = 3,
@@ -71,19 +87,23 @@ predefined_max_lines <- c(
 #' @keywords internal
 ic_get_default_max_lines <- function(peeking_function) {
   # Checking if provided peeking function is within list of suggested peekers
-  match <- purrr::map_lgl(predefined_peeking_functions, ~ identical(.x, peeking_function))
+  match <- purrr::map_lgl(ic_predefined_peeking_functions, ~ identical(.x, peeking_function))
 
   # If a match is found, take the corresponding value
   # Don't checking if there is more than one match, because of identity
   if (any(match)) {
-    return(predefined_max_lines[match])
+    return(ic_predefined_max_lines[match])
   } else {
     # Checking for explicitly provided formal default in the custom peeking function
     formals <- rlang::fn_fmls(peeking_function)
     arg <- names(formals) %in% c("max_lines", "max.lines")
 
     # Checking if there is exactly one match which has a default value
-    if (sum(arg) == 1 && as.character(formals[[arg]]) != "") return(formals[[arg]])
-    else return(1) # If not found, fallback to 1
+    if (sum(arg) == 1) {
+      arg <- formals[[which(arg)]]
+      if (as.character(arg) != "") return(arg)
+    }
+
+    return(1) # If everything fails, fallback to 1
   }
 }
