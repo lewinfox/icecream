@@ -251,10 +251,13 @@ summarizes the object. Default value is `ic_autopeek`, which works like
 `utils::str` for most of the time, but gives more informative output for
 `lists`, `data.frames` and their subclasses in a more compact way.
 `icecream.max.lines` determines maximum number of lines that the peek of
-an object occupies; defaults to 1.
+an object occupies. By default (value of `NA`) code selects the
+predefined number of lines specified for a number of predefined *peeking
+functions*. If a numeric value is provided, it overrides the default
+behavior (see package documentation for details).
 
-For more complex data you may want to use e.g. `head` function and 5
-lines.
+For more complex data you may want to use e.g. `head` function.
+Predefined value of `max.lines` for `head` is 5.
 
 ``` r
 data(iris)
@@ -262,19 +265,27 @@ data(iris)
 ic(iris) # we would like to see header of the data
 #> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
-options(icecream.peeking.function = head,
-        icecream.max.lines = 5)
+options(icecream.peeking.function = head)
 
-ic(iris)
+ic(iris) # maybe 5 lines is too much?
 #> ℹ ic| `iris`: 
 #> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa
 #> 3          4.7         3.2          1.3         0.2  setosa
 #> 4          4.6         3.1          1.5         0.2  setosa
+
+options(icecream.max.lines = 3)
+
+ic(iris)
+#> ℹ ic| `iris`: 
+#> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#> 1          5.1         3.5          1.4         0.2  setosa
+#> 2          4.9         3.0          1.4         0.2  setosa
 ```
 
-Those options can be used in a call inline.
+Those options can be used in a call inline as well. See that on the
+example of custom peeking function.
 
 ``` r
 ic(1:5, peeking.function = function(x) cat(min(x), "-", max(x)))
