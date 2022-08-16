@@ -106,9 +106,15 @@ test_that("changing max lines works", {
   expect_max_lines(ic(iris, peeking.function = print), 4)
   expect_max_lines(ic(iris, peeking.function = head), 6)
   expect_max_lines(ic(iris, peeking.function = print, max.lines = 10), 11)
+
   with_options(list(icecream.peeking.function = print, icecream.max.lines = 10), {
     expect_max_lines(ic(iris), 11)
   })
+
+  expect_max_lines(
+    ic(iris, peeking.function = function(dset, max_lines = 7) cat(paste(1:nrow(dset), collapse = "\n"))),
+    max_lines = 8
+  )
 })
 
 test_that("always including context works", {
