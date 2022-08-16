@@ -41,6 +41,7 @@ ic_peek <- function(value,
   }
 }
 
+#'
 predefined_peeking_functions <- list(
   "ic_autopeek" = ic_autopeek,
   "print" = base::print,
@@ -59,23 +60,30 @@ predefined_max_lines <- c(
   "glimpse" = 5
 )
 
+#' Get default value of max_lines parameter for given function
+#'
+#' @inheritParams ic_peek
+#'
+#' @return An integer value bigger than 0. If `peeking_function` is one of those handled by default,
+#' a value of corresponding predefined value. Otherwise, if function has a named parameter "max_lines"
+#' or "max.lines" with default value, the default value. Otherwise, a value of 1.
+#'
+#' @keywords internal
 ic_get_default_max_lines <- function(peeking_function) {
   # Checking if provided peeking function is within list of suggested peekers
   match <- purrr::map_lgl(predefined_peeking_functions, ~ identical(.x, peeking_function))
 
   # If a match is found, take the corresponding value
+  # Don't checking if there is more than one match, because of identity
   if (any(match)) {
     return(predefined_max_lines[match])
   } else {
     # Checking for explicitly provided formal default in the custom peeking function
     formals <- rlang::fn_fmls(peeking_function)
-    arg <- names(formals) == "max_lines"
+    arg <- names(formals) %in% c("max_lines", "max.lines")
 
-    if (any(match)) {
-      return(formals[[arg]])
-    } else {
-      # If not found, fallback to 1
-      return(1)
-    }
+    # Checking if there is exactly one match which has a default value
+    if (sum(arg) == 1 && as.character(formals[[arg]]) != "") return(formals[[arg]])
+    else return(1) # If not found, fallback to 1
   }
 }
