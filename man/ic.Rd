@@ -4,10 +4,24 @@
 \alias{ic}
 \title{User-friendly debug statements}
 \usage{
-ic(...)
+ic(
+  ...,
+  prefix = getOption("icecream.prefix"),
+  peeking.function = getOption("icecream.peeking.function"),
+  max.lines = getOption("icecream.max.lines"),
+  always.include.context = getOption("icecream.always.include.context")
+)
 }
 \arguments{
 \item{...}{Any number of expressions, possibly also 0 expressions.}
+
+\item{prefix}{A prefix to use at the start of the icecream message.}
+
+\item{peeking.function}{A function to use to transform \code{x} to string.}
+
+\item{max.lines}{A number of lines that the output will be truncated to.}
+
+\item{always.include.context}{A logical value. Whether or not to include context when no \code{x} is provided.}
 }
 \value{
 If \code{...} is missing, nothing is returned. If \code{...} is a single expression, returns the result
@@ -19,7 +33,8 @@ User-friendly debug statements
 }
 \details{
 Function is primarily called for its side effects. It does not change the value of expression
-(or expressions) passed to it, but it prints them with their values to the screen.
+(or expressions) passed to it, but it prints them with their values to the screen. All named parameters
+have corresponding options which are their default values. For details, see \code{\link{icecream}}.
 }
 \examples{
 ic()

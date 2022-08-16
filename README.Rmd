@@ -212,6 +212,12 @@ options(icecream.prefix = "\U1F366")
 ic(mean(1:5))
 ```
 
+This option can be used inline in a single `ic()` call as a function parameter.
+
+```{r, include=TRUE}
+ic(mean(1:5), prefix = "VERY IMPORTANT PREFIX:")
+```
+
 ```{r, include=FALSE}
 options(icecream.prefix = old.prefix)
 ```
@@ -239,6 +245,13 @@ f3(1)
 When `ic()` is called with no arguments, the context is always printed because showing the location
 of the call is the only reason to call `ic()` on its own.
 
+If you want to enforce context printing for a single `ic()` call, you can do this using named parameter
+to `ic()` function.
+
+```{r, include=TRUE}
+ic(123, always.include.context = TRUE)
+```
+
 ```{r, include=FALSE}
 options(icecream.always.include.context = old.ctx)
 ```
@@ -264,6 +277,12 @@ options(icecream.peeking.function = head,
         icecream.max.lines = 5)
 
 ic(iris)
+```
+
+Those options can be used in a call inline.
+
+```{r, include = TRUE}
+ic(1:5, peeking.function = function(x) cat(min(x), "-", max(x)))
 ```
 
 ```{r, include=FALSE}

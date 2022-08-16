@@ -13,6 +13,7 @@
 #' However, it also returns an invisible string of the printed summary.
 #'
 #' @seealso [utils::str()] [ic_peek()]
+#' @export
 ic_autopeek <- function(object, ...) {
   UseMethod("ic_autopeek")
 }
