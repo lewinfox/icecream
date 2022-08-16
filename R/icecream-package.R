@@ -18,7 +18,20 @@
 #'   is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more
 #'   informative output for `lists`, `data.frames` and their subclasses in a more compact way.
 #' * `icecream.max.lines` Integer. Determines maximum number of lines that the peek of an object
-#'   occupies; defaults to 1.
+#'   occupies. If the value is `NA`, it selects proper value basing on the `icecream.peeking.function`.
+#'   If peeking function is one of the supported by default (enumerated below), it selects the
+#'   predefined value:
+#'   - `ic_autopeek()`: 1
+#'   - `base::print()`: 3,
+#'   - `utils::str()`: 3,
+#'   - `utils::head()`: 5,
+#'   - `base::summary()`: 5,
+#'   - `pillar::glimpse()` or `tibble::glimpse()`: 5.
+#'
+#'   If the function is not one of the predefined, default value of parameter `max.lines` or `max_lines`
+#'   of the provided function is used (if it exists). Otherwise, the value of 1 is selected.
+#'   If the value is distinct from `NA`, it overrides the default behavior. The value of an option
+#'   defaults to `NA`.
 #' * `icecream.output.function`: Not implemented yet. See the
 #'   [configuration](https://github.com/gruns/icecream#configuration) section of the original
 #'   project docs for details of what it will do.

@@ -24,7 +24,22 @@ call is the only reason to call \code{ic()} on its own.
 is \code{ic_autopeek}, which works like \code{utils::str} for most of the time, but gives more
 informative output for \code{lists}, \code{data.frames} and their subclasses in a more compact way.
 \item \code{icecream.max.lines} Integer. Determines maximum number of lines that the peek of an object
-occupies; defaults to 1.
+occupies. If the value is \code{NA}, it selects proper value basing on the \code{icecream.peeking.function}.
+If peeking function is one of the supported by default (enumerated below), it selects the
+predefined value:
+\itemize{
+\item \code{ic_autopeek()}: 1
+\item \code{base::print()}: 3,
+\item \code{utils::str()}: 3,
+\item \code{utils::head()}: 5,
+\item \code{base::summary()}: 5,
+\item \code{pillar::glimpse()} or \code{tibble::glimpse()}: 5.
+}
+
+If the function is not one of the predefined, default value of parameter \code{max.lines} or \code{max_lines}
+of the provided function is used (if it exists). Otherwise, the value of 1 is selected.
+If the value is distinct from \code{NA}, it overrides the default behavior. The value of an option
+defaults to \code{NA}.
 \item \code{icecream.output.function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
