@@ -9,8 +9,8 @@ ic_print(
   context = rlang::missing_arg(),
   deparsed_exprs = rlang::missing_arg(),
   expr_vals = rlang::missing_arg(),
-  peeking.function,
-  max.lines
+  peeking_function,
+  max_lines
 )
 }
 \arguments{
@@ -25,9 +25,9 @@ missing (default value), only evaluation context is printed.}
 \item{expr_vals}{A list with the result of evaluating \code{deparsed_exprs}. If the argument is missing
 (default value), this argument should also be missing.}
 
-\item{peeking.function}{A function to use to transform \code{x} to string.}
+\item{peeking_function}{A function to use to transform \code{x} to string.}
 
-\item{max.lines}{A number of lines that the output will be truncated to.}
+\item{max_lines}{A number of lines that the output will be truncated to.}
 }
 \value{
 The function is called for its side effect (printing to the console) but it also returns

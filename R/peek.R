@@ -4,11 +4,11 @@
 #'
 #' @param value The result of evaluating an expression inside the `ic()` function.
 #' @param peeking_function The function used to peek at the value. Default value is set by the
-#' "icecream.peeking.function" option.
+#' "icecream_peeking_function" option.
 #' @param max_lines Maximum number of lines printed. Default value is set by the
-#' "icecream.max.lines" option.
+#' "icecream_max_lines" option.
 #'
-#' @details Default value of `icecream.peeking.function` is `ic_autopeek`. Suggested possible
+#' @details Default value of `icecream_peeking_function` is `ic_autopeek`. Suggested possible
 #' alternatives are:
 #'
 #' * `utils::str`
@@ -82,7 +82,7 @@ ic_predefined_max_lines <- c(
 #'
 #' @return An integer value bigger than 0. If `peeking_function` is one of those handled by default,
 #' a value of corresponding predefined value. Otherwise, if function has a named parameter "max_lines"
-#' or "max.lines" with default value, the default value. Otherwise, a value of 1.
+#' or "max_lines" with default value, the default value. Otherwise, a value of 1.
 #'
 #' @keywords internal
 ic_get_default_max_lines <- function(peeking_function) {
@@ -96,7 +96,7 @@ ic_get_default_max_lines <- function(peeking_function) {
   } else {
     # Checking for explicitly provided formal default in the custom peeking function
     formals <- rlang::fn_fmls(peeking_function)
-    arg <- names(formals) %in% c("max_lines", "max.lines")
+    arg <- names(formals) %in% c("max_lines", "max_lines")
 
     # Checking if there is exactly one match which has a default value
     if (sum(arg) == 1) {

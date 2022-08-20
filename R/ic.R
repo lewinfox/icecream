@@ -2,9 +2,9 @@
 #'
 #' @param ... Any number of expressions, possibly also 0 expressions.
 #' @param prefix A prefix to use at the start of the icecream message.
-#' @param peeking.function A function to use to transform `x` to string.
-#' @param max.lines A number of lines that the output will be truncated to.
-#' @param always.include.context A logical value. Whether or not to include context when no `x` is provided.
+#' @param peeking_function A function to use to transform `x` to string.
+#' @param max_lines A number of lines that the output will be truncated to.
+#' @param always_include_context A logical value. Whether or not to include context when no `x` is provided.
 #'
 #' @details Function is primarily called for its side effects. It does not change the value of expression
 #' (or expressions) passed to it, but it prints them with their values to the screen. All named parameters
@@ -27,10 +27,10 @@
 #'
 #' @export
 ic <- function(...,
-               prefix = getOption("icecream.prefix"),
-               peeking.function = getOption("icecream.peeking.function"),
-               max.lines = getOption("icecream.max.lines"),
-               always.include.context = getOption("icecream.always.include.context")
+               prefix = getOption("icecream_prefix"),
+               peeking_function = getOption("icecream_peeking_function"),
+               max_lines = getOption("icecream_max_lines"),
+               always_include_context = getOption("icecream_always_include_context")
                ) {
   # Capture the input to allow us to work with the expression and value separately
   quosures <- rlang::enquos(...)
@@ -40,15 +40,15 @@ ic <- function(...,
 
   if (missing_input) {
     # If icecream is enabled, for missing input we will print the context
-    if (getOption("icecream.enabled"))
+    if (getOption("icecream_enabled"))
       ic_print_only_context(prefix)
 
     # In the event that icecream is totally disabled we will just return invisibly.
     return(invisible())
   } else {
     # If icecream is enabled, we need to evaluate quosure and print the value
-    if (getOption("icecream.enabled")) {
-      x <- ic_evaluate_and_print(quosures, prefix, peeking.function, max.lines, always.include.context)
+    if (getOption("icecream_enabled")) {
+      x <- ic_evaluate_and_print(quosures, prefix, peeking_function, max_lines, always_include_context)
     } else {
       x <- simplify_single(list(...))
     }
@@ -78,7 +78,7 @@ ic_print_only_context <- function(prefix) {
 #' @return Evaluated value of expression `quosures`.
 #'
 #' @keywords internal
-ic_evaluate_and_print <- function(quosures, prefix, peeking.function, max.lines, always.include.context) {
+ic_evaluate_and_print <- function(quosures, prefix, peeking_function, max_lines, always_include_context) {
   deparsed_exprs <- purrr::map(quosures, ~ rlang::expr_deparse(rlang::quo_get_expr(.x)))
   expr_vals <- purrr::map(quosures, rlang::eval_tidy)
 
@@ -86,11 +86,11 @@ ic_evaluate_and_print <- function(quosures, prefix, peeking.function, max.lines,
   # TODO: discuss what to do if an expression is named
   names(expr_vals) <- NULL
 
-  if (always.include.context) {
+  if (always_include_context) {
     context <- ic_get_context()
-    ic_print(prefix, context, deparsed_exprs, expr_vals, peeking.function, max.lines)
+    ic_print(prefix, context, deparsed_exprs, expr_vals, peeking_function, max_lines)
   } else {
-    ic_print(prefix, deparsed_exprs = deparsed_exprs, expr_vals = expr_vals, peeking.function = peeking.function, max.lines = max.lines)
+    ic_print(prefix, deparsed_exprs = deparsed_exprs, expr_vals = expr_vals, peeking_function = peeking_function, max_lines = max_lines)
   }
 
   # If there was only one expression, unlist it
@@ -163,7 +163,7 @@ ic_get_context <- function(nest_level = 3) {
 #' These functions enable or disable the `ic()` function. While disabled `ic()` will do nothing
 #' except evaluate and return its input.
 #'
-#' These are just convenience wrappers for `options(icecream.enabled = TRUE/FALSE)` used to align
+#' These are just convenience wrappers for `options(icecream_enabled = TRUE/FALSE)` used to align
 #' the API with the [Python version](https://github.com/gruns/icecream#miscellaneous).
 #'
 #' @name enable-disable
@@ -174,16 +174,16 @@ NULL
 #' @describeIn enable-disable Enable `ic()`.
 #' @export
 ic_enable <- function() {
-  old_value <- getOption("icecream.enabled")
-  options(icecream.enabled = TRUE)
+  old_value <- getOption("icecream_enabled")
+  options(icecream_enabled = TRUE)
   invisible(old_value)
 }
 
 #' @describeIn enable-disable Disable `ic()`.
 #' @export
 ic_disable <- function() {
-  old_value <- getOption("icecream.enabled")
-  options(icecream.enabled = FALSE)
+  old_value <- getOption("icecream_enabled")
+  options(icecream_enabled = FALSE)
   invisible(old_value)
 }
 
@@ -221,11 +221,11 @@ NULL
 #' @describeIn ic-single-use evaluates the expression with `ic()` enabled.
 #' @export
 with_ic_enable <- function(expr) {
-  withr::with_options(list(icecream.enabled = TRUE), expr)
+  withr::with_options(list(icecream_enabled = TRUE), expr)
 }
 
 #' @describeIn ic-single-use evaluates the expression with `ic()` disabled.
 #' @export
 with_ic_disable <- function(expr) {
-  withr::with_options(list(icecream.enabled = FALSE), expr)
+  withr::with_options(list(icecream_enabled = FALSE), expr)
 }

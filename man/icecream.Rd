@@ -12,19 +12,19 @@ use \code{print()} and see the expression and its value easily.
 
 The following options can be used to control behaviour:
 \itemize{
-\item \code{icecream.enabled}: Boolean. If \code{FALSE}, calls to \code{ic(foo)} simply evaluate and return \code{foo}.
+\item \code{icecream_enabled}: Boolean. If \code{FALSE}, calls to \code{ic(foo)} simply evaluate and return \code{foo}.
 No output is printed.
-\item \code{icecream.prefix}: This is printed at the beginning of every line. Defaults to \code{"ic|"}.
-\item \code{icecream.include.context}: Boolean. If \code{TRUE}, when calling \code{ic(foo)} the source file:line
+\item \code{icecream_prefix}: This is printed at the beginning of every line. Defaults to \code{"ic|"}.
+\item \code{icecream_include.context}: Boolean. If \code{TRUE}, when calling \code{ic(foo)} the source file:line
 or environment will be printed along with the expression and value. This can be useful for more
 complicated debugging but produces a lot of output so is disabled by default. When \code{ic()} is
 called with no arguments, the context is always printed because showing the location of the
 call is the only reason to call \code{ic()} on its own.
-\item \code{icecream.peeking.function}: indicates the function that summarizes the object. Default value
+\item \code{icecream_peeking_function}: indicates the function that summarizes the object. Default value
 is \code{ic_autopeek}, which works like \code{utils::str} for most of the time, but gives more
 informative output for \code{lists}, \code{data.frames} and their subclasses in a more compact way.
-\item \code{icecream.max.lines} Integer. Determines maximum number of lines that the peek of an object
-occupies. If the value is \code{NA}, it selects proper value basing on the \code{icecream.peeking.function}.
+\item \code{icecream_max_lines} Integer. Determines maximum number of lines that the peek of an object
+occupies. If the value is \code{NA}, it selects proper value basing on the \code{icecream_peeking_function}.
 If peeking function is one of the supported by default (enumerated below), it selects the
 predefined value:
 \itemize{
@@ -36,14 +36,14 @@ predefined value:
 \item \code{pillar::glimpse()} or \code{tibble::glimpse()}: 5.
 }
 
-If the function is not one of the predefined, default value of parameter \code{max.lines} or \code{max_lines}
+If the function is not one of the predefined, default value of parameter \code{max_lines} or \code{max_lines}
 of the provided function is used (if it exists). Otherwise, the value of 1 is selected.
 If the value is distinct from \code{NA}, it overrides the default behavior. The value of an option
 defaults to \code{NA}.
-\item \code{icecream.output.function}: Not implemented yet. See the
+\item \code{icecream_output_function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
-\item \code{icecream.arg.to.string.function}: Not implemented yet. See the
+\item \code{icecream_arg_to_string_function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
 }

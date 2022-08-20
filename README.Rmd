@@ -191,24 +191,24 @@ ic_enable()
 
 The following options can be used to control behaviour:
 
-### `icecream.enabled`
+### `icecream_enabled`
 Boolean. If `FALSE`, calls to `ic(foo)` simply evaluate and return `foo`. No output is printed. This
 option can be set directly or with the `ic_enable()` and `ic_disable()` functions.
 
-### `icecream.prefix`
+### `icecream_prefix`
 This is printed at the beginning of every line. Defaults to `"ic|"`.
 
 ```{r, include=FALSE}
-old.prefix <- getOption("icecream.prefix")
+old.prefix <- getOption("icecream_prefix")
 ```
 
 ```{r}
 ic(mean(1:5))
 
-options(icecream.prefix = "DEBUG:")
+options(icecream_prefix = "DEBUG:")
 ic(mean(1:5))
 
-options(icecream.prefix = "\U1F366")
+options(icecream_prefix = "\U1F366")
 ic(mean(1:5))
 ```
 
@@ -219,24 +219,24 @@ ic(mean(1:5), prefix = "VERY IMPORTANT PREFIX:")
 ```
 
 ```{r, include=FALSE}
-options(icecream.prefix = old.prefix)
+options(icecream_prefix = old.prefix)
 ```
 
-### `icecream.always.include.context`
+### `icecream_always_include_context`
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will be printed along with the
 expression and value. If no `srcref()` is available the function's environment will be displayed
 instead. This can be useful for more complicated debugging but produces a lot of output so is 
 disabled by default.
 
 ```{r, include=FALSE}
-old.ctx <- getOption("icecream.always.include.context")
+old.ctx <- getOption("icecream_always_include_context")
 ```
 
 ``` r
 f3(1)
 #> ℹ ic| `x`: num 1
 
-options(icecream.always.include.context = TRUE)
+options(icecream_always_include_context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
@@ -249,23 +249,23 @@ If you want to enforce context printing for a single `ic()` call, you can do thi
 to `ic()` function.
 
 ```{r, include=TRUE}
-ic(123, always.include.context = TRUE)
+ic(123, always_include_context = TRUE)
 ```
 
 ```{r, include=FALSE}
-options(icecream.always.include.context = old.ctx)
+options(icecream_always_include_context = old.ctx)
 ```
 
-### `icecream.peeking.function` and `icecream.max.lines`
-These two options control how the result of evaluation of an expression is printed. `icecream.peeking.function` indicates the function that summarizes the object. Default value is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more informative output
-for `lists`, `data.frames` and their subclasses in a more compact way. `icecream.max.lines` 
+### `icecream_peeking_function` and `icecream_max_lines`
+These two options control how the result of evaluation of an expression is printed. `icecream_peeking_function` indicates the function that summarizes the object. Default value is `ic_autopeek`, which works like `utils::str` for most of the time, but gives more informative output
+for `lists`, `data.frames` and their subclasses in a more compact way. `icecream_max_lines` 
 determines maximum number of lines that the peek of an object occupies. By default (value of `NA`) code selects the predefined number of lines specified for a number of predefined *peeking functions*. If a numeric value is provided, it overrides the default behavior (see package documentation for details).
 
-For more complex data you may want to use e.g. `head` function. Predefined value of `max.lines` for `head` is 5.
+For more complex data you may want to use e.g. `head` function. Predefined value of `max_lines` for `head` is 5.
 
 ```{r, include=FALSE}
-old.fun <- getOption("icecream.peeking.function")
-old.lines <- getOption("icecream.max.lines")
+old.fun <- getOption("icecream_peeking_function")
+old.lines <- getOption("icecream_max_lines")
 ```
 
 ```{r, include=TRUE}
@@ -273,11 +273,11 @@ data(iris)
 
 ic(iris) # we would like to see header of the data
 
-options(icecream.peeking.function = head)
+options(icecream_peeking_function = head)
 
 ic(iris) # maybe 5 lines is too much?
 
-options(icecream.max.lines = 3)
+options(icecream_max_lines = 3)
 
 ic(iris)
 ```
@@ -285,23 +285,23 @@ ic(iris)
 Those options can be used in an inline call as well. See that on the example of custom peeking function.
 
 ```{r, include = TRUE}
-ic(1:5, peeking.function = function(x) cat(min(x), "-", max(x)))
+ic(1:5, peeking_function = function(x) cat(min(x), "-", max(x)))
 ```
 
 ```{r, include=FALSE}
-options(icecream.peeking.function = old.fun,
-        icecream.max.lines = old.lines)
+options(icecream_peeking_function = old.fun,
+        icecream_max_lines = old.lines)
 ```
 
-Note that if `icecream.max.lines` is greater than 1 and summary of an object is longer than 1, the 
+Note that if `icecream_max_lines` is greater than 1 and summary of an object is longer than 1, the 
 alert occupies one line more due to the header.
 
-### `icecream.output.function`, `icecream.arg.to.string.function`
+### `icecream_output_function`, `icecream_arg_to_string_function`
 Not implemented yet. See the [configuration](https://github.com/gruns/icecream#configuration)
 section of the original project docs for details of what they will do.
 
 ## TODO:
 
 * Implement `ic.format()` (see [here](https://github.com/gruns/icecream#miscellaneous)).
-* Implement `ic.output.function`. At the moment it uses `cli::cli_alert_info()`
-* Implement `ic.arg.to.string.function`
+* Implement `ic.output_function`. At the moment it uses `cli::cli_alert_info()`
+* Implement `ic.arg_to_string_function`

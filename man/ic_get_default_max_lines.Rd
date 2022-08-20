@@ -8,12 +8,12 @@ ic_get_default_max_lines(peeking_function)
 }
 \arguments{
 \item{peeking_function}{The function used to peek at the value. Default value is set by the
-"icecream.peeking.function" option.}
+"icecream_peeking_function" option.}
 }
 \value{
 An integer value bigger than 0. If \code{peeking_function} is one of those handled by default,
 a value of corresponding predefined value. Otherwise, if function has a named parameter "max_lines"
-or "max.lines" with default value, the default value. Otherwise, a value of 1.
+or "max_lines" with default value, the default value. Otherwise, a value of 1.
 }
 \description{
 Get default value of max_lines parameter for given function

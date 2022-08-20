@@ -15,12 +15,12 @@
 #'   its output string, invisibly.
 #'
 #' @keywords internal
-ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rlang::missing_arg(), expr_vals = rlang::missing_arg(), peeking.function, max.lines) {
+ic_print <- function(prefix, context = rlang::missing_arg(), deparsed_exprs = rlang::missing_arg(), expr_vals = rlang::missing_arg(), peeking_function, max_lines) {
   # If context should be included, the argument is non-missing
   context_str <- if (!rlang::is_missing(context)) ic_construct_context_str(context) else ""
 
   # If expression should be included, deparsed expression and value are non-missing
-  expression_str <- if (!rlang::is_missing(expr_vals)) ic_construct_expression_str(deparsed_exprs, expr_vals, peeking.function, max.lines) else ""
+  expression_str <- if (!rlang::is_missing(expr_vals)) ic_construct_expression_str(deparsed_exprs, expr_vals, peeking_function, max_lines) else ""
 
   # If both are non-empty strings, we need to add a separator
   sep_str <- if (nchar(context_str) > 0 & nchar(expression_str) > 0) " | " else ""
@@ -63,9 +63,9 @@ ic_construct_context_str <- function(context) {
 #' @describeIn construct-str Construct expression string.
 #'
 #' @inheritParams ic_print
-ic_construct_expression_str <- function(deparsed_exprs, expr_vals, peeking.function, max.lines) {
+ic_construct_expression_str <- function(deparsed_exprs, expr_vals, peeking_function, max_lines) {
   # We want to print a one-line summary for complex objects like lists and data frames.
-  value_str <- purrr::map_chr(expr_vals, ic_peek, peeking_function = peeking.function, max_lines = max.lines)
+  value_str <- purrr::map_chr(expr_vals, ic_peek, peeking_function = peeking_function, max_lines = max_lines)
   expression_str <- glue::glue_collapse(
     # {{.var {}}} is additional formatting info for cli
     glue::glue("{{.var {deparsed_exprs}}}: {value_str}"),

@@ -11,8 +11,8 @@ ic_construct_context_str(context)
 ic_construct_expression_str(
   deparsed_exprs,
   expr_vals,
-  peeking.function,
-  max.lines
+  peeking_function,
+  max_lines
 )
 }
 \arguments{
@@ -24,9 +24,9 @@ missing (default value), only evaluation context is printed.}
 \item{expr_vals}{A list with the result of evaluating \code{deparsed_exprs}. If the argument is missing
 (default value), this argument should also be missing.}
 
-\item{peeking.function}{A function to use to transform \code{x} to string.}
+\item{peeking_function}{A function to use to transform \code{x} to string.}
 
-\item{max.lines}{A number of lines that the output will be truncated to.}
+\item{max_lines}{A number of lines that the output will be truncated to.}
 }
 \value{
 A part of final string value.
