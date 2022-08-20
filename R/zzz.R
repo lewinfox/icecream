@@ -5,7 +5,7 @@
     icecream.prefix = "ic|",
     icecream.output.function = NULL,
     icecream.peeking.function = ic_autopeek,
-    icecream.max.lines = NA_real_,
+    icecream.max.lines = NA_integer_,
     icecream.arg.to.string.function = NULL,
     icecream.always.include.context = FALSE
   )
