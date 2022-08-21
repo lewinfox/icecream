@@ -1,25 +1,25 @@
 .onLoad <- function(libname, pkgname) {
   # Set package-specific options
   options(
-    icecream.enabled = TRUE,
-    icecream.prefix = "ic|",
-    icecream.output.function = NULL,
-    icecream.peeking.function = ic_autopeek,
-    icecream.max.lines = 1,
-    icecream.arg.to.string.function = NULL,
-    icecream.always.include.context = FALSE
+    icecream_enabled = TRUE,
+    icecream_prefix = "ic|",
+    icecream_output_function = NULL,
+    icecream_peeking_function = ic_autopeek,
+    icecream_max_lines = NA_integer_,
+    icecream_arg_to_string_function = NULL,
+    icecream_always_include_context = FALSE
   )
 }
 
 .onUnload <- function(libpath) {
   # Unset package-specific options
   options(
-    icecream.enabled = NULL,
-    icecream.prefix = NULL,
-    icecream.output.function = NULL,
-    icecream.peeking.function = NULL,
-    icecream.max.lines = NULL,
-    icecream.arg.to.string.function = NULL,
-    icecream.always.include.context = NULL
+    icecream_enabled = NULL,
+    icecream_prefix = NULL,
+    icecream_output_function = NULL,
+    icecream_peeking_function = NULL,
+    icecream_max_lines = NULL,
+    icecream_arg_to_string_function = NULL,
+    icecream_always_include_context = NULL
   )
 }

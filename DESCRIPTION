@@ -34,6 +34,7 @@ Imports:
     rlang
 Suggests: 
     checkmate (>= 2.0.0),
+    stringi,
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3

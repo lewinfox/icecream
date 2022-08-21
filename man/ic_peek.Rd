@@ -10,10 +10,10 @@ ic_peek(value, peeking_function, max_lines)
 \item{value}{The result of evaluating an expression inside the \code{ic()} function.}
 
 \item{peeking_function}{The function used to peek at the value. Default value is set by the
-"icecream.peeking.function" option.}
+"icecream_peeking_function" option.}
 
 \item{max_lines}{Maximum number of lines printed. Default value is set by the
-"icecream.max.lines" option.}
+"icecream_max_lines" option.}
 }
 \value{
 A string to be printed.
@@ -22,7 +22,7 @@ A string to be printed.
 This function is a proxy for calling peeking function.
 }
 \details{
-Default value of \code{icecream.peeking.function} is \code{ic_autopeek}. Suggested possible
+Default value of \code{icecream_peeking_function} is \code{ic_autopeek}. Suggested possible
 alternatives are:
 \itemize{
 \item \code{utils::str}

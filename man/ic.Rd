@@ -6,10 +6,10 @@
 \usage{
 ic(
   ...,
-  prefix = getOption("icecream.prefix"),
-  peeking.function = getOption("icecream.peeking.function"),
-  max.lines = getOption("icecream.max.lines"),
-  always.include.context = getOption("icecream.always.include.context")
+  prefix = getOption("icecream_prefix"),
+  peeking_function = getOption("icecream_peeking_function"),
+  max_lines = getOption("icecream_max_lines"),
+  always_include_context = getOption("icecream_always_include_context")
 )
 }
 \arguments{
@@ -17,11 +17,11 @@ ic(
 
 \item{prefix}{A prefix to use at the start of the icecream message.}
 
-\item{peeking.function}{A function to use to transform \code{x} to string.}
+\item{peeking_function}{A function to use to transform \code{x} to string.}
 
-\item{max.lines}{A number of lines that the output will be truncated to.}
+\item{max_lines}{A number of lines that the output will be truncated to.}
 
-\item{always.include.context}{A logical value. Whether or not to include context when no \code{x} is provided.}
+\item{always_include_context}{A logical value. Whether or not to include context when no \code{x} is provided.}
 }
 \value{
 If \code{...} is missing, nothing is returned. If \code{...} is a single expression, returns the result

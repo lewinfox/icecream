@@ -4,7 +4,7 @@ library(withr)
 #       works. Need to add some more checks for correct identification of source file and env.
 
 test_that("`ic_enable()` and `ic_disable()` work", {
-  with_options(list(icecream.enabled = TRUE), {
+  with_options(list(icecream_enabled = TRUE), {
     expect_message(ic(1))
     ic_disable()
     expect_message(ic(1), NA)
@@ -14,7 +14,7 @@ test_that("`ic_enable()` and `ic_disable()` work", {
 })
 
 test_that("`with_ic_enable()` and `with_ic_disable()` work", {
-  with_options(list(icecream.enabled = TRUE), {
+  with_options(list(icecream_enabled = TRUE), {
     expect_message(ic(1))
     expect_message(with_ic_disable(ic(1)), NA)
     ic_disable()
@@ -69,7 +69,7 @@ test_that("`ic()` without arguments returns nothing invisibly", {
 })
 
 test_that("setting prefixes works", {
-  with_options(list(icecream.prefix = "HELLO"), {
+  with_options(list(icecream_prefix = "HELLO"), {
     expect_message(ic(1), regexp = "HELLO")
   })
 
@@ -81,27 +81,49 @@ test_that("setting prefixes works", {
 test_that("changing printing function works", {
   foo <- function(x) cat(min(x), "-", max(x))
 
-  with_options(list(icecream.peeking.function = print), {
+  with_options(list(icecream_peeking_function = print), {
     expect_message(ic(1:5), regexp = "\\[1\\] 1 2 3 4 5")
   })
 
-  with_options(list(icecream.peeking.function = foo), {
+  with_options(list(icecream_peeking_function = foo), {
     expect_message(ic(0:100), regexp = "0 - 100")
   })
 
   suppressMessages({
-    expect_message(ic(1:5, peeking.function = print), regexp = "\\[1\\] 1 2 3 4 5")
-    expect_message(ic(0:100, peeking.function = foo), regexp = "0 - 100")
+    expect_message(ic(1:5, peeking_function = print), regexp = "\\[1\\] 1 2 3 4 5")
+    expect_message(ic(0:100, peeking_function = foo), regexp = "0 - 100")
   })
 })
 
+expect_max_lines <- function(expr, max_lines) {
+  msgs <- capture_messages(expr)
+  num_lines <- stringi::stri_count_fixed(msgs, "\n")
+  expect(num_lines <= max_lines, failure_message = "Number of lines printed is higher than expected!")
+}
+
+test_that("changing max lines works", {
+  expect_max_lines(ic(iris), 1)
+  expect_max_lines(ic(iris, peeking_function = print), 4)
+  expect_max_lines(ic(iris, peeking_function = head), 6)
+  expect_max_lines(ic(iris, peeking_function = print, max_lines = 10), 11)
+
+  with_options(list(icecream_peeking_function = print, icecream_max_lines = 10), {
+    expect_max_lines(ic(iris), 11)
+  })
+
+  expect_max_lines(
+    ic(iris, peeking_function = function(dset, max_lines = 7) cat(paste(1:nrow(dset), collapse = "\n"))),
+    max_lines = 8
+  )
+})
+
 test_that("always including context works", {
-  with_options(list(icecream.always.include.context = TRUE), {
+  with_options(list(icecream_always_include_context = TRUE), {
     expect_message(ic(42), regexp = "<.*> \\| `42`: num 42")
   })
 
   suppressMessages({
-    expect_message(ic(42, always.include.context = TRUE), regexp = "<.*> \\| `42`: num 42")
+    expect_message(ic(42, always_include_context = TRUE), regexp = "<.*> \\| `42`: num 42")
   })
 })
 

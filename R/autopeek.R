@@ -2,7 +2,7 @@
 #'
 #' This function is created as a modification of [utils::str()] function. It is supposed to
 #' create more compacted yet informative summary about an object. It's default value of
-#' "icecream.peeking.function"
+#' "icecream_peeking_function"
 #'
 #' @param object The object to be summarized.
 #' @param ... Other arguments passed to methods.

@@ -27,7 +27,7 @@ However, it also returns an invisible string of the printed summary.
 \description{
 This function is created as a modification of \code{\link[utils:str]{utils::str()}} function. It is supposed to
 create more compacted yet informative summary about an object. It's default value of
-"icecream.peeking.function"
+"icecream_peeking_function"
 }
 \details{
 This is a generic function. Default method simply calls \code{utils::str} function.

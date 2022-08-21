@@ -18,7 +18,7 @@ These functions enable or disable the \code{ic()} function. While disabled \code
 except evaluate and return its input.
 }
 \details{
-These are just convenience wrappers for \code{options(icecream.enabled = TRUE/FALSE)} used to align
+These are just convenience wrappers for \code{options(icecream_enabled = TRUE/FALSE)} used to align
 the API with the \href{https://github.com/gruns/icecream#miscellaneous}{Python version}.
 }
 \section{Functions}{

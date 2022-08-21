@@ -182,13 +182,13 @@ with_ic_enable(ic(mean(1:100)))
 
 The following options can be used to control behaviour:
 
-### `icecream.enabled`
+### `icecream_enabled`
 
 Boolean. If `FALSE`, calls to `ic(foo)` simply evaluate and return
 `foo`. No output is printed. This option can be set directly or with the
 `ic_enable()` and `ic_disable()` functions.
 
-### `icecream.prefix`
+### `icecream_prefix`
 
 This is printed at the beginning of every line. Defaults to `"ic|"`.
 
@@ -196,11 +196,11 @@ This is printed at the beginning of every line. Defaults to `"ic|"`.
 ic(mean(1:5))
 #> ℹ ic| `mean(1:5)`: num 3
 
-options(icecream.prefix = "DEBUG:")
+options(icecream_prefix = "DEBUG:")
 ic(mean(1:5))
 #> ℹ DEBUG: `mean(1:5)`: num 3
 
-options(icecream.prefix = "\U1F366")
+options(icecream_prefix = "\U1F366")
 ic(mean(1:5))
 #> ℹ 🍦 `mean(1:5)`: num 3
 ```
@@ -213,7 +213,7 @@ ic(mean(1:5), prefix = "VERY IMPORTANT PREFIX:")
 #> ℹ VERY IMPORTANT PREFIX: `mean(1:5)`: num 3
 ```
 
-### `icecream.always.include.context`
+### `icecream_always_include_context`
 
 Boolean. If `TRUE`, when calling `ic(foo)` the source file and line will
 be printed along with the expression and value. If no `srcref()` is
@@ -225,7 +225,7 @@ is disabled by default.
 f3(1)
 #> ℹ ic| `x`: num 1
 
-options(icecream.always.include.context = TRUE)
+options(icecream_always_include_context = TRUE)
 
 f3(1)
 #> ℹ ic| `global::f3()` in demo.R:14:2 | `x`: num 1
@@ -239,22 +239,25 @@ If you want to enforce context printing for a single `ic()` call, you
 can do this using named parameter to `ic()` function.
 
 ``` r
-ic(123, always.include.context = TRUE)
+ic(123, always_include_context = TRUE)
 #> ℹ ic| <env: global> | `123`: num 123
 ```
 
-### `icecream.peeking.function` and `icecream.max.lines`
+### `icecream_peeking_function` and `icecream_max_lines`
 
 These two options control how the result of evaluation of an expression
-is printed. `icecream.peeking.function` indicates the function that
+is printed. `icecream_peeking_function` indicates the function that
 summarizes the object. Default value is `ic_autopeek`, which works like
 `utils::str` for most of the time, but gives more informative output for
 `lists`, `data.frames` and their subclasses in a more compact way.
-`icecream.max.lines` determines maximum number of lines that the peek of
-an object occupies; defaults to 1.
+`icecream_max_lines` determines maximum number of lines that the peek of
+an object occupies. By default (value of `NA`) code selects the
+predefined number of lines specified for a number of predefined *peeking
+functions*. If a numeric value is provided, it overrides the default
+behavior (see package documentation for details).
 
-For more complex data you may want to use e.g. `head` function and 5
-lines.
+For more complex data you may want to use e.g. `head` function.
+Predefined value of `max_lines` for `head` is 5.
 
 ``` r
 data(iris)
@@ -262,30 +265,38 @@ data(iris)
 ic(iris) # we would like to see header of the data
 #> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
-options(icecream.peeking.function = head,
-        icecream.max.lines = 5)
+options(icecream_peeking_function = head)
 
-ic(iris)
+ic(iris) # maybe 5 lines is too much?
 #> ℹ ic| `iris`: 
 #> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa
 #> 3          4.7         3.2          1.3         0.2  setosa
 #> 4          4.6         3.1          1.5         0.2  setosa
+
+options(icecream_max_lines = 3)
+
+ic(iris)
+#> ℹ ic| `iris`: 
+#> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#> 1          5.1         3.5          1.4         0.2  setosa
+#> 2          4.9         3.0          1.4         0.2  setosa
 ```
 
-Those options can be used in a call inline.
+Those options can be used in a call inline as well. See that on the
+example of custom peeking function.
 
 ``` r
-ic(1:5, peeking.function = function(x) cat(min(x), "-", max(x)))
+ic(1:5, peeking_function = function(x) cat(min(x), "-", max(x)))
 #> ℹ ic| `1:5`: 1 - 5
 ```
 
-Note that if `icecream.max.lines` is greater than 1 and summary of an
+Note that if `icecream_max_lines` is greater than 1 and summary of an
 object is longer than 1, the alert occupies one line more due to the
 header.
 
-### `icecream.output.function`, `icecream.arg.to.string.function`
+### `icecream_output_function`, `icecream_arg_to_string_function`
 
 Not implemented yet. See the
 [configuration](https://github.com/gruns/icecream#configuration) section
@@ -295,6 +306,6 @@ of the original project docs for details of what they will do.
 
 -   Implement `ic.format()` (see
     [here](https://github.com/gruns/icecream#miscellaneous)).
--   Implement `ic.output.function`. At the moment it uses
+-   Implement `ic.output_function`. At the moment it uses
     `cli::cli_alert_info()`
--   Implement `ic.arg.to.string.function`
+-   Implement `ic.arg_to_string_function`
