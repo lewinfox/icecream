@@ -15,7 +15,7 @@ The following options can be used to control behaviour:
 \item \code{icecream_enabled}: Boolean. If \code{FALSE}, calls to \code{ic(foo)} simply evaluate and return \code{foo}.
 No output is printed.
 \item \code{icecream_prefix}: This is printed at the beginning of every line. Defaults to \code{"ic|"}.
-\item \code{icecream_include.context}: Boolean. If \code{TRUE}, when calling \code{ic(foo)} the source file:line
+\item \code{icecream_always_include_context}: Boolean. If \code{TRUE}, when calling \code{ic(foo)} the source file:line
 or environment will be printed along with the expression and value. This can be useful for more
 complicated debugging but produces a lot of output so is disabled by default. When \code{ic()} is
 called with no arguments, the context is always printed because showing the location of the
@@ -46,6 +46,10 @@ project docs for details of what it will do.
 \item \code{icecream_arg_to_string_function}: Not implemented yet. See the
 \href{https://github.com/gruns/icecream#configuration}{configuration} section of the original
 project docs for details of what it will do.
+\item \code{icecream.enabled}, \code{icecream.prefix}, \code{icecream.always.include.context}, \code{icecream.peeking.function},
+\code{icecream.max.lines}: Those options are deprecated versions of corresponding options with undersocres
+in the names, replaced in version 0.3.0. They still work, taking precedence over their new
+counterparts, but they are going to be removed in the future.
 }
 }
 

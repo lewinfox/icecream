@@ -6,10 +6,11 @@
 \usage{
 ic(
   ...,
-  prefix = getOption("icecream_prefix"),
-  peeking_function = getOption("icecream_peeking_function"),
-  max_lines = getOption("icecream_max_lines"),
-  always_include_context = getOption("icecream_always_include_context")
+  prefix = get_opt("icecream.prefix", "icecream_prefix"),
+  peeking_function = get_opt("icecream.peeking.function", "icecream_peeking_function"),
+  max_lines = get_opt("icecream.max.lines", "icecream_max_lines"),
+  always_include_context = get_opt("icecream.always.include.context",
+    "icecream_always_include_context")
 )
 }
 \arguments{
