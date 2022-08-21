@@ -27,10 +27,10 @@
 #'
 #' @export
 ic <- function(...,
-               prefix = getOption("icecream_prefix"),
-               peeking_function = getOption("icecream_peeking_function"),
-               max_lines = getOption("icecream_max_lines"),
-               always_include_context = getOption("icecream_always_include_context")
+               prefix = get_opt("icecream.prefix", "icecream_prefix"),
+               peeking_function = get_opt("icecream.peeking.function", "icecream_peeking_function"),
+               max_lines = get_opt("icecream.max.lines", "icecream_max_lines"),
+               always_include_context = get_opt("icecream.always.include.context", "icecream_always_include_context")
                ) {
   # Capture the input to allow us to work with the expression and value separately
   quosures <- rlang::enquos(...)
@@ -40,14 +40,14 @@ ic <- function(...,
 
   if (missing_input) {
     # If icecream is enabled, for missing input we will print the context
-    if (getOption("icecream_enabled"))
+    if (get_opt("icecream.enabled", "icecream_enabled"))
       ic_print_only_context(prefix)
 
     # In the event that icecream is totally disabled we will just return invisibly.
     return(invisible())
   } else {
     # If icecream is enabled, we need to evaluate quosure and print the value
-    if (getOption("icecream_enabled")) {
+    if (get_opt("icecream.enabled", "icecream_enabled")) {
       x <- ic_evaluate_and_print(quosures, prefix, peeking_function, max_lines, always_include_context)
     } else {
       x <- simplify_single(list(...))
@@ -174,16 +174,26 @@ NULL
 #' @describeIn enable-disable Enable `ic()`.
 #' @export
 ic_enable <- function() {
-  old_value <- getOption("icecream_enabled")
-  options(icecream_enabled = TRUE)
+  old_value <- getOption("icecream.enabled")
+  if (is.null(old_value)) {
+    old_value <- getOption("icecream_enabled")
+    options(icecream_enabled = TRUE)
+  } else {
+    options(icecream.enabled = TRUE)
+  }
   invisible(old_value)
 }
 
 #' @describeIn enable-disable Disable `ic()`.
 #' @export
 ic_disable <- function() {
-  old_value <- getOption("icecream_enabled")
-  options(icecream_enabled = FALSE)
+  old_value <- getOption("icecream.enabled")
+  if (is.null(old_value)) {
+    old_value <- getOption("icecream_enabled")
+    options(icecream_enabled = FALSE)
+  } else {
+    options(icecream.enabled = FALSE)
+  }
   invisible(old_value)
 }
 
@@ -221,11 +231,11 @@ NULL
 #' @describeIn ic-single-use evaluates the expression with `ic()` enabled.
 #' @export
 with_ic_enable <- function(expr) {
-  withr::with_options(list(icecream_enabled = TRUE), expr)
+  withr::with_options(list(icecream_enabled = TRUE, icecream.enabled = TRUE), expr)
 }
 
 #' @describeIn ic-single-use evaluates the expression with `ic()` disabled.
 #' @export
 with_ic_disable <- function(expr) {
-  withr::with_options(list(icecream_enabled = FALSE), expr)
+  withr::with_options(list(icecream_enabled = FALSE, icecream.enabled = FALSE), expr)
 }

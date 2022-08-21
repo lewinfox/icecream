@@ -58,3 +58,20 @@ simplify_single <- function(x) {
     x
   }
 }
+
+#' Get value of original option or of newer replacement version
+#'
+#' This funciton exists to handle deprecated options
+#'
+#' @param original A string. Name of the original (pre 0.3.0) option.
+#' @param replacement A string. Name of the new (since 0.3.0) option.
+#'
+#' @keywords internal
+get_opt <- function(original, replacement) {
+  opt <- getOption(original)
+  if (is.null(opt)) {
+    return(getOption(replacement))
+  } else {
+    return(opt)
+  }
+}

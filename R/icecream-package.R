@@ -9,7 +9,7 @@
 #' * `icecream_enabled`: Boolean. If `FALSE`, calls to `ic(foo)` simply evaluate and return `foo`.
 #'   No output is printed.
 #' * `icecream_prefix`: This is printed at the beginning of every line. Defaults to `"ic|"`.
-#' * `icecream_include.context`: Boolean. If `TRUE`, when calling `ic(foo)` the source file:line
+#' * `icecream_always_include_context`: Boolean. If `TRUE`, when calling `ic(foo)` the source file:line
 #'   or environment will be printed along with the expression and value. This can be useful for more
 #'   complicated debugging but produces a lot of output so is disabled by default. When `ic()` is
 #'   called with no arguments, the context is always printed because showing the location of the
@@ -38,6 +38,10 @@
 #' * `icecream_arg_to_string_function`: Not implemented yet. See the
 #'   [configuration](https://github.com/gruns/icecream#configuration) section of the original
 #'   project docs for details of what it will do.
+#' * `icecream.enabled`, `icecream.prefix`, `icecream.always.include.context`, `icecream.peeking.function`,
+#'   `icecream.max.lines`: Those options are deprecated versions of corresponding options with undersocres
+#'   in the names, replaced in version 0.3.0. They still work, taking precedence over their new
+#'   counterparts, but they are going to be removed in the future.
 #'
 #' @docType package
 #' @name icecream

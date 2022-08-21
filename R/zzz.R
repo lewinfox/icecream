@@ -20,6 +20,13 @@
     icecream_peeking_function = NULL,
     icecream_max_lines = NULL,
     icecream_arg_to_string_function = NULL,
-    icecream_always_include_context = NULL
+    icecream_always_include_context = NULL,
+
+    # deprecated options
+    icecream.enabled = NULL,
+    icecream.prefix = NULL,
+    icecream.peeking.function = NULL,
+    icecream.max.lines = NULL,
+    icecream.always.include.context = NULL
   )
 }
