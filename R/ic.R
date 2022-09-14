@@ -30,8 +30,7 @@ ic <- function(...,
                prefix = get_opt("icecream.prefix", "icecream_prefix"),
                peeking_function = get_opt("icecream.peeking.function", "icecream_peeking_function"),
                max_lines = get_opt("icecream.max.lines", "icecream_max_lines"),
-               always_include_context = get_opt("icecream.always.include.context", "icecream_always_include_context")
-               ) {
+               always_include_context = get_opt("icecream.always.include.context", "icecream_always_include_context")) {
   # Capture the input to allow us to work with the expression and value separately
   quosures <- rlang::enquos(...)
 
@@ -40,8 +39,9 @@ ic <- function(...,
 
   if (missing_input) {
     # If icecream is enabled, for missing input we will print the context
-    if (get_opt("icecream.enabled", "icecream_enabled"))
+    if (get_opt("icecream.enabled", "icecream_enabled")) {
       ic_print_only_context(prefix)
+    }
 
     # In the event that icecream is totally disabled we will just return invisibly.
     return(invisible())

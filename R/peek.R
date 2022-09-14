@@ -101,7 +101,9 @@ ic_get_default_max_lines <- function(peeking_function) {
     # Checking if there is exactly one match which has a default value
     if (sum(arg) == 1) {
       arg <- formals[[which(arg)]]
-      if (as.character(arg) != "") return(arg)
+      if (as.character(arg) != "") {
+        return(arg)
+      }
     }
 
     return(1) # If everything fails, fallback to 1
