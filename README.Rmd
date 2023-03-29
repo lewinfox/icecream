@@ -289,8 +289,10 @@ ic(1:5, peeking_function = function(x) cat(min(x), "-", max(x)))
 ```
 
 ```{r, include=FALSE}
-options(icecream_peeking_function = old.fun,
-        icecream_max_lines = old.lines)
+options(
+  icecream_peeking_function = old.fun,
+  icecream_max_lines = old.lines
+)
 ```
 
 Note that if `icecream_max_lines` is greater than 1 and summary of an object is longer than 1, the 

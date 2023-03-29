@@ -36,9 +36,9 @@ Helper functions when constructing final string for output of \code{ic()}.
 }
 \section{Functions}{
 \itemize{
-\item \code{ic_construct_context_str}: Construct context string.
+\item \code{ic_construct_context_str()}: Construct context string.
 
-\item \code{ic_construct_expression_str}: Construct expression string.
+\item \code{ic_construct_expression_str()}: Construct expression string.
+
 }}
-
 \keyword{internal}

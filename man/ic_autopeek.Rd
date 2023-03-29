@@ -34,11 +34,11 @@ This is a generic function. Default method simply calls \code{utils::str} functi
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Method for list
+\item \code{ic_autopeek(list)}: Method for list
 
-\item \code{data.frame}: Method for data.frame
+\item \code{ic_autopeek(data.frame)}: Method for data.frame
+
 }}
-
 \seealso{
 \code{\link[utils:str]{utils::str()}} \code{\link[=ic_peek]{ic_peek()}}
 }
