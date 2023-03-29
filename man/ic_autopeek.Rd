@@ -27,18 +27,18 @@ However, it also returns an invisible string of the printed summary.
 \description{
 This function is created as a modification of \code{\link[utils:str]{utils::str()}} function. It is supposed to
 create more compacted yet informative summary about an object. It's default value of
-"icecream.peeking.function"
+"icecream_peeking_function"
 }
 \details{
 This is a generic function. Default method simply calls \code{utils::str} function.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{list}: Method for list
+\item \code{ic_autopeek(list)}: Method for list
 
-\item \code{data.frame}: Method for data.frame
+\item \code{ic_autopeek(data.frame)}: Method for data.frame
+
 }}
-
 \seealso{
 \code{\link[utils:str]{utils::str()}} \code{\link[=ic_peek]{ic_peek()}}
 }
