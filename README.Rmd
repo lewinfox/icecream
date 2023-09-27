@@ -40,7 +40,7 @@ source(demo_file)
 
 <!-- badges: start -->
 [![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
-[![R-CMD-check](https://github.com/lewinfox/icecream/workflows/R-CMD-check/badge.svg)](https://github.com/lewinfox/icecream/actions)
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 icecream is designed to make print debugging easier. It allows you to print out an expression, its
