@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/icecream)](https://cran.r-project.org/package=icecream)
 [![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
