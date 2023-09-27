@@ -1,14 +1,14 @@
-url: "https://www.lewinfox.com/icecream/"
+url: http://www.lewinfox.com/icecream/
 authors:
   Lewin Appleton-Fox:
-    href: "https://www.github.com/lewinfox"
+    href: https://www.github.com/lewinfox
   Dominik Rafacz:
-    href: "https://github.com/DominikRafacz"
+    href: https://github.com/DominikRafacz
   Ben Stiles:
-    href: "https://github.com/Ben-Stiles"
+    href: https://github.com/Ben-Stiles
 reference:
-- title: "Using icecream"
-  desc: >
+- title: Using icecream
+  desc: |
     Icecream is a very simple package! The only function you really need to know about is `ic()`.
 - contents:
   - ic
@@ -16,3 +16,4 @@ reference:
   - ic_disable
   - with_ic_enable
   - with_ic_disable
+

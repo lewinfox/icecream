@@ -21,7 +21,8 @@ Description: Provides user-friendly and configurable print debugging via a
     Debugging output can be toggled globally without modifying code.
 License: MIT + file LICENSE
 URL: https://www.lewinfox.com/icecream/,
-    https://github.com/lewinfox/icecream
+    https://github.com/lewinfox/icecream,
+    http://www.lewinfox.com/icecream/
 BugReports: https://github.com/lewinfox/icecream/issues
 Imports: 
     cli,

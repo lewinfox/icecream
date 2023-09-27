@@ -40,6 +40,7 @@ Useful links:
 \itemize{
   \item \url{https://www.lewinfox.com/icecream/}
   \item \url{https://github.com/lewinfox/icecream}
+  \item \url{http://www.lewinfox.com/icecream/}
   \item Report bugs at \url{https://github.com/lewinfox/icecream/issues}
 }
 
