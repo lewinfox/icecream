@@ -27,11 +27,11 @@ API they are reimplemented here.
 }
 \section{Functions}{
 \itemize{
-\item \code{src_loc}: Return source location from a srcref. If no srcref is found, return
+\item \code{src_loc()}: Return source location from a srcref. If no srcref is found, return
 \code{""}.
 
-\item \code{relish}: Tidy file paths by removing instances of \code{dir} from \code{x}. Ensures that
+\item \code{relish()}: Tidy file paths by removing instances of \code{dir} from \code{x}. Ensures that
 we get a relative path for \code{x}.
-}}
 
+}}
 \keyword{internal}

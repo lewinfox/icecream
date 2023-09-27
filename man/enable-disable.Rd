@@ -23,8 +23,8 @@ the API with the \href{https://github.com/gruns/icecream#miscellaneous}{Python v
 }
 \section{Functions}{
 \itemize{
-\item \code{ic_enable}: Enable \code{ic()}.
+\item \code{ic_enable()}: Enable \code{ic()}.
 
-\item \code{ic_disable}: Disable \code{ic()}.
+\item \code{ic_disable()}: Disable \code{ic()}.
+
 }}
-

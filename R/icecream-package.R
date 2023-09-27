@@ -26,7 +26,5 @@
 #'   [configuration](https://github.com/gruns/icecream#configuration) section of the original
 #'   project docs for details of what it will do.
 #'
-#' @docType package
-#' @name icecream
 #' @keywords internal
-NULL
+"_PACKAGE"
