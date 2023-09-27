@@ -2,9 +2,9 @@
 
 GitHub Actions using `usethis::use_github_actions_check_standard()`
 
-* MacOS X 10.15.7 (release)
-* Windows Server 2019 10.0 (release)
-* Ubuntu 20.04.2 (oldrel, release, devel)
+* MacOS X 12.6.9 (release)
+* Windows Server 2022 10.0.20348 (release)
+* Ubuntu 22.04.3 (oldrel-1, release, devel)
 
 ## R CMD check results
 
