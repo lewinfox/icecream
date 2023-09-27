@@ -18,3 +18,4 @@ Get a header of the object peeked at
 This function is used by \code{ic_autopeek} to get a header of the summary of a object.
 It should return object's top-level class name and its dimension.
 }
+\keyword{internal}

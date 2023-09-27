@@ -26,6 +26,7 @@ ic_autopeek.default <- function(object, ...) {
 #'   this is set to the current terminal width.
 #'
 #' @describeIn ic_autopeek Method for list
+#' @keywords internal
 #'
 #' @export
 ic_autopeek.list <- function(object, max_summary_length = cli::console_width(), ...) {
@@ -78,6 +79,7 @@ ic_autopeek.data.frame <- ic_autopeek.list
 #' @details This function is used by `ic_autopeek` to get a header of the summary of a object.
 #' It should return object's top-level class name and its dimension.
 #'
+#' @keywords internal
 ic_autopeek_header <- function(object, ...) {
   UseMethod("ic_autopeek_header")
 }

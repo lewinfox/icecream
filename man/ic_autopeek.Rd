@@ -42,3 +42,4 @@ This is a generic function. Default method simply calls \code{utils::str} functi
 \seealso{
 \code{\link[utils:str]{utils::str()}} \code{\link[=ic_peek]{ic_peek()}}
 }
+\keyword{internal}
