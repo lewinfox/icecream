@@ -22,11 +22,11 @@ affecting if \code{ic()} is enabled globally.
 }
 \section{Functions}{
 \itemize{
-\item \code{with_ic_enable}: evaluates the expression with \code{ic()} enabled.
+\item \code{with_ic_enable()}: evaluates the expression with \code{ic()} enabled.
 
-\item \code{with_ic_disable}: evaluates the expression with \code{ic()} disabled.
+\item \code{with_ic_disable()}: evaluates the expression with \code{ic()} disabled.
+
 }}
-
 \examples{
 ic_enable()
 
