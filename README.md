@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![](https://cranlogs.r-pkg.org/badges/icecream)](https://cran.r-project.org/package=icecream)
-[![R-CMD-check](https://github.com/lewinfox/icecream/workflows/R-CMD-check/badge.svg)](https://github.com/lewinfox/icecream/actions)
+[![R-CMD-check](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lewinfox/icecream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 icecream is designed to make print debugging easier. It allows you to
@@ -265,8 +265,8 @@ of the original project docs for details of what they will do.
 
 ## TODO:
 
--   Implement `ic.format()` (see
-    [here](https://github.com/gruns/icecream#miscellaneous)).
--   Implement `ic.output.function`. At the moment it uses
-    `cli::cli_alert_info()`
--   Implement `ic.arg.to.string.function`
+- Implement `ic.format()` (see
+  [here](https://github.com/gruns/icecream#miscellaneous)).
+- Implement `ic.output.function`. At the moment it uses
+  `cli::cli_alert_info()`
+- Implement `ic.arg.to.string.function`
