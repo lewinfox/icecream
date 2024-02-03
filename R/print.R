@@ -48,7 +48,7 @@ ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg()
     context_string
   }
   output <- paste(prefix, output)
-
+  output <- gsub("\\{", "{{", output)
   cli::cli_alert_info(output) # TODO: This is where a custom print/display function would be used
   invisible(output)
 }
