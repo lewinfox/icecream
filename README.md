@@ -241,17 +241,18 @@ data(iris)
 ic(iris) # we would like to see header of the data
 #> ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...
 
-options(icecream.peeking.function = head,
-        icecream.max.lines = 5)
+options(
+  icecream.peeking.function = head,
+  icecream.max.lines = 5
+)
 
 ic(iris)
-#> ℹ ic| `iris`: 
-#> Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#> 1          5.1         3.5          1.4         0.2  setosa
-#> 2          4.9         3.0          1.4         0.2  setosa
-#> 3          4.7         3.2          1.3         0.2  setosa
-#> 4          4.6         3.1          1.5         0.2  setosa
+#> ℹ ic| `iris`:  Sepal.Length Sepal.Width Petal.Length Petal.Width Species 1          5.1         3.5          1.4         0.2  setosa 2          4.9         3.0          1.4         0.2  setosa 3          4.7         3.2          1.3         0.2  setosa 4          4.6         3.1          1.5         0.2  setosa
 ```
+
+**NOTE**: Due to
+[r-lib/cli#626](https://github.com/r-lib/cli/issues/626), newlines are
+currently being removed from `ic()`’s multi-line output.
 
 Note that if `icecream.max.lines` is greater than 1 and summary of an
 object is longer than 1, the alert occupies one line more due to the

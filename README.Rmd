@@ -262,6 +262,9 @@ options(
 ic(iris)
 ```
 
+**NOTE**: Due to [r-lib/cli#626](https://github.com/r-lib/cli/issues/626), newlines are currently
+being removed from `ic()`'s multi-line output.
+
 ```{r, include=FALSE}
 options(
   icecream.peeking.function = old.fun,
