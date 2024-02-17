@@ -32,23 +32,25 @@ ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg()
   if (!rlang::is_missing(deparsed_expression)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
     str_res <- ic_peek(value)
-    expression_string <- glue::glue("{{.var {deparsed_expression}}}: {str_res}")
+    expression_string <- glue::glue("{deparsed_expression}: {str_res}")
   }
 
   # We need to check what options are set to decide what to print - whether to include the context
   # or not.
+  #
+  # TODO: It's a bit messy having these multiple calls to `cli_alert_info`. These were introduced
+  #       while fixing https://github.com/lewinfox/icecream/issues/26, when the multiple nested
+  #       glue calls became too complex to unpick easily. It would be nice to construct a single
+  #       perfectly-formatted string and then `cli_alert_info` that, but for now this will do.
   prefix <- getOption("icecream.prefix", "ic|")
-  output <- if (!is.null(expression_string)) {
+  if (!is.null(expression_string)) {
     if (getOption("icecream.always.include.context")) {
-      glue::glue("{context_string} | {expression_string}")
+      cli::cli_alert_info("{prefix} {.var {context_string}} | {expression_string}")
     } else {
-      expression_string
+      cli::cli_alert_info("{prefix} {expression_string}")
     }
   } else {
-    context_string
+    cli::cli_alert_info("{prefix} {.var {context_string}}")
   }
-  output <- paste(prefix, output)
 
-  cli::cli_alert_info(output) # TODO: This is where a custom print/display function would be used
-  invisible(output)
 }
