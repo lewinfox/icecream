@@ -15,3 +15,7 @@
 
 * Small change to bring package-level documentation in line with current roxygen standards
   [https://github.com/r-lib/roxygen2/issues/1491]
+
+# icecream 0.2.2
+
+* Allow `ic()` to handle inputs that aren't valid `glue()` code, e.g. `ic("{")` (#26)
