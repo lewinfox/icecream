@@ -254,15 +254,19 @@ data(iris)
 
 ic(iris) # we would like to see header of the data
 
-options(icecream.peeking.function = head,
-        icecream.max.lines = 5)
+options(
+  icecream.peeking.function = head,
+  icecream.max.lines = 5
+)
 
 ic(iris)
 ```
 
 ```{r, include=FALSE}
-options(icecream.peeking.function = old.fun,
-        icecream.max.lines = old.lines)
+options(
+  icecream.peeking.function = old.fun,
+  icecream.max.lines = old.lines
+)
 ```
 
 Note that if `icecream.max.lines` is greater than 1 and summary of an object is longer than 1, the 

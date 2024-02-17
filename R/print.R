@@ -52,5 +52,4 @@ ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg()
   } else {
     cli::cli_alert_info("{prefix} {.var {context_string}}")
   }
-
 }
