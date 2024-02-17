@@ -87,3 +87,12 @@ test_that("source file is correctly identified", {
   source(temp, keep.source = TRUE)
   expect_message(f(), regexp = "my_name_is_inigo_montoya")
 })
+
+test_that("invalid glue input is handled cleanly", {
+  expect_message(ic("{"), regexp = "\\{")
+  expect_message(ic("{}"), regexp = "\\{\\}")
+})
+
+test_that("JSON input is handled cleanly", {
+  expect_message(ic("{'a': 1}"), regexp = "\\{'a': 1\\}")
+})
