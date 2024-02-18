@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">icecream</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -259,16 +259,14 @@
 <span><span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span> <span class="co"># we would like to see header of the data</span></span>
 <span><span class="co">#&gt; ℹ ic| `iris`: data.frame [150 x 5]: $'Sepal.Length': dbl [150], ...</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>icecream.peeking.function <span class="op">=</span> <span class="va">head</span>,</span>
-<span>        icecream.max.lines <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span></span>
+<span>  icecream.peeking.function <span class="op">=</span> <span class="va">head</span>,</span>
+<span>  icecream.max.lines <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/ic.html">ic</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ ic| `iris`: </span></span>
-<span><span class="co">#&gt; Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></span>
-<span><span class="co">#&gt; 1          5.1         3.5          1.4         0.2  setosa</span></span>
-<span><span class="co">#&gt; 2          4.9         3.0          1.4         0.2  setosa</span></span>
-<span><span class="co">#&gt; 3          4.7         3.2          1.3         0.2  setosa</span></span>
-<span><span class="co">#&gt; 4          4.6         3.1          1.5         0.2  setosa</span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ ic| `iris`:  Sepal.Length Sepal.Width Petal.Length Petal.Width Species 1          5.1         3.5          1.4         0.2  setosa 2          4.9         3.0          1.4         0.2  setosa 3          4.7         3.2          1.3         0.2  setosa 4          4.6         3.1          1.5         0.2  setosa</span></span></code></pre></div>
+<p><strong>NOTE</strong>: Due to <a href="https://github.com/r-lib/cli/issues/626" class="external-link">r-lib/cli#626</a>, newlines are currently being removed from <code><a href="reference/ic.html">ic()</a></code>’s multi-line output.</p>
 <p>Note that if <code>icecream.max.lines</code> is greater than 1 and summary of an object is longer than 1, the alert occupies one line more due to the header.</p>
 </div>
 <div class="section level3">
