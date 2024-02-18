@@ -32,7 +32,7 @@ ic_print <- function(loc, parent_ref, deparsed_expression = rlang::missing_arg()
   if (!rlang::is_missing(deparsed_expression)) {
     # We want to print a one-line summary for complex objects like lists and data frames.
     str_res <- ic_peek(value)
-    expression_string <- glue::glue("{deparsed_expression}: {str_res}")
+    expression_string <- glue::glue("`{deparsed_expression}`: {str_res}")
   }
 
   # We need to check what options are set to decide what to print - whether to include the context
